@@ -1,4 +1,5 @@
 import { useEffect, useState, useRef } from "react";
+import { notifySiteDataUpdated } from "@/lib/siteData";
 import { useNavigate, useLocation } from "react-router-dom";
 import SiteSettingsPanel from "@/components/SiteSettingsPanel";
 import AdminSidebar from "@/components/AdminSidebar";
@@ -108,13 +109,18 @@ export default function AdminDashboard() {
       const saved = await res.json();
       setProjects(prev => editProject ? prev.map(p => p._id === saved._id ? saved : p) : [...prev, saved]);
       setShowModal(false);
+      notifySiteDataUpdated("projects");
     } catch (err: unknown) { setError(err instanceof Error ? err.message : "Failed to save"); }
     setSaving(false);
   };
 
   const handleDelete = async (id: string) => {
     if (!confirm("Delete this project?")) return;
-    try { await apiFetch(`/projects/${id}`, { method: "DELETE" }); setProjects(prev => prev.filter(p => p._id !== id)); } catch {}
+    try {
+      await apiFetch(`/projects/${id}`, { method: "DELETE" });
+      setProjects(prev => prev.filter(p => p._id !== id));
+      notifySiteDataUpdated("projects");
+    } catch {}
   };
 
   const openAddService = () => { setEditService(null); setServiceForm(emptyServiceForm); setServiceError(""); setShowServiceModal(true); };

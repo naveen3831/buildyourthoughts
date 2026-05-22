@@ -1,4 +1,6 @@
 import { useState, useEffect, useRef, useCallback } from "react";
+import { useSiteDataRefresh } from "@/hooks/useSiteDataRefresh";
+import { fetchPublic } from "@/lib/siteData";
 import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useTheme } from "@/context/ThemeContext";
@@ -17,7 +19,7 @@ interface ApiSlide {
 }
 
 const defaultSlides = [
-  { image: "", gradient: GRADIENT_SLIDES[0], badge: "Welcome to the Future of IT", title: "Build Your Digital Future", highlight: "Speshway Solutions", desc: "Full-stack software, automation, and IT solutions that drive real business growth.", cta: { text: "Our Services", to: "/services" }, cta2: { text: "Get in Touch", to: "/contact" } },
+  { image: "", gradient: GRADIENT_SLIDES[0], badge: "Welcome to the Future of IT", title: "Build Your Digital Future", highlight: "BUILD YOUR THOUGHTS", desc: "Full-stack software, automation, and IT solutions that drive real business growth.", cta: { text: "Our Services", to: "/services" }, cta2: { text: "Get in Touch", to: "/contact" } },
   { image: "", gradient: GRADIENT_SLIDES[1], badge: "Mobile App Development", title: "Stunning Mobile Apps", highlight: "For Every Platform", desc: "We build beautiful, high-performance mobile applications for iOS and Android.", cta: { text: "View Projects", to: "/projects" }, cta2: { text: "Get a Quote", to: "/contact" } },
   { image: "", gradient: GRADIENT_SLIDES[2], badge: "Cloud & Security Solutions", title: "Secure & Scalable", highlight: "Cloud Infrastructure", desc: "Enterprise-grade cybersecurity and cloud solutions to protect and grow your business.", cta: { text: "Learn More", to: "/services" }, cta2: { text: "Contact Us", to: "/contact" } },
 ];
@@ -30,36 +32,32 @@ const HeroCarousel = () => {
   const { theme } = useTheme();
   const isLight = theme === "light";
   const [slides, setSlides] = useState(defaultSlides);
-  const [highlightColor, setHighlightColor] = useState("");
-
-  // Fetch slides from API, fall back to defaults
-  useEffect(() => {
-    fetch("/api/carousel")
-      .then(r => r.json())
-      .then((data: ApiSlide[]) => {
+  const loadSlides = useCallback(() => {
+    fetchPublic<ApiSlide[]>("/api/carousel")
+      .then((data) => {
         if (Array.isArray(data) && data.length > 0) {
-          setSlides(data.map((s, i) => ({
-            image: s.image || "",
-            gradient: GRADIENT_SLIDES[i % 3],
-            badge: s.badge,
-            title: s.title,
-            highlight: s.highlight,
-            desc: s.desc,
-            cta: { text: s.ctaText, to: s.ctaLink },
-            cta2: { text: s.cta2Text, to: s.cta2Link },
-          })));
+          setSlides(
+            data.map((s, i) => ({
+              image: s.image || "",
+              gradient: GRADIENT_SLIDES[i % 3],
+              badge: s.badge,
+              title: s.title,
+              highlight: s.highlight,
+              desc: s.desc,
+              cta: { text: s.ctaText, to: s.ctaLink },
+              cta2: { text: s.cta2Text, to: s.cta2Link },
+            }))
+          );
         }
       })
       .catch(() => {});
-
-    // Fetch highlight color from settings
-    fetch("/api/settings")
-      .then(r => r.json())
-      .then((data: Record<string, string>) => {
-        if (data.hero_highlight_color) setHighlightColor(data.hero_highlight_color);
-      })
-      .catch(() => {});
   }, []);
+
+  useEffect(() => {
+    loadSlides();
+  }, [loadSlides]);
+
+  useSiteDataRefresh(["carousel", "all"], loadSlides, [loadSlides]);
 
   const goTo = useCallback((index: number) => {
     if (transitioning) return;
@@ -81,27 +79,33 @@ const HeroCarousel = () => {
 
   return (
     <section className="relative min-h-[65vh] md:min-h-[95vh] flex items-center justify-center text-center overflow-hidden bg-background -mt-20">
-      {slides.map((s, i) => (
-        <div
-          key={i}
-          className="absolute inset-0"
-          style={{
-            background: s.image ? undefined : s.gradient,
-            backgroundImage: s.image ? `url(${s.image})` : undefined,
-            backgroundSize: s.image ? "cover" : undefined,
-            backgroundPosition: s.image ? "center" : undefined,
-            opacity: i === current ? 1 : 0,
-            visibility: i === current || i === prevIdx ? "visible" : "hidden",
-            filter: s.image ? (isLight ? "brightness(0.75) saturate(0.9)" : "brightness(0.55)") : undefined,
-            transition: (i === current || i === prevIdx) ? "opacity 0.6s ease" : "none",
-          }}
-        />
-      ))}
+      {slides.map((s, i) => {
+        const active = i === current || i === prevIdx;
+        if (!active) return null;
+        return (
+          <div
+            key={i}
+            className="absolute inset-0 transition-opacity duration-500 ease-out"
+            style={{
+              background: s.image ? undefined : s.gradient,
+              backgroundImage: s.image ? `url(${s.image})` : undefined,
+              backgroundSize: s.image ? "cover" : undefined,
+              backgroundPosition: s.image ? "center" : undefined,
+              opacity: i === current ? 1 : 0,
+              filter: s.image ? (isLight ? "brightness(0.75) saturate(0.9)" : "brightness(0.55)") : undefined,
+            }}
+          />
+        );
+      })}
 
       {/* Overlay — lighter when using gradient (no image) */}
-      <div className={`absolute inset-0 ${slide.image ? (isLight ? "bg-black/45" : "bg-background/40") : "bg-black/20"}`} />
-      <div className={`absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t ${isLight ? "from-black/60" : "from-background"} to-transparent`} />
-      <div className={`absolute top-0 left-0 right-0 h-24 bg-gradient-to-b ${isLight ? "from-black/40" : "from-background/50"} to-transparent`} />
+      <div
+        className={`absolute inset-0 ${
+          slide.image ? (isLight ? "bg-black/50" : "bg-black/45") : isLight ? "bg-black/25" : "bg-black/20"
+        }`}
+      />
+      <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-black/70 to-transparent" />
+      <div className="absolute top-0 left-0 right-0 h-28 bg-gradient-to-b from-black/55 to-transparent" />
 
       {/* Content — pt clears the fixed navbar height (navbar ~80px on mobile) */}
       <div className="relative z-10 container px-5 pt-24 md:pt-28 pb-14 md:pb-16">
@@ -120,9 +124,7 @@ const HeroCarousel = () => {
         >
           {slide.title}
           <br />
-          <span
-            style={{ color: highlightColor || "#a855f7" }}
-          >
+          <span className="text-[var(--hero-highlight,#a855f7)]">
             {slide.highlight}
           </span>
         </h1>

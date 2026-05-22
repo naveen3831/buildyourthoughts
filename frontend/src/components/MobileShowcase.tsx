@@ -1,4 +1,6 @@
-import { lazy, Suspense, useEffect, useState } from "react";
+import { lazy, Suspense, useCallback, useEffect, useState } from "react";
+import { useSiteDataRefresh } from "@/hooks/useSiteDataRefresh";
+import { fetchPublic } from "@/lib/siteData";
 import MotionSection from "@/components/MotionSection";
 import TextReveal from "@/components/TextReveal";
 import PhoneMockup from "@/components/PhoneMockup";
@@ -30,12 +32,19 @@ interface ApiPhone {
 const MobileShowcase = () => {
   const [apiPhones, setApiPhones] = useState<ApiPhone[]>([]);
 
-  useEffect(() => {
-    fetch("/api/phone-showcase")
-      .then(r => r.json())
-      .then(data => { if (Array.isArray(data) && data.length > 0) setApiPhones(data); })
+  const loadPhones = useCallback(() => {
+    fetchPublic<ApiPhone[]>("/api/phone-showcase")
+      .then((data) => {
+        if (Array.isArray(data) && data.length > 0) setApiPhones(data);
+      })
       .catch(() => {});
   }, []);
+
+  useEffect(() => {
+    loadPhones();
+  }, [loadPhones]);
+
+  useSiteDataRefresh(["phones", "all"], loadPhones, [loadPhones]);
 
   const useApi = apiPhones.length > 0;
 
@@ -59,7 +68,7 @@ const MobileShowcase = () => {
         </MotionSection>
 
         <MotionSection animation="zoom-out" className="relative">
-          <div className="absolute inset-0 bg-gradient-to-r from-primary/10 via-secondary/10 to-accent/10 blur-[80px] rounded-full -z-10" />
+          <div className="absolute inset-0 bg-gradient-to-r from-primary/10 via-secondary/10 to-accent/10 rounded-full -z-10" />
 
           {/* ── Mobile: 3-column grid, no scroll ── */}
           <div className="grid grid-cols-3 gap-2 md:hidden px-2">

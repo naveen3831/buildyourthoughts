@@ -80,7 +80,7 @@ app.get("/admin/*", (req, res) => {
 });
 
 app.get("/", (req, res) => {
-  res.json({ message: "Speshway Solutions API is running", version: "1.0.0" });
+  res.json({ message: "BUILD YOUR THOUGHTS API is running", version: "1.0.0" });
 });
 
 app.listen(PORT, () => {

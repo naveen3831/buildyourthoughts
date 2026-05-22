@@ -127,11 +127,11 @@ export default function JobApply() {
             <div>
               <label className="block text-xs font-bold text-muted-foreground uppercase tracking-widest mb-1.5">Cover Letter / Additional Message (Optional)</label>
               <textarea value={form.coverLetter} onChange={f("coverLetter")} rows={4}
-                placeholder="Tell us about yourself, your experience, and why you want to join Speshway..."
+                placeholder="Tell us about yourself, your experience, and why you want to join BUILD YOUR THOUGHTS..."
                 className="w-full px-4 py-3 rounded-xl glass border border-border focus:border-primary focus:outline-none text-sm resize-none transition-all" />
             </div>
 
-            <p className="text-xs text-muted-foreground">By submitting this form, you agree to share your information with Speshway Solutions for recruitment purposes.</p>
+            <p className="text-xs text-muted-foreground">By submitting this form, you agree to share your information with BUILD YOUR THOUGHTS for recruitment purposes.</p>
 
             <button type="submit" disabled={submitting}
               className="w-full flex items-center justify-center gap-2 py-4 rounded-2xl bg-primary text-primary-foreground font-bold text-sm uppercase tracking-widest hover:shadow-[0_0_30px_hsl(var(--primary)/0.4)] hover:scale-[1.01] transition-all duration-300 disabled:opacity-60">

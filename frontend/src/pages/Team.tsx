@@ -1,4 +1,7 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
+import { useSiteData } from "@/context/SiteDataContext";
+import { useSiteDataRefresh } from "@/hooks/useSiteDataRefresh";
+import { fetchPublic } from "@/lib/siteData";
 import Layout from "@/components/Layout";
 import PageHeader from "@/components/PageHeader";
 import MotionSection from "@/components/MotionSection";
@@ -16,19 +19,29 @@ interface ApiMember {
 const Team = () => {
   const [apiMembers, setApiMembers] = useState<ApiMember[]>([]);
   const [loadingMembers, setLoadingMembers] = useState(true);
-  const [content, setContent] = useState<Record<string, string>>({});
+  const { get } = useSiteData();
 
-  useEffect(() => {
-    fetch("/api/team").then(r => r.json()).then(data => { setApiMembers(Array.isArray(data) ? data : []); setLoadingMembers(false); }).catch(() => setLoadingMembers(false));
-    fetch("/api/site-content").then(r => r.json()).then(data => setContent(data)).catch(() => {});
+  const loadTeam = useCallback(() => {
+    fetchPublic<ApiMember[]>("/api/team")
+      .then((data) => {
+        setApiMembers(Array.isArray(data) ? data : []);
+        setLoadingMembers(false);
+      })
+      .catch(() => setLoadingMembers(false));
   }, []);
 
-  const sc = (key: string, fallback: string) => content[key] || fallback;
+  useEffect(() => {
+    loadTeam();
+  }, [loadTeam]);
+
+  useSiteDataRefresh(["team", "content", "all"], loadTeam, [loadTeam]);
+
+  const sc = (key: string, fallback: string) => get(key, fallback);
   const members = apiMembers.map(m => ({ ...m, icon: Briefcase }));
 
   return (
   <Layout>
-    <PageHeader title="Our Team" subtitle="Meet the talented people behind Speshway Solutions." />
+    <PageHeader title="Our Team" subtitle="Meet the talented people behind BUILD YOUR THOUGHTS." />
 
     {/* Culture */}
     <section className="py-10 md:py-24 relative overflow-hidden bg-background">

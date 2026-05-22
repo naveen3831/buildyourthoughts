@@ -1,4 +1,7 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
+import { useSiteData } from "@/context/SiteDataContext";
+import { useSiteDataRefresh } from "@/hooks/useSiteDataRefresh";
+import { fetchPublic } from "@/lib/siteData";
 import Layout from "@/components/Layout";
 import PageHeader from "@/components/PageHeader";
 import AnimatedSection from "@/components/AnimatedSection";
@@ -37,17 +40,24 @@ const defaultServices = [
 
 const Services = () => {
   const { webShowcase } = useAssets();
+  const { get } = useSiteData();
   const [apiServices, setApiServices] = useState<ApiService[]>([]);
-  const [content, setContent] = useState<Record<string, string>>({});
 
-  useEffect(() => {
-    fetch("/api/services").then(r => r.json()).then(data => {
-      if (Array.isArray(data) && data.length > 0) setApiServices(data);
-    }).catch(() => {});
-    fetch("/api/site-content").then(r => r.json()).then(data => setContent(data)).catch(() => {});
+  const loadServices = useCallback(() => {
+    fetchPublic<ApiService[]>("/api/services")
+      .then((data) => {
+        if (Array.isArray(data) && data.length > 0) setApiServices(data);
+      })
+      .catch(() => {});
   }, []);
 
-  const sc = (key: string, fallback: string) => content[key] || fallback;
+  useEffect(() => {
+    loadServices();
+  }, [loadServices]);
+
+  useSiteDataRefresh(["services", "content", "all"], loadServices, [loadServices]);
+
+  const sc = (key: string, fallback: string) => get(key, fallback);
 
   const process = [
     { step: "01", title: sc("process_step1_title", "Discovery"), desc: sc("process_step1_desc", "We understand your goals, challenges, and requirements.") },

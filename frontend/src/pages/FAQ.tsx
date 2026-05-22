@@ -8,7 +8,7 @@ import { useState } from "react";
 import { useTheme } from "@/context/ThemeContext";
 
 const faqs = [
-  { q: "What services does Speshway Solutions offer?", a: "We offer web and mobile development, cloud solutions, cybersecurity, AI/ML, data engineering, DevOps, IT consulting, and digital marketing services.", category: "Services" },
+  { q: "What services does BUILD YOUR THOUGHTS offer?", a: "We offer web and mobile development, cloud solutions, cybersecurity, AI/ML, data engineering, DevOps, IT consulting, and digital marketing services.", category: "Services" },
   { q: "How do you handle project communication?", a: "We use Agile methodology with regular sprint reviews, daily standups, and dedicated project managers to ensure transparent communication.", category: "Process" },
   { q: "What technologies do you work with?", a: "We work with React, Node.js, Python, Java, AWS, Azure, GCP, MongoDB, PostgreSQL, Docker, Kubernetes, and many more.", category: "Tech" },
   { q: "Do you offer support after project delivery?", a: "Yes, we provide ongoing maintenance, support, and SLA-based services to ensure your applications run smoothly.", category: "Support" },

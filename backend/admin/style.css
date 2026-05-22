@@ -37,6 +37,8 @@ h1, h2, h3, h4, h5 { font-family: 'Noto Sans Display', system-ui, sans-serif; }
   display: flex; align-items: center; justify-content: center;
 }
 .logo-icon.sm { width: 36px; height: 36px; font-size: 1rem; border-radius: 8px; }
+.logo-image { width: 48px; height: 48px; border-radius: 12px; object-fit: contain; }
+.logo-image-sm { width: 36px; height: 36px; border-radius: 8px; object-fit: contain; }
 .logo-title { font-weight: 800; font-size: 0.85rem; letter-spacing: 0.1em; color: var(--text); }
 .logo-sub { font-size: 0.65rem; color: var(--muted); letter-spacing: 0.05em; }
 .login-heading { font-size: 1.6rem; font-weight: 800; margin-bottom: 0.25rem; }

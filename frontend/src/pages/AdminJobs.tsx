@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import AdminSidebar from "@/components/AdminSidebar";
+import { notifySiteDataUpdated } from "@/lib/siteData";
 
 interface Job {
   _id: string; title: string; location: string; type: string; salary: string;
@@ -111,6 +112,7 @@ export default function AdminJobs() {
         setJobs(prev => [...prev, saved]);
       }
       setShowModal(false);
+      notifySiteDataUpdated("jobs");
     } catch (err: unknown) {
       setError(err instanceof Error ? err.message : "Failed");
     }
@@ -120,7 +122,10 @@ export default function AdminJobs() {
   const handleDelete = async (id: string) => {
     if (!confirm("Delete this job?")) return;
     const res = await fetch(`${API}/jobs/${id}`, { method: "DELETE", headers: { Authorization: `Bearer ${getToken()}` } });
-    if (res.ok) setJobs(prev => prev.filter(j => j._id !== id));
+    if (res.ok) {
+      setJobs(prev => prev.filter(j => j._id !== id));
+      notifySiteDataUpdated("jobs");
+    }
   };
 
   const f = (key: keyof typeof emptyForm) => (v: string) => setForm(p => ({ ...p, [key]: v }));

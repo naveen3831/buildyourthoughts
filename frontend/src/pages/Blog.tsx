@@ -1,4 +1,6 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
+import { useSiteDataRefresh } from "@/hooks/useSiteDataRefresh";
+import { fetchPublic } from "@/lib/siteData";
 import Layout from "@/components/Layout";
 import PageHeader from "@/components/PageHeader";
 import AnimatedSection from "@/components/AnimatedSection";
@@ -35,12 +37,17 @@ const tagTextMap: Record<string, string> = {
 const Blog = () => {
   const [posts, setPosts] = useState<Post[]>([]);
 
-  useEffect(() => {
-    fetch("/api/blog")
-      .then(r => r.json())
-      .then(data => setPosts(Array.isArray(data) && data.length > 0 ? data : defaultPosts))
+  const loadPosts = useCallback(() => {
+    fetchPublic<Post[]>("/api/blog")
+      .then((data) => setPosts(Array.isArray(data) && data.length > 0 ? data : defaultPosts))
       .catch(() => setPosts(defaultPosts));
   }, []);
+
+  useEffect(() => {
+    loadPosts();
+  }, [loadPosts]);
+
+  useSiteDataRefresh(["blog", "all"], loadPosts, [loadPosts]);
 
   const featured = posts.find(p => p.featured) || posts[0];
   const rest = posts.filter(p => p._id !== featured?._id);

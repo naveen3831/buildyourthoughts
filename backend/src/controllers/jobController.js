@@ -44,7 +44,7 @@ const sendApplicationEmail = async ({ jobTitle, name, email, phone, coverLetter,
           <tr style="background:#f9f9f9"><td style="padding:10px 14px;font-weight:bold">Cover Letter</td><td style="padding:10px 14px">${coverLetter || "—"}</td></tr>
           ${resumeUrl ? `<tr><td style="padding:10px 14px;font-weight:bold">Resume Link</td><td style="padding:10px 14px"><a href="${resumeUrl}" style="color:#7c3aed">View / Download Resume</a></td></tr>` : ""}
         </table>
-        <p style="color:#888;font-size:12px;margin-top:24px">This application was submitted via the Speshway Solutions careers page.</p>
+        <p style="color:#888;font-size:12px;margin-top:24px">This application was submitted via the BUILD YOUR THOUGHTS careers page.</p>
       </div>
     `,
     attachments,

@@ -31,7 +31,7 @@ exports.submit = async (req, res) => {
         <p><strong>Message:</strong></p>
         <p>${message.replace(/\n/g, "<br>")}</p>
         <hr>
-        <p style="color:#888;font-size:12px;">Sent via Speshway Solutions contact form</p>
+        <p style="color:#888;font-size:12px;">Sent via BUILD YOUR THOUGHTS contact form</p>
       `,
     });
 

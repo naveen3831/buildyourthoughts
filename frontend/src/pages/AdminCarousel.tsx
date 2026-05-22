@@ -1,6 +1,7 @@
 import { useEffect, useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import AdminSidebar from "@/components/AdminSidebar";
+import { notifySiteDataUpdated } from "@/lib/siteData";
 
 interface Slide {
   _id: string; badge: string; title: string; highlight: string; desc: string;
@@ -64,6 +65,7 @@ export default function AdminCarousel() {
         setSlides(prev => [...prev, saved]);
       }
       setShowModal(false);
+      notifySiteDataUpdated("carousel");
     } catch (err: unknown) { setError(err instanceof Error ? err.message : "Failed"); }
     setSaving(false);
   };
@@ -77,6 +79,7 @@ export default function AdminCarousel() {
       if (!res.ok) throw new Error("Toggle failed");
       const saved = await res.json();
       setSlides(prev => prev.map(s => s._id === saved._id ? saved : s));
+      notifySiteDataUpdated("carousel");
     } catch (err) {
       alert("Failed to toggle slide. Make sure the backend is running.");
     }
@@ -85,7 +88,10 @@ export default function AdminCarousel() {
   const handleDelete = async (id: string) => {
     if (!confirm("Delete this slide?")) return;
     const res = await fetch(`${API}/carousel/${id}`, { method: "DELETE", headers: { Authorization: `Bearer ${getToken()}` } });
-    if (res.ok) setSlides(prev => prev.filter(s => s._id !== id));
+    if (res.ok) {
+      setSlides(prev => prev.filter(s => s._id !== id));
+      notifySiteDataUpdated("carousel");
+    }
   };
 
   return (
@@ -161,7 +167,7 @@ export default function AdminCarousel() {
               <CField label="Badge Text *" value={form.badge} onChange={v => setForm(f => ({ ...f, badge: v }))} required placeholder="Welcome to the Future of IT" />
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <CField label="Title *" value={form.title} onChange={v => setForm(f => ({ ...f, title: v }))} required placeholder="Build Your Digital Future" />
-                <CField label="Highlight (colored) *" value={form.highlight} onChange={v => setForm(f => ({ ...f, highlight: v }))} required placeholder="Speshway Solutions" />
+                <CField label="Highlight (colored) *" value={form.highlight} onChange={v => setForm(f => ({ ...f, highlight: v }))} required placeholder="BUILD YOUR THOUGHTS" />
               </div>
               <div>
                 <label className="block text-[11px] font-bold text-gray-400 uppercase tracking-wider mb-1.5">Description *</label>

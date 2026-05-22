@@ -7,14 +7,14 @@ export default function TermsOfService() {
       <div className="container max-w-4xl py-16 px-4">
         <div className="text-center mb-10">
           <h1 className="text-4xl font-heading font-black text-foreground mb-3">Terms of Service</h1>
-          <p className="text-muted-foreground">This governs your agreement for using Speshway Solutions services.</p>
+          <p className="text-muted-foreground">This governs your agreement for using BUILD YOUR THOUGHTS services.</p>
         </div>
 
         <div className="bg-card border border-border rounded-2xl p-8 md:p-12 space-y-8 text-sm leading-relaxed text-muted-foreground">
 
           {/* Intro */}
           <div className="p-5 rounded-xl bg-primary/5 border border-primary/10 text-foreground text-sm leading-relaxed">
-            Please read these Terms of Service ("Terms", "Terms of Service") carefully before using Speshway Solutions website and services operated by Speshway Solutions Private Limited ("us", "we", or "our").
+            Please read these Terms of Service ("Terms", "Terms of Service") carefully before using BUILD YOUR THOUGHTS website and services operated by BUILD YOUR THOUGHTS Private Limited ("us", "we", or "our").
           </div>
 
           <Section num="1" title="Acceptance of Terms">
@@ -22,11 +22,11 @@ export default function TermsOfService() {
           </Section>
 
           <Section num="2" title="Intellectual Property">
-            The Service and its original content, features, and functionality are and will remain the exclusive property of <strong className="text-foreground">Speshway Solutions Private Limited</strong> and its licensors. It is protected by copyright, trademark, and other laws of both India and foreign countries. Our trademarks and trade dress may not be used in connection with any product or service without the prior written consent of Speshway Solutions Private Limited.
+            The Service and its original content, features, and functionality are and will remain the exclusive property of <strong className="text-foreground">BUILD YOUR THOUGHTS Private Limited</strong> and its licensors. It is protected by copyright, trademark, and other laws of both India and foreign countries. Our trademarks and trade dress may not be used in connection with any product or service without the prior written consent of BUILD YOUR THOUGHTS Private Limited.
           </Section>
 
           <Section num="3" title="Links To Other Web Sites">
-            Our Service may contain links to third-party websites or services that are not owned or controlled by Speshway Solutions Private Limited. We have no control over, and assume no responsibility for, the content, privacy policies, or practices of any third-party websites or services. You further acknowledge and agree that Speshway Solutions Private Limited shall not be responsible or liable, directly or indirectly, for any damage or loss caused or alleged to be caused by or in connection with use of or reliance on any such content, goods, or services available on or through any such websites or services.
+            Our Service may contain links to third-party websites or services that are not owned or controlled by BUILD YOUR THOUGHTS Private Limited. We have no control over, and assume no responsibility for, the content, privacy policies, or practices of any third-party websites or services. You further acknowledge and agree that BUILD YOUR THOUGHTS Private Limited shall not be responsible or liable, directly or indirectly, for any damage or loss caused or alleged to be caused by or in connection with use of or reliance on any such content, goods, or services available on or through any such websites or services.
           </Section>
 
           <Section num="4" title="Limitation of Liability">

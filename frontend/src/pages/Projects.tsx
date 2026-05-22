@@ -1,4 +1,7 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
+import { useSiteData } from "@/context/SiteDataContext";
+import { useSiteDataRefresh } from "@/hooks/useSiteDataRefresh";
+import { fetchPublic } from "@/lib/siteData";
 import Layout from "@/components/Layout";
 import PageHeader from "@/components/PageHeader";
 import MotionSection from "@/components/MotionSection";
@@ -31,19 +34,23 @@ const defaultStats = [
 const Projects = () => {
   const [projects, setProjects] = useState<ApiProject[]>([]);
   const [loading, setLoading] = useState(true);
-  const [settings, setSettings] = useState<Record<string, string>>({});
+  const { settings } = useSiteData();
   const navigate = useNavigate();
 
-  useEffect(() => {
-    fetch("/api/projects")
-      .then(r => r.json())
-      .then(data => { setProjects(Array.isArray(data) ? data : []); setLoading(false); })
+  const loadProjects = useCallback(() => {
+    fetchPublic<ApiProject[]>("/api/projects")
+      .then((data) => {
+        setProjects(Array.isArray(data) ? data : []);
+        setLoading(false);
+      })
       .catch(() => setLoading(false));
-    fetch("/api/settings", { cache: "no-store" })
-      .then(r => r.json())
-      .then(data => setSettings(data))
-      .catch(() => {});
   }, []);
+
+  useEffect(() => {
+    loadProjects();
+  }, [loadProjects]);
+
+  useSiteDataRefresh(["projects", "settings", "all"], loadProjects, [loadProjects]);
 
   const stats = [
     { val: settings.proj_stat1_val || defaultStats[0].val, label: settings.proj_stat1_label || defaultStats[0].label, color: "primary" },

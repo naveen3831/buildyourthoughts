@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { notifySiteDataUpdated } from "@/lib/siteData";
 
 interface SettingItem {
   _id: string; key: string; label: string; value: string; group: string; type: string;
@@ -55,9 +56,7 @@ export default function SiteSettingsPanel({ admin }: { admin?: { email?: string;
       const data = await res.json();
       if (res.ok) {
         setAssets(p => ({ ...p, [key]: data.url }));
-        // Clear useAssets cache so all components pick up the new image on next render
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        (window as any).__assetsCache = null;
+        notifySiteDataUpdated("assets");
       }
     } catch {}
     setAssetSaving(p => ({ ...p, [key]: false }));
@@ -84,6 +83,8 @@ export default function SiteSettingsPanel({ admin }: { admin?: { email?: string;
       });
       setSaved(p => ({ ...p, [key]: true }));
       setTimeout(() => setSaved(p => ({ ...p, [key]: false })), 2000);
+      const itemGroup = items.find(i => i.key === key)?.group;
+      notifySiteDataUpdated(itemGroup === "home" || key.startsWith("whyus_") ? "all" : "settings");
     } catch {}
     setSaving(p => ({ ...p, [key]: false }));
   };
@@ -101,6 +102,7 @@ export default function SiteSettingsPanel({ admin }: { admin?: { email?: string;
       });
       setSaved(p => ({ ...p, [group]: true }));
       setTimeout(() => setSaved(p => ({ ...p, [group]: false })), 2000);
+      notifySiteDataUpdated(group === "home" || group === "stats" ? "all" : "settings");
     } catch {}
     setSaving(p => ({ ...p, [group]: false }));
   };

@@ -13,7 +13,7 @@ export default {
     extend: {
       fontFamily: {
         sans: ["Noto Sans", "system-ui", "sans-serif"],
-        heading: ["Noto Sans Display", "sans-serif"],
+        heading: ["Roboto Condensed", "Noto Sans", "system-ui", "sans-serif"],
         condensed: ["Roboto Condensed", "sans-serif"],
       },
       colors: {

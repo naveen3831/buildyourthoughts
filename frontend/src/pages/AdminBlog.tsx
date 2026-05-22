@@ -1,6 +1,7 @@
 import { useEffect, useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import AdminSidebar from "@/components/AdminSidebar";
+import { notifySiteDataUpdated } from "@/lib/siteData";
 
 interface Post {
   _id: string; title: string; excerpt: string; content: string; tag: string;
@@ -76,7 +77,10 @@ export default function AdminBlog() {
   const handleDelete = async (id: string) => {
     if (!confirm("Delete this blog post?")) return;
     const res = await fetch(`${API}/blog/${id}`, { method: "DELETE", headers: { Authorization: `Bearer ${getToken()}` } });
-    if (res.ok) setPosts(prev => prev.filter(p => p._id !== id));
+    if (res.ok) {
+      setPosts(prev => prev.filter(p => p._id !== id));
+      notifySiteDataUpdated("blog");
+    }
   };
 
   const f = (key: keyof typeof emptyForm) => (v: string) => setForm(p => ({ ...p, [key]: v }));

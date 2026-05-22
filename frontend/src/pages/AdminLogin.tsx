@@ -1,17 +1,17 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { useAssets } from "@/hooks/useAssets";
+import { Lock, Mail, Eye, EyeOff } from "lucide-react";
 
+const LOGO_SRC = "/logo.png";
 
 const AdminLogin = () => {
-  const { logo } = useAssets();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
 
-  // If already logged in, redirect to dashboard
   useEffect(() => {
     const token = localStorage.getItem("speshway_admin_token");
     if (token) navigate("/admin/dashboard", { replace: true });
@@ -40,61 +40,117 @@ const AdminLogin = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#1e1b2e] via-[#2d1b69] to-[#1e1b2e]">
-      <div className="w-full max-w-md bg-white rounded-3xl shadow-2xl p-10">
-        {/* Logo */}
-        <div className="flex items-center gap-3 mb-8">
-          <img src={logo} alt="Speshway" className="w-12 h-12 object-contain" />
-          <div>
-            <div className="text-sm font-black tracking-widest text-gray-800 uppercase">Speshway Solutions</div>
-            <div className="text-[10px] text-purple-500 tracking-widest font-semibold uppercase">Private Limited — Admin Panel</div>
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[hsl(222,47%,9%)] via-[hsl(258,58%,22%)] to-[hsl(222,47%,11%)] p-4 sm:p-6 relative overflow-hidden">
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute top-[-15%] left-[-10%] w-[50%] h-[50%] rounded-full bg-primary/25 blur-[100px]" />
+        <div className="absolute bottom-[-15%] right-[-10%] w-[45%] h-[45%] rounded-full bg-secondary/20 blur-[100px]" />
+      </div>
+
+      <div className="relative z-10 w-full max-w-[440px] bg-white rounded-2xl border border-white/20 shadow-[0_20px_60px_rgba(0,0,0,0.35)] p-8 sm:p-10">
+        {/* Logo & brand — centered */}
+        <div className="flex flex-col items-center text-center mb-8">
+          <div className="rounded-2xl bg-white p-3 shadow-md mb-5 border border-[hsl(220,18%,92%)]">
+            <img
+              src={LOGO_SRC}
+              alt="BUILD YOUR THOUGHTS"
+              width={180}
+              height={140}
+              className="w-36 sm:w-40 h-auto object-contain mx-auto"
+            />
           </div>
+          <h1 className="font-heading font-black text-lg sm:text-xl uppercase tracking-wide text-[hsl(222,47%,12%)] leading-tight">
+            BUILD YOUR THOUGHTS
+          </h1>
+          <p className="text-xs text-[hsl(258,56%,48%)] font-bold uppercase tracking-[0.2em] mt-1.5">
+            Admin Panel
+          </p>
         </div>
 
-        <h2 className="text-2xl font-black text-gray-900 mb-1">Welcome Back</h2>
-        <p className="text-sm text-gray-400 mb-7">Sign in to your admin dashboard</p>
+        <div className="text-center mb-7">
+          <h2 className="text-xl font-heading font-bold text-[hsl(222,47%,12%)]">Welcome back</h2>
+          <p className="text-sm text-[hsl(222,18%,45%)] mt-1">Sign in to your admin dashboard</p>
+        </div>
 
         {error && (
-          <div className="mb-5 px-4 py-3 rounded-xl bg-red-50 border border-red-200 text-red-600 text-sm font-medium">
+          <div
+            role="alert"
+            className="mb-6 px-4 py-3 rounded-lg bg-red-50 border border-red-200 text-red-700 text-sm font-medium text-center"
+          >
             {error}
           </div>
         )}
 
         <form onSubmit={handleSubmit} className="flex flex-col gap-5">
           <div>
-            <label className="block text-[11px] font-bold text-gray-400 uppercase tracking-widest mb-1.5">
-              Email Address
+            <label
+              htmlFor="admin-email"
+              className="block text-xs font-bold text-[hsl(222,18%,40%)] uppercase tracking-wider mb-2"
+            >
+              Email address
             </label>
-            <input
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="admin@speshway.com"
-              required
-              className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-purple-500 focus:outline-none focus:ring-2 focus:ring-purple-100 text-gray-800 text-sm transition-all"
-            />
+            <div className="relative">
+              <Mail
+                size={18}
+                className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[hsl(222,18%,55%)] pointer-events-none"
+              />
+              <input
+                id="admin-email"
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="admin@yourcompany.com"
+                required
+                autoComplete="email"
+                className="w-full pl-11 pr-4 py-3 rounded-lg border border-[hsl(220,18%,85%)] bg-[hsl(220,30%,98%)] text-[hsl(222,47%,12%)] text-sm placeholder:text-[hsl(222,18%,60%)] focus:outline-none focus:border-[hsl(258,56%,48%)] focus:ring-2 focus:ring-[hsl(258,56%,48%/0.15)] transition-all"
+              />
+            </div>
           </div>
+
           <div>
-            <label className="block text-[11px] font-bold text-gray-400 uppercase tracking-widest mb-1.5">
+            <label
+              htmlFor="admin-password"
+              className="block text-xs font-bold text-[hsl(222,18%,40%)] uppercase tracking-wider mb-2"
+            >
               Password
             </label>
-            <input
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              placeholder="••••••••"
-              required
-              className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-purple-500 focus:outline-none focus:ring-2 focus:ring-purple-100 text-gray-800 text-sm transition-all"
-            />
+            <div className="relative">
+              <Lock
+                size={18}
+                className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[hsl(222,18%,55%)] pointer-events-none"
+              />
+              <input
+                id="admin-password"
+                type={showPassword ? "text" : "password"}
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder="Enter your password"
+                required
+                autoComplete="current-password"
+                className="w-full pl-11 pr-11 py-3 rounded-lg border border-[hsl(220,18%,85%)] bg-[hsl(220,30%,98%)] text-[hsl(222,47%,12%)] text-sm placeholder:text-[hsl(222,18%,60%)] focus:outline-none focus:border-[hsl(258,56%,48%)] focus:ring-2 focus:ring-[hsl(258,56%,48%/0.15)] transition-all"
+              />
+              <button
+                type="button"
+                onClick={() => setShowPassword((v) => !v)}
+                aria-label={showPassword ? "Hide password" : "Show password"}
+                className="absolute right-3 top-1/2 -translate-y-1/2 p-1 text-[hsl(222,18%,55%)] hover:text-[hsl(258,56%,48%)] transition-colors rounded"
+              >
+                {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+              </button>
+            </div>
           </div>
+
           <button
             type="submit"
             disabled={loading}
-            className="w-full py-3.5 rounded-xl bg-gradient-to-r from-purple-600 to-purple-500 text-white font-bold text-sm uppercase tracking-widest hover:shadow-[0_8px_25px_rgba(124,58,237,0.4)] hover:-translate-y-0.5 transition-all duration-200 disabled:opacity-60 disabled:cursor-not-allowed disabled:translate-y-0 mt-1"
+            className="w-full py-3.5 mt-1 rounded-lg bg-[hsl(258,56%,48%)] text-white font-bold text-sm uppercase tracking-wider hover:bg-[hsl(258,56%,42%)] focus:outline-none focus:ring-2 focus:ring-[hsl(258,56%,48%/0.4)] focus:ring-offset-2 transition-all disabled:opacity-60 disabled:cursor-not-allowed"
           >
-            {loading ? "Signing in…" : "Sign In"}
+            {loading ? "Signing in…" : "Sign in"}
           </button>
         </form>
+
+        <p className="text-center text-[10px] text-[hsl(222,18%,50%)] mt-6 tracking-wide">
+          Authorized personnel only
+        </p>
       </div>
     </div>
   );

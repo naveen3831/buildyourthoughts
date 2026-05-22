@@ -1,4 +1,7 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
+import { useSiteData } from "@/context/SiteDataContext";
+import { useSiteDataRefresh } from "@/hooks/useSiteDataRefresh";
+import { fetchPublic } from "@/lib/siteData";
 import Layout from "@/components/Layout";
 import PageHeader from "@/components/PageHeader";
 import AnimatedSection from "@/components/AnimatedSection";
@@ -19,17 +22,22 @@ interface ApiJob {
 
 const Career = () => {
   const { aboutTeam } = useAssets();  const [apiJobs, setApiJobs] = useState<ApiJob[]>([]);
-  const [content, setContent] = useState<Record<string, string>>({});
-  const [settings, setSettings] = useState<Record<string, string>>({});
+  const { settings, s, get } = useSiteData();
 
-  useEffect(() => {
-    fetch("/api/jobs").then(r => r.json()).then(data => setApiJobs(Array.isArray(data) ? data : [])).catch(() => {});
-    fetch("/api/site-content").then(r => r.json()).then(data => setContent(data)).catch(() => {});
-    fetch("/api/settings", { cache: "no-store" }).then(r => r.json()).then(data => setSettings(data)).catch(() => {});
+  const loadJobs = useCallback(() => {
+    fetchPublic<ApiJob[]>("/api/jobs")
+      .then((data) => setApiJobs(Array.isArray(data) ? data : []))
+      .catch(() => {});
   }, []);
 
-  const sc = (key: string, fallback: string) => content[key] || fallback;
-  const st = (key: string, fallback: string) => settings[key] || fallback;
+  useEffect(() => {
+    loadJobs();
+  }, [loadJobs]);
+
+  useSiteDataRefresh(["jobs", "content", "settings", "all"], loadJobs, [loadJobs]);
+
+  const sc = (key: string, fallback: string) => get(key, fallback);
+  const st = (key: string, fallback: string) => s(key, fallback);
 
   const perks = [
     { icon: Zap, label: sc("perk1_label", "Flexible work hours"), color: "primary" },
@@ -50,7 +58,7 @@ const Career = () => {
       
       <div className="relative container grid md:grid-cols-2 gap-8 md:gap-20 items-center">
         <MotionSection animation="skew-up">
-          <span className="text-accent text-xs md:text-sm font-bold uppercase tracking-[0.3em] mb-2 md:mb-4 block">Life at Speshway</span>
+          <span className="text-accent text-xs md:text-sm font-bold uppercase tracking-[0.3em] mb-2 md:mb-4 block">Life at BUILD YOUR THOUGHTS</span>
           <TextReveal 
             text="Build Your Career With Us" 
             className="text-xl md:text-5xl font-heading font-bold mb-4 md:mb-8 leading-tight"
@@ -96,7 +104,7 @@ const Career = () => {
             <div className="relative overflow-hidden rounded-2xl md:rounded-[3rem] border border-white/10 shadow-2xl">
               <img
                 src={aboutTeam}
-                alt="Speshway team culture"
+                alt="BUILD YOUR THOUGHTS team culture"
                 className="w-full h-auto object-cover group-hover:scale-110 transition-all duration-1000"
                 loading="lazy"
               />

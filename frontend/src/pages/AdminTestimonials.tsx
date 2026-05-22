@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import AdminSidebar from "@/components/AdminSidebar";
+import { notifySiteDataUpdated } from "@/lib/siteData";
 
 interface Testimonial {
   _id: string; name: string; role: string; text: string;
@@ -57,6 +58,7 @@ export default function AdminTestimonials() {
         setItems(prev => [...prev, saved]);
       }
       setShowModal(false);
+      notifySiteDataUpdated("testimonials");
     } catch (err: unknown) { setError(err instanceof Error ? err.message : "Failed"); }
     setSaving(false);
   };
@@ -71,6 +73,7 @@ export default function AdminTestimonials() {
     if (res.ok) {
       const saved = await res.json();
       setItems(prev => prev.map(item => item._id === saved._id ? saved : item));
+      notifySiteDataUpdated("testimonials");
     }
   };
 

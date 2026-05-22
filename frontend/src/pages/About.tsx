@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useSiteData } from "@/context/SiteDataContext";
 import Layout from "@/components/Layout";
 import PageHeader from "@/components/PageHeader";
 import AnimatedSection from "@/components/AnimatedSection";
@@ -15,25 +15,12 @@ import { cn } from "@/lib/utils";
 
 const About = () => {
   const { aboutTeam } = useAssets();
-  const [settings, setSettings] = useState<Record<string, string>>({});
-  const [content, setContent] = useState<Record<string, string>>({});
-
-  useEffect(() => {
-    Promise.allSettled([
-      fetch("/api/settings").then(r => r.json()),
-      fetch("/api/site-content").then(r => r.json()),
-    ]).then(([s, c]) => {
-      if (s.status === "fulfilled") setSettings(s.value);
-      if (c.status === "fulfilled") setContent(c.value);
-    });
-  }, []);
-
-  const sc = (key: string, fallback: string) => content[key] || fallback;
-  const s = (key: string, fallback: string) => settings[key] || fallback;
+  const { s, get } = useSiteData();
+  const sc = (key: string, fallback: string) => get(key, fallback);
 
   return (
     <Layout>
-      <PageHeader title="About Us" subtitle="Learn more about Speshway Solutions and our mission." />
+      <PageHeader title="About Us" subtitle="Learn more about BUILD YOUR THOUGHTS and our mission." />
 
       {/* Who We Are */}
       <section className="py-10 md:py-24 bg-background relative overflow-hidden">
@@ -43,7 +30,7 @@ const About = () => {
             <span className="text-primary text-xs md:text-sm font-bold uppercase tracking-[0.3em] mb-2 md:mb-4 block">Who We Are</span>
             <TextReveal text="Pioneering Digital Transformation Since 2017" className="text-xl md:text-5xl lg:text-6xl font-heading font-bold mb-4 md:mb-8 leading-tight" />
             <p className="text-muted-foreground text-xs md:text-lg leading-relaxed mb-3 md:mb-6 font-light">
-              Founded in 2017, Speshway Solutions Private Limited began with a simple yet powerful vision: to bridge the gap between businesses and cutting-edge technology. What started as a small team of passionate developers has grown into a full-service IT solutions provider serving clients across the globe.
+              Founded in 2017, BUILD YOUR THOUGHTS Private Limited began with a simple yet powerful vision: to bridge the gap between businesses and cutting-edge technology. What started as a small team of passionate developers has grown into a full-service IT solutions provider serving clients across the globe.
             </p>
             <p className="text-muted-foreground text-xs md:text-lg leading-relaxed mb-5 md:mb-10 font-light hidden md:block">
               Over the years, we have evolved alongside the rapidly changing technology landscape, continuously expanding our expertise and service offerings. From web development to AI-powered solutions, we have remained committed to delivering innovation that matters.
@@ -93,7 +80,7 @@ const About = () => {
             {[
               { icon: Target, color: "primary", titleKey: "about_mission_title", descKey: "about_mission_desc", defaultTitle: "Our Mission", defaultDesc: "To empower businesses through innovative technology solutions that drive growth, efficiency, and digital transformation." },
               { icon: Eye, color: "secondary", titleKey: "about_vision_title", descKey: "about_vision_desc", defaultTitle: "Our Vision", defaultDesc: "To be the global leader in IT solutions, recognized for excellence, innovation, and lasting client partnerships." },
-              { icon: Award, color: "accent", titleKey: "about_values_title", descKey: "about_values_desc", defaultTitle: "Our Values", defaultDesc: "Integrity, innovation, excellence, and customer success guide everything we do at Speshway Solutions." },
+              { icon: Award, color: "accent", titleKey: "about_values_title", descKey: "about_values_desc", defaultTitle: "Our Values", defaultDesc: "Integrity, innovation, excellence, and customer success guide everything we do at BUILD YOUR THOUGHTS." },
             ].map((item, i) => (
               <MotionSection key={i} delay={i * 0.1} animation="skew-up">
                 <div className="group h-full p-5 md:p-10 rounded-2xl md:rounded-3xl glass hover:glow-border-strong transition-all duration-700 border-white/5 relative overflow-hidden">
@@ -125,7 +112,7 @@ const About = () => {
             </div>
             <div className="flex flex-col gap-6 md:gap-12">
               {[
-                { year: "2017", key: "milestone_2017", default: "Speshway Solutions founded with a vision to bridge businesses and technology" },
+                { year: "2017", key: "milestone_2017", default: "BUILD YOUR THOUGHTS founded with a vision to bridge businesses and technology" },
                 { year: "2018", key: "milestone_2018", default: "First enterprise clients onboarded, team of passionate developers formed" },
                 { year: "2020", key: "milestone_2020", default: "Expanded to mobile development, launched 10+ successful apps" },
                 { year: "2022", key: "milestone_2022", default: "Crossed 30+ clients, opened cloud & AI practice" },

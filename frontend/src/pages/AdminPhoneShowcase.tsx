@@ -1,6 +1,7 @@
 import { useEffect, useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import AdminSidebar from "@/components/AdminSidebar";
+import { notifySiteDataUpdated } from "@/lib/siteData";
 
 interface ShowcaseItem {
   _id: string;
@@ -103,6 +104,7 @@ export default function AdminPhoneShowcase() {
       }
       await fetchItems();
       setShowModal(false);
+      notifySiteDataUpdated("phones");
     } catch (err: unknown) {
       setError(err instanceof Error ? err.message : "Failed to save");
     }
@@ -114,6 +116,7 @@ export default function AdminPhoneShowcase() {
     try {
       await apiFetch(`/phone-showcase/${id}`, { method: "DELETE" });
       setItems(prev => prev.filter(i => i._id !== id));
+      notifySiteDataUpdated("phones");
     } catch {}
   };
 

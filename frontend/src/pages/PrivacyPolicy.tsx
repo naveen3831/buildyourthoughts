@@ -6,7 +6,7 @@ export default function PrivacyPolicy() {
       <div className="container max-w-4xl py-16 px-4">
         <div className="text-center mb-10">
           <h1 className="text-4xl font-heading font-black text-foreground mb-3">Privacy Policy</h1>
-          <p className="text-muted-foreground">How we protect and manage your data at Speshway Solutions.</p>
+          <p className="text-muted-foreground">How we protect and manage your data at BUILD YOUR THOUGHTS.</p>
         </div>
 
         <div className="bg-card border border-border rounded-2xl p-8 md:p-12 space-y-8 text-sm leading-relaxed text-muted-foreground">
@@ -19,7 +19,7 @@ export default function PrivacyPolicy() {
           <div>
             <h2 className="text-lg font-bold text-foreground mb-3">Introduction</h2>
             <p>
-              Welcome to <strong className="text-foreground">Speshway Solutions Private Limited</strong>. We respect your privacy and are committed to protecting your personal data. This privacy policy will inform you about how we look after your personal data when you visit our website and tell you about your privacy rights and how the law protects you.
+              Welcome to <strong className="text-foreground">BUILD YOUR THOUGHTS Private Limited</strong>. We respect your privacy and are committed to protecting your personal data. This privacy policy will inform you about how we look after your personal data when you visit our website and tell you about your privacy rights and how the law protects you.
             </p>
           </div>
 

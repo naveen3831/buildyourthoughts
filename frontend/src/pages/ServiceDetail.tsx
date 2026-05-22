@@ -186,7 +186,7 @@ export default function ServiceDetail() {
         <div className="absolute inset-0 bg-gradient-to-b from-background via-card/20 to-background" />
         <div className="container relative">
           <MotionSection animation="parallax-reveal" className="text-center mb-16">
-            <span className="text-primary text-sm font-bold uppercase tracking-[0.3em] block mb-4">Why Speshway</span>
+            <span className="text-primary text-sm font-bold uppercase tracking-[0.3em] block mb-4">Why BUILD YOUR THOUGHTS</span>
             <TextReveal
               text="Why Choose Us for This Service"
               className="text-3xl md:text-5xl font-heading font-bold justify-center"

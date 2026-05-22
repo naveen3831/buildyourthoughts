@@ -1,46 +1,86 @@
 import { useEffect, useState } from "react";
-import { useAssets } from "@/hooks/useAssets";
+import { useTheme } from "@/context/ThemeContext";
+import { cn } from "@/lib/utils";
 
+const LOGO_SRC = "/logo.png";
 
 const PageReveal = () => {
-  const { logo } = useAssets();
+  const { theme } = useTheme();
+  const isDark = theme === "dark";
   const [phase, setPhase] = useState<"in" | "out" | "done">("in");
 
   useEffect(() => {
-    const t1 = setTimeout(() => setPhase("out"), 1200);
-    const t2 = setTimeout(() => setPhase("done"), 1900);
-    return () => { clearTimeout(t1); clearTimeout(t2); };
+    document.body.style.overflow = "hidden";
+
+    const t1 = window.setTimeout(() => setPhase("out"), 1200);
+    const t2 = window.setTimeout(() => {
+      setPhase("done");
+      document.body.style.overflow = "";
+    }, 1800);
+
+    return () => {
+      clearTimeout(t1);
+      clearTimeout(t2);
+      document.body.style.overflow = "";
+    };
   }, []);
 
   if (phase === "done") return null;
 
   return (
     <div
-      className="fixed inset-0 z-[1000] bg-primary flex items-center justify-center will-change-transform transition-[clip-path] duration-700 ease-in-out"
-      style={{ clipPath: phase === "out" ? "inset(0 0 100% 0)" : "inset(0 0 0 0)" }}
+      className={cn(
+        "page-reveal fixed inset-0 z-[9999] flex items-center justify-center",
+        isDark ? "bg-background" : "bg-white"
+      )}
+      style={{
+        clipPath: phase === "out" ? "inset(0 0 100% 0)" : "inset(0 0 0 0)",
+        transition: "clip-path 0.6s cubic-bezier(0.16, 1, 0.3, 1)",
+        pointerEvents: phase === "out" ? "none" : "auto",
+      }}
+      aria-hidden={phase === "out"}
     >
       <div
-        className="flex flex-col items-center gap-5 transition-[transform,opacity] duration-400"
-        style={{ opacity: phase === "out" ? 0 : 1, transform: phase === "out" ? "translateY(-16px)" : "translateY(0)" }}
+        className="flex flex-col items-center gap-6 px-4"
+        style={{
+          opacity: phase === "out" ? 0 : 1,
+          transform: phase === "out" ? "translateY(-16px)" : "translateY(0)",
+          transition: "opacity 0.4s ease, transform 0.4s ease",
+        }}
       >
-        {/* Logo */}
-        <img
-          src={logo}
-          alt="Speshway Solutions"
-          className="w-40 h-40 object-contain drop-shadow-[0_0_24px_rgba(255,255,255,0.4)] animate-scale-up"
-        />
-
-        {/* Company name */}
-        <div className="flex flex-col items-center gap-1 text-center px-4">
-          <span className="text-primary-foreground font-heading font-black text-2xl sm:text-3xl md:text-5xl tracking-[0.15em] sm:tracking-[0.2em] uppercase text-center">
-            SPESHWAY SOLUTIONS
-          </span>
-          <span className="text-primary-foreground/70 text-xs md:text-sm tracking-[0.35em] uppercase font-medium text-center">
-            PRIVATE LIMITED
-          </span>
+        <div
+          className={cn(
+            "rounded-2xl p-3 shadow-lg",
+            isDark ? "bg-white/95" : "bg-transparent"
+          )}
+        >
+          <img
+            src={LOGO_SRC}
+            alt="BUILD YOUR THOUGHTS logo"
+            width={280}
+            height={200}
+            decoding="async"
+            fetchPriority="high"
+            className="w-48 h-36 sm:w-56 sm:h-44 md:w-64 md:h-48 object-contain object-center"
+          />
         </div>
 
-        <div className="w-32 h-0.5 bg-primary-foreground/60 mt-1 origin-left animate-line-grow" />
+        <span
+          className={cn(
+            "font-heading font-black text-lg sm:text-2xl md:text-4xl tracking-[0.12em] sm:tracking-[0.15em] uppercase text-center",
+            isDark ? "text-foreground" : "text-[hsl(222,47%,12%)]"
+          )}
+        >
+          BUILD YOUR THOUGHTS
+        </span>
+
+        <div
+          className="w-40 h-1 rounded-full bg-gradient-to-r from-primary via-accent to-secondary origin-left"
+          style={{
+            transform: phase === "in" ? "scaleX(1)" : "scaleX(0)",
+            transition: "transform 0.5s ease",
+          }}
+        />
       </div>
     </div>
   );

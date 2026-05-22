@@ -1,19 +1,24 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import Layout from "@/components/Layout";
 import PageHeader from "@/components/PageHeader";
 import AnimatedSection from "@/components/AnimatedSection";
 import { Mail, Phone, MapPin, Send, MessageSquare, Clock, Globe } from "lucide-react";
 import { toast } from "sonner";
-
-const contactInfo = [
-  { icon: Mail, label: "Email", value: "info@speshway.com", color: "primary" },
-  { icon: Phone, label: "Phone", value: "+91 9100006020", color: "secondary" },
-  { icon: MapPin, label: "Address", value: "T-Hub, Plot No 1/C, Sy No 83/1, Raidurgam, Knowledge City Rd, panmaktha, Hyderabad, Serilingampalle (M), Telangana 500032", color: "accent" },
-  { icon: Globe, label: "Website", value: "www.speshway.com", color: "primary" },
-];
+import { useSiteData } from "@/context/SiteDataContext";
 
 const Contact = () => {
+  const { settings, s } = useSiteData();
   const [form, setForm] = useState({ name: "", email: "", subject: "", message: "" });
+
+  const contactInfo = useMemo(
+    () => [
+      { icon: Mail, label: "Email", value: settings.contact_email || "info@buildyourthoughts.com", color: "primary" as const },
+      { icon: Phone, label: "Phone", value: settings.contact_phone || "+91 9100006020", color: "secondary" as const },
+      { icon: MapPin, label: "Address", value: settings.contact_address || "T-Hub, Hyderabad, Telangana 500032", color: "accent" as const },
+      { icon: Globe, label: "Website", value: settings.site_tagline || "www.buildyourthoughts.com", color: "primary" as const },
+    ],
+    [settings]
+  );
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();

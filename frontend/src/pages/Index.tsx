@@ -8,9 +8,12 @@ import GooeyButton from "@/components/GooeyButton";
 import MotionSection from "@/components/MotionSection";
 import { ArrowRight, Code, Cloud, Shield, Cpu, Users, Zap, CheckCircle, Star } from "lucide-react";
 import { Link } from "react-router-dom";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 import { toSlug } from "@/pages/ServiceDetail";
+import { useSiteData } from "@/context/SiteDataContext";
+import { useSiteDataRefresh } from "@/hooks/useSiteDataRefresh";
+import { fetchPublic } from "@/lib/siteData";
 
 const defaultStats = [
   { num: 100, suffix: "+", label: "Projects Delivered" },
@@ -27,8 +30,8 @@ const whyUs = [
   "Transparent communication throughout",
   "Dedicated post-launch support & maintenance",
 ];const defaultTestimonials = [
-  { name: "Abdul Hameed", role: "CEO, KSA", text: "Speshway has designed solutions for my business at very reasonable prices. They are mavens in providing quality services and offering customer support.", rating: 5 },
-  { name: "Arjun M.", role: "CEO, TechStartup", text: "Speshway delivered our platform ahead of schedule with exceptional quality. The team was professional and truly understood our vision.", rating: 5 },
+  { name: "Abdul Hameed", role: "CEO, KSA", text: "BUILD YOUR THOUGHTS has designed solutions for my business at very reasonable prices. They are mavens in providing quality services and offering customer support.", rating: 5 },
+  { name: "Arjun M.", role: "CEO, TechStartup", text: "BUILD YOUR THOUGHTS delivered our platform ahead of schedule with exceptional quality. The team was professional and truly understood our vision.", rating: 5 },
   { name: "Ravi K.", role: "Founder, FinEdge", text: "Professional team, transparent process, and outstanding results. They built our fintech app from scratch and it exceeded all expectations.", rating: 5 },
 ];
 
@@ -36,54 +39,53 @@ const iconMap: Record<string, React.ElementType> = { Code, Cloud, Shield, Cpu, U
 
 const Index = () => {
   const progressRef = useRef<HTMLDivElement>(null);
-  const [content, setContent] = useState<Record<string, string>>({});
-  const [settings, setSettings] = useState<Record<string, string>>({});
+  const { settings, s, t, get } = useSiteData();
   const [stats, setStats] = useState(defaultStats);
   const [apiServices, setApiServices] = useState<{ icon: React.ElementType; title: string; desc: string; color: string }[]>([]);
   const [testimonials, setTestimonials] = useState(defaultTestimonials);
 
-  useEffect(() => {
-    // All API calls in parallel
+  const applyStats = useCallback((data: Record<string, string>) => {
+    if (data.stat_projects) {
+      setStats([
+        { num: parseInt(data.stat_projects) || 100, suffix: data.stat_projects_suffix || "+", label: "Projects Delivered" },
+        { num: parseInt(data.stat_clients) || 76, suffix: data.stat_clients_suffix || "+", label: "Happy Clients" },
+        { num: parseInt(data.stat_team) || 200, suffix: data.stat_team_suffix || "+", label: "Team Members" },
+        { num: parseInt(data.stat_experience) || 9, suffix: data.stat_experience_suffix || "+", label: "Years Experience" },
+      ]);
+    }
+  }, []);
+
+  const loadPageData = useCallback(() => {
+    applyStats(settings);
     Promise.allSettled([
-      fetch("/api/site-content").then(r => r.json()),
-      fetch("/api/settings").then(r => r.json()),
-      fetch("/api/services").then(r => r.json()),
-      fetch("/api/testimonials").then(r => r.json()),
-    ]).then(([contentRes, settingsRes, servicesRes, testimonialsRes]) => {
-      if (contentRes.status === "fulfilled") setContent(contentRes.value);
-
-      if (settingsRes.status === "fulfilled") {
-        const data = settingsRes.value as Record<string, string>;
-        setSettings(data);
-        if (data.stat_projects) {
-          setStats([
-            { num: parseInt(data.stat_projects) || 100, suffix: data.stat_projects_suffix || "+", label: "Projects Delivered" },
-            { num: parseInt(data.stat_clients) || 76, suffix: data.stat_clients_suffix || "+", label: "Happy Clients" },
-            { num: parseInt(data.stat_team) || 200, suffix: data.stat_team_suffix || "+", label: "Team Members" },
-            { num: parseInt(data.stat_experience) || 9, suffix: data.stat_experience_suffix || "+", label: "Years Experience" },
-          ]);
-        }
-      }
-
+      fetchPublic<{ _id: string; title: string; description: string; icon: string; color: string }[]>("/api/services"),
+      fetchPublic<{ name: string; role: string; text: string; rating: number }[]>("/api/testimonials"),
+    ]).then(([servicesRes, testimonialsRes]) => {
       if (servicesRes.status === "fulfilled" && Array.isArray(servicesRes.value) && servicesRes.value.length > 0) {
-        setApiServices(servicesRes.value.slice(0, 6).map((s: { _id: string; title: string; description: string; icon: string; color: string }) => ({
-          icon: iconMap[s.icon] || Code,
-          title: s.title,
-          desc: s.description,
-          color: s.color || "primary",
-        })));
+        setApiServices(
+          servicesRes.value.slice(0, 6).map((item) => ({
+            icon: iconMap[item.icon] || Code,
+            title: item.title,
+            desc: item.description,
+            color: item.color || "primary",
+          }))
+        );
       }
-
       if (testimonialsRes.status === "fulfilled" && Array.isArray(testimonialsRes.value) && testimonialsRes.value.length > 0) {
         setTestimonials(testimonialsRes.value);
       }
     });
-  }, []);
+  }, [settings, applyStats]);
 
-  // t() reads from site-content API
-  const t = (key: string, fallback: string) => content[key] || fallback;
-  // s() reads from settings API
-  const s = (key: string, fallback: string) => settings[key] || fallback;
+  useEffect(() => {
+    applyStats(settings);
+  }, [settings, applyStats]);
+
+  useEffect(() => {
+    loadPageData();
+  }, [loadPageData]);
+
+  useSiteDataRefresh(["settings", "content", "services", "testimonials", "all"], loadPageData, [loadPageData]);
 
   useEffect(() => {
     let ticking = false;
@@ -140,7 +142,7 @@ const Index = () => {
             <AnimatedSection animation="fade-in-up">
               <span className="text-primary text-sm font-black uppercase tracking-[0.3em]">{t("services_label", "What We Do")}</span>
             </AnimatedSection>
-            <TextReveal text={t("services_title", "Innovation & Excellence")} className="text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-heading font-black mt-4 mb-4 md:mb-6 justify-center leading-tight" />
+            <TextReveal text={get("services_title", "Innovation & Excellence")} className="text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-heading font-black mt-4 mb-4 md:mb-6 justify-center leading-tight" />
             <AnimatedSection delay={200}>
               <p className="text-muted-foreground max-w-2xl mx-auto text-sm md:text-lg font-light leading-relaxed px-2">
                 End-to-end IT solutions tailored to your business needs, powered by innovation and expertise.
@@ -173,14 +175,14 @@ const Index = () => {
         <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-border to-transparent" />
         <div className="container grid md:grid-cols-2 gap-12 md:gap-24 items-center">
           <MotionSection animation="skew-up">
-            <span className="text-secondary font-black text-sm uppercase tracking-[0.3em] mb-4 md:mb-6 block">{s("home_whyus_label", "Why Choose Us")}</span>
-            <TextReveal 
-              text={s("home_whyus_title", "Delivering Excellence In Every Project")} 
+            <span className="text-secondary font-black text-sm uppercase tracking-[0.3em] mb-4 md:mb-6 block">{get("home_whyus_label", get("whyus_label", "Why Choose Us"))}</span>
+            <TextReveal
+              text={get("home_whyus_title", get("whyus_title", "Delivering Excellence In Every Project"))}
               className="text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-heading font-black mb-8 md:mb-12 leading-tight"
             />
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 md:gap-8">
               {[1,2,3,4,5,6].map(n => {
-                const point = s(`whyus_point${n}`, whyUs[n-1] || "");
+                const point = get(`whyus_point${n}`, whyUs[n-1] || "");
                 if (!point) return null;
                 return (
                   <div key={n} className="flex items-start gap-3 md:gap-5 group">
@@ -228,10 +230,10 @@ const Index = () => {
         <div className="relative container">
           <div className="text-center mb-12 md:mb-24">
             <AnimatedSection animation="reveal-text">
-              <span className="text-accent text-sm font-black uppercase tracking-[0.3em]">{t("testimonials_label", "Testimonials")}</span>
+              <span className="text-accent text-sm font-black uppercase tracking-[0.3em]">{get("testimonials_label", "Testimonials")}</span>
             </AnimatedSection>
-            <TextReveal 
-              text={t("testimonials_title", "What Our Clients Say")} 
+            <TextReveal
+              text={get("testimonials_title", "What Our Clients Say")}
               className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-heading font-black mt-4 md:mt-6 justify-center"
             />
           </div>
@@ -273,7 +275,7 @@ const Index = () => {
             className="text-2xl sm:text-4xl md:text-5xl lg:text-7xl font-heading font-black mb-6 md:mb-8 justify-center leading-tight tracking-tighter"
           />
           <p className="text-muted-foreground mb-8 md:mb-12 max-w-3xl mx-auto text-sm md:text-xl font-light leading-relaxed">
-            {t("cta_subtitle", "Let's discuss how Speshway Solutions can accelerate your digital journey and bring your vision to life.")}
+            {get("cta_subtitle", get("home_cta_subtitle", "Let's discuss how BUILD YOUR THOUGHTS can accelerate your digital journey and bring your vision to life."))}
           </p>
           <div className="flex justify-center">
             <GooeyButton color="primary">

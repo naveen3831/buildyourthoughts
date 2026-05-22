@@ -18,7 +18,7 @@ const defaults = [
   { key: "testimonials_label", label: "Testimonials Label", value: "Testimonials", section: "home" },
   { key: "testimonials_title", label: "Testimonials Title", value: "What Our Clients Say", section: "home" },
   { key: "cta_title", label: "CTA Title", value: "Ready to Transform Your Business?", section: "home" },
-  { key: "cta_subtitle", label: "CTA Subtitle", value: "Let's discuss how Speshway Solutions can accelerate your digital journey and bring your vision to life.", section: "home" },
+  { key: "cta_subtitle", label: "CTA Subtitle", value: "Let's discuss how BUILD YOUR THOUGHTS can accelerate your digital journey and bring your vision to life.", section: "home" },
   // Why Us points (home page)
   { key: "whyus_point1", label: "Why Us Point 1", value: "Custom development tailored to your business needs", section: "home" },
   { key: "whyus_point2", label: "Why Us Point 2", value: "Agile methodology with rapid deployment", section: "home" },
@@ -32,7 +32,7 @@ const defaults = [
   { key: "about_vision_title", label: "Vision Title", value: "Our Vision", section: "about" },
   { key: "about_vision_desc", label: "Vision Description", value: "To be the global leader in IT solutions, recognized for excellence, innovation, and lasting client partnerships.", section: "about" },
   { key: "about_values_title", label: "Values Title", value: "Our Values", section: "about" },
-  { key: "about_values_desc", label: "Values Description", value: "Integrity, innovation, excellence, and customer success guide everything we do at Speshway Solutions.", section: "about" },
+  { key: "about_values_desc", label: "Values Description", value: "Integrity, innovation, excellence, and customer success guide everything we do at BUILD YOUR THOUGHTS.", section: "about" },
   { key: "about_principle1_title", label: "Principle 1 Title", value: "Innovation First", section: "about" },
   { key: "about_principle1_desc", label: "Principle 1 Desc", value: "We stay ahead of the curve with cutting-edge technologies.", section: "about" },
   { key: "about_principle2_title", label: "Principle 2 Title", value: "Client Focused", section: "about" },
@@ -40,7 +40,7 @@ const defaults = [
   { key: "about_principle3_title", label: "Principle 3 Title", value: "Global Reach", section: "about" },
   { key: "about_principle3_desc", label: "Principle 3 Desc", value: "Serving clients across India, USA, UK, and Middle East.", section: "about" },
   // Milestones
-  { key: "milestone_2017", label: "Milestone 2017", value: "Speshway Solutions founded with a vision to bridge businesses and technology", section: "about" },
+  { key: "milestone_2017", label: "Milestone 2017", value: "BUILD YOUR THOUGHTS founded with a vision to bridge businesses and technology", section: "about" },
   { key: "milestone_2018", label: "Milestone 2018", value: "First enterprise clients onboarded, team of passionate developers formed", section: "about" },
   { key: "milestone_2020", label: "Milestone 2020", value: "Expanded to mobile development, launched 10+ successful apps", section: "about" },
   { key: "milestone_2022", label: "Milestone 2022", value: "Crossed 30+ clients, opened cloud & AI practice", section: "about" },

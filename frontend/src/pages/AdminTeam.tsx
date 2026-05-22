@@ -2,6 +2,7 @@ import { useEffect, useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import AdminSidebar from "@/components/AdminSidebar";
 import { adminFetch, clearAdminSession, getToken } from "@/lib/adminFetch";
+import { notifySiteDataUpdated } from "@/lib/siteData";
 
 interface Member {
   _id: string; name: string; role: string; bio: string; initials: string;
@@ -79,6 +80,7 @@ export default function AdminTeam() {
         setMembers(prev => [...prev, saved]);
       }
       setShowModal(false);
+      notifySiteDataUpdated("team");
     } catch (err: unknown) { setError(err instanceof Error ? err.message : "Failed"); }
     setSaving(false);
   };
@@ -86,7 +88,10 @@ export default function AdminTeam() {
   const handleDelete = async (id: string) => {
     if (!confirm("Delete this team member?")) return;
     const res = await adminFetch(`/team/${id}`, { method: "DELETE" }, () => navigate("/admin", { replace: true }));
-    if (res.ok) setMembers(prev => prev.filter(m => m._id !== id));
+    if (res.ok) {
+      setMembers(prev => prev.filter(m => m._id !== id));
+      notifySiteDataUpdated("team");
+    }
   };
 
   const handleToggle = async (id: string, currentActive: boolean) => {
@@ -208,7 +213,7 @@ export default function AdminTeam() {
                 <label className="block text-[11px] font-bold text-gray-400 uppercase tracking-wider mb-1.5">Profile Photo</label>
                 <div onClick={() => fileRef.current?.click()} className="border-2 border-dashed border-gray-200 rounded-xl p-5 text-center cursor-pointer hover:border-purple-400 transition-colors">
                   {imagePreview ? (
-                    <img src={imagePreview} alt="preview" className="w-20 h-20 rounded-full object-cover mx-auto" />
+                    <img src={imagePreview} alt="preview" className="w-25 h-25 rounded-full object-cover mx-auto" />
                   ) : (
                     <div className="text-gray-400"><div className="text-3xl mb-1">📷</div><div className="text-sm">Click to upload photo</div><div className="text-xs mt-1">PNG, JPG, WEBP (Max 5MB)</div></div>
                   )}
