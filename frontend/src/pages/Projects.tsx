@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState } from "react";
 import { useSiteData } from "@/context/SiteDataContext";
 import { useSiteDataRefresh } from "@/hooks/useSiteDataRefresh";
 import { fetchPublic } from "@/lib/siteData";
+import { resolveMediaUrl } from "@/lib/mediaUrl";
 import Layout from "@/components/Layout";
 import PageHeader from "@/components/PageHeader";
 import MotionSection from "@/components/MotionSection";
@@ -40,7 +41,11 @@ const Projects = () => {
   const loadProjects = useCallback(() => {
     fetchPublic<ApiProject[]>("/api/projects")
       .then((data) => {
-        setProjects(Array.isArray(data) ? data : []);
+        setProjects(
+          Array.isArray(data)
+            ? data.map((p) => ({ ...p, image: resolveMediaUrl(p.image) }))
+            : []
+        );
         setLoading(false);
       })
       .catch(() => setLoading(false));

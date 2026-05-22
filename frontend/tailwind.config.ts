@@ -102,6 +102,10 @@ export default {
         "card-rise": "card-rise 0.6s cubic-bezier(0.16,1,0.3,1) forwards",
         "line-grow": "line-grow 0.8s ease-out forwards",
         "orbit": "orbit 6s linear infinite",
+        "hero-pop": "hero-pop 1s cubic-bezier(0.34, 1.56, 0.64, 1) forwards",
+        "ken-burns": "ken-burns 8s ease-out forwards",
+        "bounce-in": "bounce-in 0.9s cubic-bezier(0.34, 1.56, 0.64, 1) forwards",
+        "float-orb": "float-orb 12s ease-in-out infinite",
       },
       keyframes: {
         "accordion-down": {

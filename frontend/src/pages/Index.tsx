@@ -110,18 +110,19 @@ const Index = () => {
       {/* Scroll Progress Bar — direct DOM mutation, zero re-renders */}
       <div
         ref={progressRef}
-        className="fixed top-0 left-0 h-[3px] bg-gradient-to-r from-primary via-accent to-secondary z-[100]"
+        className="fixed top-0 left-0 h-1 bg-gradient-to-r from-primary via-accent to-secondary z-[100] shadow-[0_0_12px_hsl(var(--primary)/0.6)] transition-[width] duration-150 ease-out"
         style={{ width: "0%" }}
       />
 
       <HeroCarousel />
 
       {/* Stats */}
-      <section className="relative py-10 md:py-24 overflow-hidden bg-background">
-        <MotionSection animation="zoom-out" className="relative container grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8">
+      <section className="relative py-10 md:py-24 overflow-hidden bg-background section-optimized">
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80%] h-[60%] bg-primary/5 blur-3xl rounded-full pointer-events-none" aria-hidden />
+        <MotionSection animation="bounce-up" className="relative container grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8">
           {stats.map((s, i) => (
-            <AnimatedSection key={s.label} delay={i * 100} animation="scale-up">
-              <div className="text-center group relative p-4 md:p-8 rounded-2xl md:rounded-3xl hover:bg-primary/5 transition-all duration-500 overflow-hidden border border-border">
+            <AnimatedSection key={s.label} delay={i * 120} animation="elastic-in">
+              <div className="text-center group relative p-4 md:p-8 rounded-2xl md:rounded-3xl hover:bg-primary/10 hover:scale-105 hover:shadow-[0_0_30px_hsl(var(--primary)/0.15)] transition-all duration-500 overflow-hidden border border-border hover-shine">
                 <div className="text-3xl md:text-6xl font-heading font-black text-gradient mb-1 md:mb-3">
                   <CounterAnimation target={s.num} suffix={s.suffix} />
                 </div>
@@ -135,8 +136,9 @@ const Index = () => {
       </section>
 
       {/* Services Grid */}
-      <section className="py-12 md:py-24 bg-background relative overflow-hidden">
-        <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-border to-transparent" />
+      <section className="py-12 md:py-24 bg-background relative overflow-hidden section-optimized">
+        <div className="absolute -right-20 top-20 w-64 h-64 bg-accent/8 rounded-full blur-2xl pointer-events-none" aria-hidden />
+        <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-primary/40 to-transparent animate-line-grow origin-left" />
         <div className="container relative z-10">
           <div className="text-center mb-10 md:mb-16">
             <AnimatedSection animation="fade-in-up">
@@ -151,9 +153,9 @@ const Index = () => {
           </div>
           <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 md:gap-6">
             {apiServices.map((s, i) => (
-              <AnimatedSection key={s.title} delay={i * 80} animation="card-rise">
-                <Link to={`/services/${toSlug(s.title)}`} className="group h-full block p-4 md:p-8 rounded-2xl md:rounded-3xl glass hover:glow-border hover:shadow-xl transition-all duration-400 border-border relative overflow-hidden">
-                  <div className="w-10 h-10 md:w-14 md:h-14 rounded-xl md:rounded-2xl bg-primary/10 flex items-center justify-center mb-3 md:mb-6 group-hover:bg-primary/20 group-hover:scale-110 transition-all duration-300 border border-primary/20">
+              <AnimatedSection key={s.title} delay={i * 100} animation="bounce-in">
+                <Link to={`/services/${toSlug(s.title)}`} className="group h-full block p-4 md:p-8 rounded-2xl md:rounded-3xl glass hover:glow-border-strong hover:shadow-xl hover:-translate-y-2 transition-all duration-500 border-border relative overflow-hidden hover-shine card-3d">
+                  <div className="w-10 h-10 md:w-14 md:h-14 rounded-xl md:rounded-2xl bg-primary/10 flex items-center justify-center mb-3 md:mb-6 group-hover:bg-primary/20 group-hover:scale-125 group-hover:rotate-3 transition-all duration-500 border border-primary/20">
                     <s.icon className="text-primary" size={20} />
                   </div>
                   <h3 className="font-heading font-bold text-sm md:text-xl mb-1.5 md:mb-3 text-foreground group-hover:text-primary transition-colors duration-300 leading-tight">{s.title}</h3>
@@ -171,7 +173,7 @@ const Index = () => {
       <MobileShowcase />
 
       {/* Why Choose Us with Rotate-In and Skew */}
-      <section className="py-16 md:py-32 bg-background relative overflow-hidden">
+      <section className="py-16 md:py-32 bg-background relative overflow-hidden section-optimized">
         <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-border to-transparent" />
         <div className="container grid md:grid-cols-2 gap-12 md:gap-24 items-center">
           <MotionSection animation="skew-up">
@@ -185,12 +187,14 @@ const Index = () => {
                 const point = get(`whyus_point${n}`, whyUs[n-1] || "");
                 if (!point) return null;
                 return (
-                  <div key={n} className="flex items-start gap-3 md:gap-5 group">
-                    <div className="w-8 h-8 md:w-10 md:h-10 rounded-xl bg-secondary/10 flex items-center justify-center shrink-0 group-hover:bg-secondary/20 transition-all duration-500 border border-secondary/20">
-                      <CheckCircle className="text-secondary" size={18} />
+                  <AnimatedSection key={n} delay={n * 80} animation="slide-in-left">
+                    <div className="flex items-start gap-3 md:gap-5 group">
+                      <div className="w-8 h-8 md:w-10 md:h-10 rounded-xl bg-secondary/10 flex items-center justify-center shrink-0 group-hover:bg-secondary/30 group-hover:scale-110 transition-all duration-500 border border-secondary/20">
+                        <CheckCircle className="text-secondary group-hover:scale-110 transition-transform duration-300" size={18} />
+                      </div>
+                      <span className="text-muted-foreground group-hover:text-foreground group-hover:translate-x-1 transition-all duration-500 font-medium text-sm md:text-lg leading-tight">{point}</span>
                     </div>
-                    <span className="text-muted-foreground group-hover:text-foreground transition-colors duration-500 font-medium text-sm md:text-lg leading-tight">{point}</span>
-                  </div>
+                  </AnimatedSection>
                 );
               })}
             </div>
@@ -206,17 +210,17 @@ const Index = () => {
                   { valKey: "whyus_stat3_val", labelKey: "whyus_stat3_label", defaultVal: "100+", defaultLabel: "Tech Stack", color: "accent", delay: 200 },
                   { valKey: "whyus_stat4_val", labelKey: "whyus_stat4_label", defaultVal: "50+", defaultLabel: "Partners", color: "accent", delay: 300 },
                 ].map((item, i) => (
+                  <AnimatedSection key={i} delay={item.delay} animation="bounce-in">
                   <div 
-                    key={i} 
                     className={cn(
-                      "glass rounded-2xl md:rounded-[2.5rem] p-5 md:p-10 hover:glow-border transition-all duration-700 border-border",
+                      "glass rounded-2xl md:rounded-[2.5rem] p-5 md:p-10 hover:glow-border-strong hover:scale-105 transition-all duration-700 border-border hover-shine",
                       i % 2 === 1 ? "mt-6 md:mt-12" : ""
                     )}
-                    style={{ transitionDelay: `${item.delay}ms` }}
                   >
                     <div className={`text-3xl md:text-5xl font-heading font-black text-${item.color} mb-2 md:mb-4`}>{s(item.valKey, item.defaultVal)}</div>
                     <div className="text-[10px] md:text-xs font-black text-muted-foreground uppercase tracking-[0.15em] md:tracking-[0.2em]">{s(item.labelKey, item.defaultLabel)}</div>
                   </div>
+                  </AnimatedSection>
                 ))}
               </div>
             </div>
@@ -225,7 +229,7 @@ const Index = () => {
       </section>
 
       {/* Testimonials with Card-Rise */}
-      <section className="py-16 md:py-32 relative overflow-hidden bg-background">
+      <section className="py-16 md:py-32 relative overflow-hidden bg-background section-optimized">
         <div className="absolute inset-0 bg-gradient-to-b from-background via-card/40 to-background" />
         <div className="relative container">
           <div className="text-center mb-12 md:mb-24">
@@ -240,8 +244,8 @@ const Index = () => {
           
           <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-10">
             {testimonials.map((testimonial, i) => (
-              <AnimatedSection key={i} delay={i * 200} animation="card-rise">
-                <div className="glass rounded-xl md:rounded-[2.5rem] p-4 md:p-10 hover:glow-border-strong transition-all duration-700 h-full flex flex-col border-border group relative overflow-hidden">
+              <AnimatedSection key={i} delay={i * 150} animation="blur-in">
+                <div className="glass rounded-xl md:rounded-[2.5rem] p-4 md:p-10 hover:glow-border-strong hover:-translate-y-2 transition-all duration-700 h-full flex flex-col border-border group relative overflow-hidden hover-shine card-3d">
                   <div className="flex gap-1 md:gap-2 mb-3 md:mb-8 relative z-10">
                     {[...Array(testimonial.rating)].map((_, j) => (
                       <Star key={j} size={14} className="text-primary fill-primary" />
@@ -267,9 +271,9 @@ const Index = () => {
       </section>
 
       {/* CTA */}
-      <section className="py-16 md:py-32 relative overflow-hidden bg-background">
-        <div className="absolute inset-0 bg-gradient-to-r from-primary/20 via-accent/10 to-secondary/20" />
-        <MotionSection animation="parallax-reveal" className="container text-center relative z-10 px-4">
+      <section className="py-16 md:py-32 relative overflow-hidden bg-background section-optimized">
+        <div className="absolute inset-0 bg-gradient-to-r from-primary/15 via-accent/8 to-secondary/15" />
+        <MotionSection animation="reveal-from-center" className="container text-center relative z-10 px-4">
           <TextReveal
             text={t("cta_title", "Ready to Transform Your Business?")}
             className="text-2xl sm:text-4xl md:text-5xl lg:text-7xl font-heading font-black mb-6 md:mb-8 justify-center leading-tight tracking-tighter"

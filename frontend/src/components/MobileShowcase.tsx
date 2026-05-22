@@ -1,6 +1,7 @@
 import { lazy, Suspense, useCallback, useEffect, useState } from "react";
 import { useSiteDataRefresh } from "@/hooks/useSiteDataRefresh";
 import { fetchPublic } from "@/lib/siteData";
+import { resolveMediaUrl } from "@/lib/mediaUrl";
 import MotionSection from "@/components/MotionSection";
 import TextReveal from "@/components/TextReveal";
 import PhoneMockup from "@/components/PhoneMockup";
@@ -35,7 +36,11 @@ const MobileShowcase = () => {
   const loadPhones = useCallback(() => {
     fetchPublic<ApiPhone[]>("/api/phone-showcase")
       .then((data) => {
-        if (Array.isArray(data) && data.length > 0) setApiPhones(data);
+        if (Array.isArray(data) && data.length > 0) {
+          setApiPhones(
+            data.map((p) => ({ ...p, image: resolveMediaUrl(p.image) }))
+          );
+        }
       })
       .catch(() => {});
   }, []);
@@ -52,7 +57,7 @@ const MobileShowcase = () => {
   const mobileCount = 3;
 
   return (
-    <section className="py-16 md:py-32 overflow-hidden relative bg-background">
+    <section className="py-16 md:py-32 overflow-hidden relative bg-background section-optimized">
       <div className="absolute inset-0 bg-gradient-to-b from-background via-card/20 to-background" />
 
       <div className="relative container">
@@ -67,13 +72,13 @@ const MobileShowcase = () => {
           </p>
         </MotionSection>
 
-        <MotionSection animation="zoom-out" className="relative">
+        <MotionSection animation="bounce-up" className="relative">
           <div className="absolute inset-0 bg-gradient-to-r from-primary/10 via-secondary/10 to-accent/10 rounded-full -z-10" />
 
           {/* ── Mobile: 3-column grid, no scroll ── */}
           <div className="grid grid-cols-3 gap-2 md:hidden px-2">
             {(useApi ? apiPhones.slice(0, mobileCount) : defaultScreens.slice(0, mobileCount)).map((item, i) => (
-              <AnimatedSection key={i} delay={i * 100} animation="fade-in-up">
+              <AnimatedSection key={i} delay={i * 120} animation="bounce-in">
                 <div className={i === 1 ? "mt-6" : ""}>
                   {useApi ? (
                     <PhoneMockup
@@ -85,6 +90,8 @@ const MobileShowcase = () => {
                         src={(item as ApiPhone).image}
                         alt={(item as ApiPhone).label || `App ${i + 1}`}
                         className="w-full h-full object-cover object-top"
+                        loading="lazy"
+                        decoding="async"
                       />
                     </PhoneMockup>
                   ) : (
@@ -106,7 +113,7 @@ const MobileShowcase = () => {
           {/* ── Desktop: horizontal flex row, all 6 ── */}
           <div className="hidden md:flex items-end justify-center gap-6 pb-4">
             {(useApi ? apiPhones : defaultScreens).map((item, i) => (
-              <AnimatedSection key={i} delay={i * 100} animation="fade-in-up">
+              <AnimatedSection key={i} delay={i * 120} animation="bounce-in">
                 <div className={i % 2 === 1 ? "mb-10" : ""}>
                   {useApi ? (
                     <PhoneMockup
@@ -118,6 +125,8 @@ const MobileShowcase = () => {
                         src={(item as ApiPhone).image}
                         alt={(item as ApiPhone).label || `App ${i + 1}`}
                         className="w-full h-full object-cover object-top"
+                        loading="lazy"
+                        decoding="async"
                       />
                     </PhoneMockup>
                   ) : (

@@ -20,7 +20,7 @@ const getObserver = () => {
           }
         });
       },
-      { threshold: 0.05, rootMargin: "0px 0px -40px 0px" }
+      { threshold: 0.08, rootMargin: "0px 0px -60px 0px" }
     );
   }
   return sharedObserver;
@@ -36,7 +36,7 @@ export const useScrollAnimation = (_threshold = 0.05) => {
 
     // Already in viewport on mount
     const rect = el.getBoundingClientRect();
-    if (rect.top < window.innerHeight && rect.bottom > 0) {
+    if (rect.top < window.innerHeight * 0.92 && rect.bottom > 0) {
       setVisible(true);
       return;
     }

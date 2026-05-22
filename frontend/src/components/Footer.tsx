@@ -12,7 +12,6 @@ const quickLinks = [
   { name: "About", path: "/about" },
   { name: "Services", path: "/services" },
   { name: "Projects", path: "/projects" },
-  { name: "Career", path: "/career" },
   { name: "Contact", path: "/contact" },
 ];
 
@@ -27,6 +26,7 @@ const Footer = () => {
   const { logo } = useAssets();
   const { s } = useSiteData();
   const [services, setServices] = useState<{ name: string; path: string }[]>([]);
+  const [projects, setProjects] = useState<{ name: string; path: string }[]>([]);
 
   const loadServices = useCallback(() => {
     fetchPublic<{ title: string }[]>("/api/services")
@@ -43,11 +43,31 @@ const Footer = () => {
       .catch(() => {});
   }, []);
 
-  useEffect(() => {
-    loadServices();
-  }, [loadServices]);
+  const loadProjects = useCallback(() => {
+    fetchPublic<{ _id: string; title: string }[]>("/api/projects")
+      .then((data) => {
+        if (Array.isArray(data) && data.length > 0) {
+          setProjects(
+            data.slice(0, 6).map((item) => ({
+              name: item.title,
+              path: `/projects/${item._id}`,
+            }))
+          );
+        }
+      })
+      .catch(() => {});
+  }, []);
 
-  useSiteDataRefresh(["services", "all"], loadServices, [loadServices]);
+  const loadFooterData = useCallback(() => {
+    loadServices();
+    loadProjects();
+  }, [loadServices, loadProjects]);
+
+  useEffect(() => {
+    loadFooterData();
+  }, [loadFooterData]);
+
+  useSiteDataRefresh(["services", "projects", "all"], loadFooterData, [loadFooterData]);
 
   const siteName = s("site_name", "BUILD YOUR THOUGHTS");
   const description = s(
@@ -67,8 +87,8 @@ const Footer = () => {
       <div className="absolute inset-0 bg-gradient-to-b from-background to-card" />
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-px bg-gradient-to-r from-transparent via-primary/50 to-transparent" />
 
-      <div className="relative container py-8 md:py-16 grid grid-cols-3 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-10">
-        <div className="col-span-3 md:col-span-1">
+      <div className="relative container py-8 md:py-16 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 md:gap-8">
+        <div className="col-span-2 sm:col-span-3 lg:col-span-1">
           <div className="flex items-center gap-2 mb-3">
             <img src={logo} alt={siteName} className="h-8 w-8 md:h-10 md:w-10 object-contain" />
             <div>
@@ -123,6 +143,23 @@ const Footer = () => {
             ) : (
               <Link to="/services" className="hover:text-primary transition-colors">
                 View All Services
+              </Link>
+            )}
+          </div>
+        </div>
+
+        <div>
+          <h4 className="font-semibold mb-2 md:mb-4 text-foreground text-xs md:text-base">Projects</h4>
+          <div className="flex flex-col gap-1 md:gap-2 text-xs md:text-sm text-muted-foreground">
+            {projects.length > 0 ? (
+              projects.map((item) => (
+                <Link key={item.path} to={item.path} className="hover:text-primary transition-colors w-fit">
+                  {item.name}
+                </Link>
+              ))
+            ) : (
+              <Link to="/projects" className="hover:text-primary transition-colors">
+                View All Projects
               </Link>
             )}
           </div>

@@ -27,18 +27,18 @@ const Layout = ({ children }: { children: ReactNode }) => {
     <div className="min-h-screen flex flex-col bg-background relative selection:bg-primary/30 overflow-x-hidden">
       {/* Lightweight static background — no blur or noise (GPU-heavy) */}
       <div className="fixed inset-0 pointer-events-none -z-10 overflow-hidden" aria-hidden>
-        <div className={`absolute inset-0 mesh-gradient ${theme === "light" ? "opacity-30" : "opacity-35"}`} />
+        <div className={`absolute inset-0 mesh-gradient ${theme === "light" ? "opacity-25" : "opacity-30"}`} />
         <div
-          className={`absolute top-[-10%] left-[-10%] w-[40%] h-[40%] rounded-full ${theme === "light" ? "bg-primary/6" : "bg-primary/8"}`}
+          className={`absolute top-[-10%] left-[-10%] w-[35%] h-[35%] rounded-full blur-2xl ${theme === "light" ? "bg-primary/8" : "bg-primary/12"}`}
         />
         <div
-          className={`absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] rounded-full ${theme === "light" ? "bg-secondary/6" : "bg-secondary/8"}`}
+          className={`absolute bottom-[-10%] right-[-10%] w-[35%] h-[35%] rounded-full blur-2xl ${theme === "light" ? "bg-secondary/8" : "bg-secondary/12"}`}
         />
       </div>
 
       <Navbar />
 
-      <main key={pathname} className="flex-1 pt-20 relative z-10 animate-page-in">
+      <main key={pathname} className="flex-1 pt-20 relative z-10 animate-page-in scroll-smooth">
         {children}
       </main>
 
@@ -50,7 +50,7 @@ const Layout = ({ children }: { children: ReactNode }) => {
           target="_blank"
           rel="noopener noreferrer"
           aria-label="Chat on WhatsApp"
-          className="group relative w-12 h-12 md:w-14 md:h-14 rounded-full flex items-center justify-center shadow-lg hover:scale-110 active:scale-95 transition-transform duration-200"
+          className="group relative w-12 h-12 md:w-14 md:h-14 rounded-full flex items-center justify-center shadow-lg hover:scale-125 active:scale-95 transition-transform duration-300 animate-bounce-subtle"
           style={{ background: "#25D366" }}
         >
           <svg viewBox="0 0 32 32" className="w-6 h-6 md:w-8 md:h-8 fill-white" xmlns="http://www.w3.org/2000/svg">
@@ -64,7 +64,7 @@ const Layout = ({ children }: { children: ReactNode }) => {
         <a
           href={CALL_URL}
           aria-label="Call us"
-          className="group relative w-12 h-12 md:w-14 md:h-14 rounded-full flex items-center justify-center shadow-lg hover:scale-110 active:scale-95 transition-transform duration-200"
+          className="group relative w-12 h-12 md:w-14 md:h-14 rounded-full flex items-center justify-center shadow-lg hover:scale-125 active:scale-95 transition-transform duration-300"
           style={{ background: "#E53935" }}
         >
           <Phone size={22} className="fill-white text-white" />

@@ -17,8 +17,6 @@ const mainLinks = [
 const dropdownLinks = [
   { name: "About", path: "/about" },
   { name: "Blog", path: "/blog" },
-  { name: "Team", path: "/team" },
-  { name: "Career", path: "/career" },
   { name: "FAQ", path: "/faq" },
 ];
 
