@@ -51,7 +51,7 @@ const EcommerceScreen = () => (
       <div className="grid grid-cols-2 gap-1.5">
         {[
           { name: "Sneakers", price: "₹2,499", color: "from-orange-500/20 to-red-500/20", badge: "HOT" },
-          { name: "Watch", price: "₹5,999", color: "from-blue-500/20 to-purple-500/20", badge: "NEW" },
+          { name: "Watch", price: "₹5,999", color: "from-blue-500/20 to-cyan-500/20", badge: "NEW" },
         ].map((p) => (
           <div key={p.name} className={`bg-gradient-to-br ${p.color} rounded-xl p-2 border border-white/5`}>
             <div className="flex justify-between items-start mb-1">

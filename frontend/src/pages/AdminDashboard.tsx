@@ -20,7 +20,7 @@ const getToken = () => localStorage.getItem("speshway_admin_token");
 
 const statusColors: Record<string, string> = {
   Completed: "bg-green-100 text-green-700",
-  Active: "bg-purple-100 text-purple-700",
+  Active: "bg-cyan-100 text-cyan-700",
   "In Progress": "bg-yellow-100 text-yellow-700",
 };
 
@@ -166,7 +166,7 @@ export default function AdminDashboard() {
             <h1 className="text-xl md:text-2xl font-black text-gray-900 capitalize truncate">{section}</h1>
             <p className="text-xs md:text-sm text-gray-400 mt-0.5">{greet}, {admin?.name || "Admin"} 👋</p>
           </div>
-          <span className="bg-purple-100 text-purple-700 text-xs font-bold px-3 py-1.5 rounded-full shrink-0">{admin?.role || "Admin"}</span>
+          <span className="bg-cyan-100 text-cyan-700 text-xs font-bold px-3 py-1.5 rounded-full shrink-0">{admin?.role || "Admin"}</span>
         </div>
 
         {/* Section tabs */}
@@ -177,7 +177,7 @@ export default function AdminDashboard() {
             { key: "settings", label: "🔧 Settings" },
           ].map(t => (
             <button key={t.key} onClick={() => setSection(t.key)}
-              className={`px-4 py-2 rounded-xl text-sm font-bold transition-colors ${section === t.key ? "bg-purple-600 text-white" : "bg-white text-gray-600 border border-gray-200 hover:bg-gray-50"}`}>
+              className={`px-4 py-2 rounded-xl text-sm font-bold transition-colors ${section === t.key ? "bg-cyan-600 text-white" : "bg-white text-gray-600 border border-gray-200 hover:bg-gray-50"}`}>
               {t.label}
             </button>
           ))}
@@ -188,7 +188,7 @@ export default function AdminDashboard() {
           <div className="bg-white rounded-2xl shadow-sm border border-gray-100">
             <div className="flex items-center justify-between p-4 md:p-6 border-b border-gray-100 gap-3">
               <h3 className="font-bold text-gray-800 text-base md:text-lg">Projects ({projects.length})</h3>
-              <button onClick={openAdd} className="flex items-center gap-1.5 px-3 md:px-5 py-2 md:py-2.5 rounded-xl bg-purple-600 text-white text-xs md:text-sm font-bold hover:bg-purple-700 transition-colors shrink-0">
+              <button onClick={openAdd} className="flex items-center gap-1.5 px-3 md:px-5 py-2 md:py-2.5 rounded-xl bg-cyan-600 text-white text-xs md:text-sm font-bold hover:bg-cyan-700 transition-colors shrink-0">
                 + Add Project
               </button>
             </div>
@@ -258,7 +258,7 @@ export default function AdminDashboard() {
           <div className="bg-white rounded-2xl shadow-sm border border-gray-100">
             <div className="flex items-center justify-between p-4 md:p-6 border-b border-gray-100 gap-3">
               <h3 className="font-bold text-gray-800 text-base md:text-lg">Services ({services.length})</h3>
-              <button onClick={openAddService} className="flex items-center gap-1.5 px-3 md:px-5 py-2 md:py-2.5 rounded-xl bg-purple-600 text-white text-xs md:text-sm font-bold hover:bg-purple-700 shrink-0">
+              <button onClick={openAddService} className="flex items-center gap-1.5 px-3 md:px-5 py-2 md:py-2.5 rounded-xl bg-cyan-600 text-white text-xs md:text-sm font-bold hover:bg-cyan-700 shrink-0">
                 + Add Service
               </button>
             </div>
@@ -269,7 +269,7 @@ export default function AdminDashboard() {
                 {services.map(s => (
                   <div key={s._id} className="border border-gray-100 rounded-2xl p-4 hover:shadow-md transition-shadow">
                     <div className="flex items-start justify-between mb-3">
-                      <div className={`w-10 h-10 rounded-xl flex items-center justify-center text-lg font-bold ${s.color === "primary" ? "bg-purple-100 text-purple-600" : s.color === "secondary" ? "bg-emerald-100 text-emerald-600" : "bg-pink-100 text-pink-600"}`}>
+                      <div className={`w-10 h-10 rounded-xl flex items-center justify-center text-lg font-bold ${s.color === "primary" ? "bg-cyan-100 text-cyan-600" : s.color === "secondary" ? "bg-emerald-100 text-emerald-600" : "bg-pink-100 text-pink-600"}`}>
                         {s.icon?.charAt(0) || "S"}
                       </div>
                       <div className="flex gap-2">
@@ -308,17 +308,17 @@ export default function AdminDashboard() {
               </div>
               <div>
                 <label className="block text-[11px] font-bold text-gray-400 uppercase tracking-wider mb-1.5">Description *</label>
-                <textarea value={form.description} onChange={e => setForm(f => ({ ...f, description: e.target.value }))} required rows={3} className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-purple-500 focus:outline-none text-sm resize-none" />
+                <textarea value={form.description} onChange={e => setForm(f => ({ ...f, description: e.target.value }))} required rows={3} className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-cyan-500 focus:outline-none text-sm resize-none" />
               </div>
               <F label="Technologies (comma separated)" value={form.tech} onChange={v => setForm(f => ({ ...f, tech: v }))} placeholder="React, Node.js, MongoDB" />
               <div>
                 <label className="block text-[11px] font-bold text-gray-400 uppercase tracking-wider mb-1.5">Key Features (one per line)</label>
-                <textarea value={form.features} onChange={e => setForm(f => ({ ...f, features: e.target.value }))} rows={3} className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-purple-500 focus:outline-none text-sm resize-none" />
+                <textarea value={form.features} onChange={e => setForm(f => ({ ...f, features: e.target.value }))} rows={3} className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-cyan-500 focus:outline-none text-sm resize-none" />
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <label className="block text-[11px] font-bold text-gray-400 uppercase tracking-wider mb-1.5">Status</label>
-                  <select value={form.status} onChange={e => setForm(f => ({ ...f, status: e.target.value }))} className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-purple-500 focus:outline-none text-sm">
+                  <select value={form.status} onChange={e => setForm(f => ({ ...f, status: e.target.value }))} className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-cyan-500 focus:outline-none text-sm">
                     <option>In Progress</option><option>Active</option><option>Completed</option>
                   </select>
                 </div>
@@ -326,7 +326,7 @@ export default function AdminDashboard() {
               </div>
               <div>
                 <label className="block text-[11px] font-bold text-gray-400 uppercase tracking-wider mb-1.5">Project Image</label>
-                <div onClick={() => fileRef.current?.click()} className="border-2 border-dashed border-gray-200 rounded-xl p-5 text-center cursor-pointer hover:border-purple-400 transition-colors">
+                <div onClick={() => fileRef.current?.click()} className="border-2 border-dashed border-gray-200 rounded-xl p-5 text-center cursor-pointer hover:border-cyan-400 transition-colors">
                   {imagePreview ? <img src={imagePreview} alt="preview" className="mx-auto max-h-36 rounded-lg object-cover" /> : (
                     <div className="text-gray-400"><div className="text-3xl mb-2">📁</div><div className="text-sm">Click to upload image</div><div className="text-xs mt-1">JPG, PNG, WEBP</div></div>
                   )}
@@ -334,7 +334,7 @@ export default function AdminDashboard() {
                 <input ref={fileRef} type="file" accept="image/*" onChange={e => { const f = e.target.files?.[0]; if (f) { setImageFile(f); setImagePreview(URL.createObjectURL(f)); } }} className="hidden" />
               </div>
               <div className="flex gap-3 pt-2">
-                <button type="submit" disabled={saving} className="flex-1 py-3 rounded-xl bg-purple-600 text-white font-bold text-sm hover:bg-purple-700 disabled:opacity-60">
+                <button type="submit" disabled={saving} className="flex-1 py-3 rounded-xl bg-cyan-600 text-white font-bold text-sm hover:bg-cyan-700 disabled:opacity-60">
                   {saving ? "Saving…" : editProject ? "Update Project" : "Create Project"}
                 </button>
                 <button type="button" onClick={() => setShowModal(false)} className="px-5 py-3 rounded-xl border-2 border-gray-200 text-gray-600 font-bold text-sm">Cancel</button>
@@ -357,18 +357,18 @@ export default function AdminDashboard() {
               <F label="Title *" value={serviceForm.title} onChange={v => setServiceForm(f => ({ ...f, title: v }))} required />
               <div>
                 <label className="block text-[11px] font-bold text-gray-400 uppercase tracking-wider mb-1.5">Description *</label>
-                <textarea value={serviceForm.description} onChange={e => setServiceForm(f => ({ ...f, description: e.target.value }))} required rows={3} className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-purple-500 focus:outline-none text-sm resize-none" />
+                <textarea value={serviceForm.description} onChange={e => setServiceForm(f => ({ ...f, description: e.target.value }))} required rows={3} className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-cyan-500 focus:outline-none text-sm resize-none" />
               </div>
               <div>
                 <label className="block text-[11px] font-bold text-gray-400 uppercase tracking-wider mb-1.5">Features (one per line)</label>
-                <textarea value={serviceForm.features} onChange={e => setServiceForm(f => ({ ...f, features: e.target.value }))} rows={4} className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-purple-500 focus:outline-none text-sm resize-none" placeholder={"Feature 1\nFeature 2"} />
+                <textarea value={serviceForm.features} onChange={e => setServiceForm(f => ({ ...f, features: e.target.value }))} rows={4} className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-cyan-500 focus:outline-none text-sm resize-none" placeholder={"Feature 1\nFeature 2"} />
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <F label="Icon Name" value={serviceForm.icon} onChange={v => setServiceForm(f => ({ ...f, icon: v }))} placeholder="Code" />
                 <div>
                   <label className="block text-[11px] font-bold text-gray-400 uppercase tracking-wider mb-1.5">Color</label>
-                  <select value={serviceForm.color} onChange={e => setServiceForm(f => ({ ...f, color: e.target.value }))} className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-purple-500 focus:outline-none text-sm">
-                    <option value="primary">Primary (Purple)</option>
+                  <select value={serviceForm.color} onChange={e => setServiceForm(f => ({ ...f, color: e.target.value }))} className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-cyan-500 focus:outline-none text-sm">
+                    <option value="primary">Primary (Cyan)</option>
                     <option value="secondary">Secondary (Green)</option>
                     <option value="accent">Accent (Pink)</option>
                   </select>
@@ -376,7 +376,7 @@ export default function AdminDashboard() {
               </div>
               <F label="Order" value={serviceForm.order} onChange={v => setServiceForm(f => ({ ...f, order: v }))} type="number" />
               <div className="flex gap-3 pt-2">
-                <button type="submit" disabled={serviceSaving} className="flex-1 py-3 rounded-xl bg-purple-600 text-white font-bold text-sm hover:bg-purple-700 disabled:opacity-60">
+                <button type="submit" disabled={serviceSaving} className="flex-1 py-3 rounded-xl bg-cyan-600 text-white font-bold text-sm hover:bg-cyan-700 disabled:opacity-60">
                   {serviceSaving ? "Saving…" : editService ? "Update Service" : "Create Service"}
                 </button>
                 <button type="button" onClick={() => setShowServiceModal(false)} className="px-5 py-3 rounded-xl border-2 border-gray-200 text-gray-600 font-bold text-sm">Cancel</button>
@@ -396,6 +396,6 @@ const F = ({ label, value, onChange, required, placeholder, type = "text" }: {
   <div>
     <label className="block text-[11px] font-bold text-gray-400 uppercase tracking-wider mb-1.5">{label}</label>
     <input type={type} value={value} onChange={e => onChange(e.target.value)} required={required} placeholder={placeholder}
-      className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-purple-500 focus:outline-none text-sm" />
+      className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-cyan-500 focus:outline-none text-sm" />
   </div>
 );

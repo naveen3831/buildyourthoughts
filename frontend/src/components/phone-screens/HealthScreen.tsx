@@ -34,7 +34,7 @@ const HealthScreen = () => (
         {[
           { label: "Heart Rate", val: "72 bpm", icon: "❤️", color: "from-red-500/20 to-pink-500/20" },
           { label: "Blood O₂", val: "98%", icon: "🫁", color: "from-blue-500/20 to-cyan-500/20" },
-          { label: "Sleep", val: "7.5 hrs", icon: "😴", color: "from-purple-500/20 to-indigo-500/20" },
+          { label: "Sleep", val: "7.5 hrs", icon: "😴", color: "from-cyan-500/20 to-indigo-500/20" },
           { label: "Calories", val: "1,840", icon: "🔥", color: "from-orange-500/20 to-yellow-500/20" },
         ].map((v) => (
           <div key={v.label} className={`bg-gradient-to-br ${v.color} rounded-xl p-2 border border-white/5`}>

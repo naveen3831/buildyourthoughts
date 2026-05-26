@@ -95,7 +95,7 @@ export default function AdminBlog() {
             <h1 className="text-xl md:text-2xl font-black text-gray-900">Blog Posts ({posts.length})</h1>
             <p className="text-gray-400 text-sm mt-1">Create and manage blog articles</p>
           </div>
-          <button onClick={openAdd} className="flex items-center gap-1.5 px-3 md:px-5 py-2 md:py-2.5 rounded-xl bg-purple-600 text-white text-xs md:text-sm font-bold hover:bg-purple-700 shrink-0">
+          <button onClick={openAdd} className="flex items-center gap-1.5 px-3 md:px-5 py-2 md:py-2.5 rounded-xl bg-cyan-600 text-white text-xs md:text-sm font-bold hover:bg-cyan-700 shrink-0">
             + New Post
           </button>
         </div>
@@ -146,26 +146,26 @@ export default function AdminBlog() {
               <div>
                 <label className="block text-[11px] font-bold text-gray-400 uppercase tracking-wider mb-1.5">Excerpt *</label>
                 <textarea value={form.excerpt} onChange={e => setForm(p => ({ ...p, excerpt: e.target.value }))} required rows={2}
-                  className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-purple-500 focus:outline-none text-sm resize-none" />
+                  className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-cyan-500 focus:outline-none text-sm resize-none" />
               </div>
               <div>
                 <label className="block text-[11px] font-bold text-gray-400 uppercase tracking-wider mb-1.5">Full Content</label>
                 <textarea value={form.content} onChange={e => setForm(p => ({ ...p, content: e.target.value }))} rows={5}
                   placeholder="Write the full blog post content here..."
-                  className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-purple-500 focus:outline-none text-sm resize-none" />
+                  className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-cyan-500 focus:outline-none text-sm resize-none" />
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <label className="block text-[11px] font-bold text-gray-400 uppercase tracking-wider mb-1.5">Tag / Category</label>
                   <select value={form.tag} onChange={e => setForm(p => ({ ...p, tag: e.target.value }))}
-                    className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-purple-500 focus:outline-none text-sm">
+                    className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-cyan-500 focus:outline-none text-sm">
                     {tagOptions.map(t => <option key={t}>{t}</option>)}
                   </select>
                 </div>
                 <div>
                   <label className="block text-[11px] font-bold text-gray-400 uppercase tracking-wider mb-1.5">Status</label>
                   <select value={form.status} onChange={e => setForm(p => ({ ...p, status: e.target.value }))}
-                    className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-purple-500 focus:outline-none text-sm">
+                    className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-cyan-500 focus:outline-none text-sm">
                     <option>Published</option>
                     <option>Draft</option>
                   </select>
@@ -176,14 +176,14 @@ export default function AdminBlog() {
                 <BField label="Read Time" value={form.readTime} onChange={f("readTime")} placeholder="5 min" />
               </div>
               <div className="flex items-center gap-3">
-                <input type="checkbox" id="featured" checked={form.featured === "true"} onChange={e => setForm(p => ({ ...p, featured: String(e.target.checked) }))} className="w-4 h-4 accent-purple-600" />
+                <input type="checkbox" id="featured" checked={form.featured === "true"} onChange={e => setForm(p => ({ ...p, featured: String(e.target.checked) }))} className="w-4 h-4 accent-cyan-600" />
                 <label htmlFor="featured" className="text-sm font-medium text-gray-700">Mark as Featured Post</label>
               </div>
 
               {/* Image upload */}
               <div>
                 <label className="block text-[11px] font-bold text-gray-400 uppercase tracking-wider mb-1.5">Cover Image</label>
-                <div onClick={() => fileRef.current?.click()} className="border-2 border-dashed border-gray-200 rounded-xl p-5 text-center cursor-pointer hover:border-purple-400 transition-colors">
+                <div onClick={() => fileRef.current?.click()} className="border-2 border-dashed border-gray-200 rounded-xl p-5 text-center cursor-pointer hover:border-cyan-400 transition-colors">
                   {imagePreview ? (
                     <img src={imagePreview} alt="preview" className="mx-auto max-h-32 rounded-lg object-cover" />
                   ) : (
@@ -194,7 +194,7 @@ export default function AdminBlog() {
               </div>
 
               <div className="flex gap-3 pt-2">
-                <button type="submit" disabled={saving} className="flex-1 py-3 rounded-xl bg-purple-600 text-white font-bold text-sm hover:bg-purple-700 disabled:opacity-60">
+                <button type="submit" disabled={saving} className="flex-1 py-3 rounded-xl bg-cyan-600 text-white font-bold text-sm hover:bg-cyan-700 disabled:opacity-60">
                   {saving ? "Saving…" : editPost ? "Update Post" : "Publish Post"}
                 </button>
                 <button type="button" onClick={() => setShowModal(false)} className="px-6 py-3 rounded-xl border-2 border-gray-200 text-gray-600 font-bold text-sm">Cancel</button>
@@ -213,6 +213,6 @@ const BField = ({ label, value, onChange, required, placeholder }: {
   <div>
     <label className="block text-[11px] font-bold text-gray-400 uppercase tracking-wider mb-1.5">{label}</label>
     <input value={value} onChange={e => onChange(e.target.value)} required={required} placeholder={placeholder}
-      className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-purple-500 focus:outline-none text-sm" />
+      className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-cyan-500 focus:outline-none text-sm" />
   </div>
 );

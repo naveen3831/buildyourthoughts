@@ -122,7 +122,7 @@ const Index = () => {
         <MotionSection animation="bounce-up" className="relative container grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8">
           {stats.map((s, i) => (
             <AnimatedSection key={s.label} delay={i * 120} animation="elastic-in">
-              <div className="text-center group relative p-4 md:p-8 rounded-2xl md:rounded-3xl hover:bg-primary/10 hover:scale-105 hover:shadow-[0_0_30px_hsl(var(--primary)/0.15)] transition-all duration-500 overflow-hidden border border-border hover-shine">
+              <div className="text-center group relative p-5 md:p-8 rounded-[2rem] bg-slate-950/10 border border-primary/15 shadow-[0_20px_50px_hsl(var(--primary)/0.06)] hover:bg-slate-950/15 hover:scale-105 transition-all duration-500 overflow-hidden">
                 <div className="text-3xl md:text-6xl font-heading font-black text-gradient mb-1 md:mb-3">
                   <CounterAnimation target={s.num} suffix={s.suffix} />
                 </div>
@@ -154,12 +154,12 @@ const Index = () => {
           <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 md:gap-6">
             {apiServices.map((s, i) => (
               <AnimatedSection key={s.title} delay={i * 100} animation="bounce-in">
-                <Link to={`/services/${toSlug(s.title)}`} className="group h-full block p-4 md:p-8 rounded-2xl md:rounded-3xl glass hover:glow-border-strong hover:shadow-xl hover:-translate-y-2 transition-all duration-500 border-border relative overflow-hidden hover-shine card-3d">
-                  <div className="w-10 h-10 md:w-14 md:h-14 rounded-xl md:rounded-2xl bg-primary/10 flex items-center justify-center mb-3 md:mb-6 group-hover:bg-primary/20 group-hover:scale-125 group-hover:rotate-3 transition-all duration-500 border border-primary/20">
+                <Link to={`/services/${toSlug(s.title)}`} className="group h-full block p-5 md:p-8 rounded-[2rem] glass hover:glow-border-strong hover:shadow-[0_20px_70px_hsl(var(--primary)/0.08)] hover:-translate-y-2 transition-all duration-500 border border-primary/15 relative overflow-hidden card-3d">
+                  <div className="w-11 h-11 md:w-14 md:h-14 rounded-2xl bg-primary/10 flex items-center justify-center mb-4 md:mb-6 group-hover:bg-primary/20 group-hover:scale-110 transition-all duration-500 border border-primary/20">
                     <s.icon className="text-primary" size={20} />
                   </div>
-                  <h3 className="font-heading font-bold text-sm md:text-xl mb-1.5 md:mb-3 text-foreground group-hover:text-primary transition-colors duration-300 leading-tight">{s.title}</h3>
-                  <p className="text-muted-foreground text-xs md:text-sm font-light leading-relaxed mb-3 md:mb-6 line-clamp-3">{s.desc}</p>
+                  <h3 className="font-heading font-bold text-sm md:text-xl mb-2 md:mb-3 text-foreground group-hover:text-primary transition-colors duration-300 leading-tight">{s.title}</h3>
+                  <p className="text-muted-foreground text-xs md:text-sm font-light leading-relaxed mb-4 md:mb-6 line-clamp-3">{s.desc}</p>
                   <span className="inline-flex items-center gap-1 md:gap-2 text-primary text-[10px] md:text-sm font-bold uppercase tracking-wider opacity-0 group-hover:opacity-100 transition-all duration-300">
                     Explore <ArrowRight size={12} />
                   </span>
@@ -177,7 +177,7 @@ const Index = () => {
         <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-border to-transparent" />
         <div className="container grid md:grid-cols-2 gap-12 md:gap-24 items-center">
           <MotionSection animation="skew-up">
-            <span className="text-secondary font-black text-sm uppercase tracking-[0.3em] mb-4 md:mb-6 block">{get("home_whyus_label", get("whyus_label", "Why Choose Us"))}</span>
+            <span className="text-primary font-black text-sm uppercase tracking-[0.3em] mb-4 md:mb-6 block">{get("home_whyus_label", get("whyus_label", "Why Choose Us"))}</span>
             <TextReveal
               text={get("home_whyus_title", get("whyus_title", "Delivering Excellence In Every Project"))}
               className="text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-heading font-black mb-8 md:mb-12 leading-tight"
@@ -213,7 +213,7 @@ const Index = () => {
                   <AnimatedSection key={i} delay={item.delay} animation="bounce-in">
                   <div 
                     className={cn(
-                      "glass rounded-2xl md:rounded-[2.5rem] p-5 md:p-10 hover:glow-border-strong hover:scale-105 transition-all duration-700 border-border hover-shine",
+                      "glass rounded-2xl md:rounded-[2.5rem] p-5 md:p-10 hover:glow-border-strong hover:scale-105 transition-all duration-700 border border-primary/15 bg-slate-950/10 shadow-[0_20px_50px_hsl(var(--primary)/0.06)]",
                       i % 2 === 1 ? "mt-6 md:mt-12" : ""
                     )}
                   >
@@ -234,7 +234,7 @@ const Index = () => {
         <div className="relative container">
           <div className="text-center mb-12 md:mb-24">
             <AnimatedSection animation="reveal-text">
-              <span className="text-accent text-sm font-black uppercase tracking-[0.3em]">{get("testimonials_label", "Testimonials")}</span>
+              <span className="text-primary text-sm font-black uppercase tracking-[0.3em]">{get("testimonials_label", "Testimonials")}</span>
             </AnimatedSection>
             <TextReveal
               text={get("testimonials_title", "What Our Clients Say")}
@@ -245,7 +245,7 @@ const Index = () => {
           <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-10">
             {testimonials.map((testimonial, i) => (
               <AnimatedSection key={i} delay={i * 150} animation="blur-in">
-                <div className="glass rounded-xl md:rounded-[2.5rem] p-4 md:p-10 hover:glow-border-strong hover:-translate-y-2 transition-all duration-700 h-full flex flex-col border-border group relative overflow-hidden hover-shine card-3d">
+                <div className="glass rounded-xl md:rounded-[2.5rem] p-4 md:p-10 hover:glow-border-strong hover:-translate-y-2 transition-all duration-700 h-full flex flex-col border border-primary/15 bg-slate-950/10 shadow-[0_20px_60px_hsl(var(--primary)/0.06)] group relative overflow-hidden card-3d">
                   <div className="flex gap-1 md:gap-2 mb-3 md:mb-8 relative z-10">
                     {[...Array(testimonial.rating)].map((_, j) => (
                       <Star key={j} size={14} className="text-primary fill-primary" />
@@ -254,7 +254,7 @@ const Index = () => {
                   <p className="text-muted-foreground text-xs md:text-xl flex-1 italic leading-relaxed relative z-10 font-light">
                     "{testimonial.text}"
                   </p>
-                  <div className="mt-4 md:mt-10 pt-3 md:pt-8 border-t border-border flex items-center gap-2 md:gap-6 relative z-10">
+                  <div className="mt-4 md:mt-10 pt-3 md:pt-8 border-t border-primary/15 flex items-center gap-2 md:gap-6 relative z-10">
                     <div className="w-8 h-8 md:w-16 md:h-16 rounded-lg md:rounded-2xl bg-primary/10 flex items-center justify-center font-heading font-black text-sm md:text-2xl text-primary shrink-0">
                       {testimonial.name.charAt(0)}
                     </div>

@@ -121,7 +121,7 @@ export default function AdminPhoneShowcase() {
   };
 
   const colorDot: Record<string, string> = {
-    primary: "bg-purple-500",
+    primary: "bg-cyan-500",
     secondary: "bg-teal-500",
     accent: "bg-pink-500",
   };
@@ -136,14 +136,14 @@ export default function AdminPhoneShowcase() {
             <h1 className="text-xl md:text-2xl font-black text-gray-900">Phone Showcase</h1>
             <p className="text-gray-500 text-sm mt-1">Manage images displayed inside phone mockups</p>
           </div>
-          <button onClick={openAdd} className="px-3 md:px-5 py-2 md:py-2.5 rounded-xl bg-purple-600 text-white font-bold text-xs md:text-sm hover:bg-purple-700 shrink-0">
+          <button onClick={openAdd} className="px-3 md:px-5 py-2 md:py-2.5 rounded-xl bg-cyan-600 text-white font-bold text-xs md:text-sm hover:bg-cyan-700 shrink-0">
             + Add Image
           </button>
         </div>
 
         {loading ? (
           <div className="flex justify-center py-20">
-            <div className="w-10 h-10 rounded-full border-4 border-purple-600 border-t-transparent animate-spin" />
+            <div className="w-10 h-10 rounded-full border-4 border-cyan-600 border-t-transparent animate-spin" />
           </div>
         ) : items.length === 0 ? (
           <div className="text-center py-20 text-gray-400">
@@ -156,7 +156,7 @@ export default function AdminPhoneShowcase() {
             {items.map((item, i) => (
               <div key={item._id} className="bg-white rounded-2xl border border-gray-200 overflow-hidden shadow-sm hover:shadow-md transition-shadow">
                 {/* Phone frame preview */}
-                <div className="relative bg-[#1e1b2e] mx-3 mt-3 rounded-2xl overflow-hidden" style={{ aspectRatio: "9/19" }}>
+                <div className="relative bg-slate-950 mx-3 mt-3 rounded-2xl overflow-hidden" style={{ aspectRatio: "9/19" }}>
                   <img src={item.image} alt={item.label || `Phone ${i + 1}`}
                     className="w-full h-full object-cover" />
                   {!item.isActive && (
@@ -174,7 +174,7 @@ export default function AdminPhoneShowcase() {
                   {item.label && <p className="text-xs text-gray-500 truncate mb-2">{item.label}</p>}
                   <div className="flex gap-1.5">
                     <button onClick={() => openEdit(item)}
-                      className="flex-1 py-1.5 rounded-lg bg-purple-50 text-purple-700 text-xs font-bold hover:bg-purple-100 transition-colors">
+                      className="flex-1 py-1.5 rounded-lg bg-cyan-50 text-cyan-700 text-xs font-bold hover:bg-cyan-100 transition-colors">
                       Edit
                     </button>
                     <button onClick={() => handleDelete(item._id)}
@@ -207,11 +207,11 @@ export default function AdminPhoneShowcase() {
                 </label>
                 <div
                   onClick={() => fileRef.current?.click()}
-                  className="border-2 border-dashed border-gray-200 rounded-xl p-4 text-center cursor-pointer hover:border-purple-400 transition-colors"
+                  className="border-2 border-dashed border-gray-200 rounded-xl p-4 text-center cursor-pointer hover:border-cyan-400 transition-colors"
                 >
                   {imagePreview ? (
                     <div className="flex items-center gap-3">
-                      <div className="w-16 bg-[#1e1b2e] rounded-xl overflow-hidden" style={{ aspectRatio: "9/19" }}>
+                      <div className="w-16 bg-slate-950 rounded-xl overflow-hidden" style={{ aspectRatio: "9/19" }}>
                         <img src={imagePreview} alt="Preview" className="w-full h-full object-cover" />
                       </div>
                       <span className="text-sm text-gray-500">Click to change image</span>
@@ -235,7 +235,7 @@ export default function AdminPhoneShowcase() {
                   placeholder="e.g. Fitness App, E-Commerce..."
                   value={form.label}
                   onChange={e => setForm(f => ({ ...f, label: e.target.value }))}
-                  className="w-full px-4 py-2.5 border border-gray-200 rounded-xl text-sm focus:outline-none focus:border-purple-400"
+                  className="w-full px-4 py-2.5 border border-gray-200 rounded-xl text-sm focus:outline-none focus:border-cyan-400"
                 />
               </div>
 
@@ -247,7 +247,7 @@ export default function AdminPhoneShowcase() {
                     <button key={c} type="button"
                       onClick={() => setForm(f => ({ ...f, color: c }))}
                       className={`flex-1 py-2 rounded-xl text-sm font-bold capitalize border-2 transition-all ${
-                        form.color === c ? "border-purple-500 bg-purple-50 text-purple-700" : "border-gray-200 text-gray-500 hover:border-gray-300"
+                        form.color === c ? "border-cyan-500 bg-cyan-50 text-cyan-700" : "border-gray-200 text-gray-500 hover:border-gray-300"
                       }`}
                     >
                       <span className={`inline-block w-2.5 h-2.5 rounded-full mr-1.5 ${colorDot[c]}`} />
@@ -265,7 +265,7 @@ export default function AdminPhoneShowcase() {
                     type="number"
                     value={form.order}
                     onChange={e => setForm(f => ({ ...f, order: e.target.value }))}
-                    className="w-full px-4 py-2.5 border border-gray-200 rounded-xl text-sm focus:outline-none focus:border-purple-400"
+                    className="w-full px-4 py-2.5 border border-gray-200 rounded-xl text-sm focus:outline-none focus:border-cyan-400"
                   />
                 </div>
                 <div className="flex-1">
@@ -273,7 +273,7 @@ export default function AdminPhoneShowcase() {
                   <select
                     value={form.isActive}
                     onChange={e => setForm(f => ({ ...f, isActive: e.target.value }))}
-                    className="w-full px-4 py-2.5 border border-gray-200 rounded-xl text-sm focus:outline-none focus:border-purple-400"
+                    className="w-full px-4 py-2.5 border border-gray-200 rounded-xl text-sm focus:outline-none focus:border-cyan-400"
                   >
                     <option value="true">Visible</option>
                     <option value="false">Hidden</option>
@@ -287,7 +287,7 @@ export default function AdminPhoneShowcase() {
                   Cancel
                 </button>
                 <button type="submit" disabled={saving}
-                  className="flex-1 py-2.5 rounded-xl bg-purple-600 text-white font-bold text-sm hover:bg-purple-700 disabled:opacity-60">
+                  className="flex-1 py-2.5 rounded-xl bg-cyan-600 text-white font-bold text-sm hover:bg-cyan-700 disabled:opacity-60">
                   {saving ? "Saving..." : editItem ? "Update" : "Add Image"}
                 </button>
               </div>

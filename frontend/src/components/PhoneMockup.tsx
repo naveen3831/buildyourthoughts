@@ -29,7 +29,7 @@ const PhoneMockup = ({
         className={`relative rounded-[2rem] md:rounded-[2.5rem] border-2 border-${color}/30 shadow-[0_0_40px_hsl(var(--${color})/0.2)] overflow-hidden transition-all duration-500 group-hover:shadow-[0_0_60px_hsl(var(--${color})/0.45)] group-hover:border-${color}/60 group-hover:scale-[1.03]`}
         style={{
           aspectRatio: "9/19",
-          background: "linear-gradient(to bottom, #1e1b2e, #0f0d1a)",
+          background: "linear-gradient(to bottom, #07121c, #0b2239)",
         }}
       >
         {/* Full-screen image layer — sits behind notch/status bar */}
@@ -40,7 +40,7 @@ const PhoneMockup = ({
         {/* Notch overlay — on top of image */}
         <div
           className="absolute top-0 left-1/2 -translate-x-1/2 w-20 h-5 rounded-b-2xl z-20 flex items-center justify-center gap-1"
-          style={{ background: "#1e1b2e" }}
+          style={{ background: "#07121c" }}
         >
           <div className="w-1 h-1 rounded-full bg-white/25" />
           <div className="w-6 h-1 rounded-full bg-white/15" />

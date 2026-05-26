@@ -105,7 +105,7 @@ export default function AdminCarousel() {
             <h1 className="text-xl md:text-2xl font-black text-gray-900">Carousel Slides</h1>
             <p className="text-gray-400 text-sm mt-1">Manage hero carousel — add, edit, toggle, delete</p>
           </div>
-          <button onClick={openAdd} className="flex items-center gap-1.5 px-3 md:px-5 py-2 md:py-2.5 rounded-xl bg-purple-600 text-white text-xs md:text-sm font-bold hover:bg-purple-700 shrink-0">
+          <button onClick={openAdd} className="flex items-center gap-1.5 px-3 md:px-5 py-2 md:py-2.5 rounded-xl bg-cyan-600 text-white text-xs md:text-sm font-bold hover:bg-cyan-700 shrink-0">
             + Add Slide
           </button>
         </div>
@@ -123,12 +123,12 @@ export default function AdminCarousel() {
                 {/* Content */}
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2 mb-1 flex-wrap">
-                    <span className="text-[10px] font-bold text-purple-500 uppercase tracking-widest truncate">{s.badge}</span>
+                    <span className="text-[10px] font-bold text-cyan-500 uppercase tracking-widest truncate">{s.badge}</span>
                     <span className={`text-[10px] px-2 py-0.5 rounded-full font-bold shrink-0 ${s.isActive ? "bg-green-100 text-green-600" : "bg-gray-100 text-gray-500"}`}>
                       {s.isActive ? "Active" : "Inactive"}
                     </span>
                   </div>
-                  <h3 className="font-bold text-gray-800 text-sm truncate">{s.title} <span className="text-purple-500">{s.highlight}</span></h3>
+                  <h3 className="font-bold text-gray-800 text-sm truncate">{s.title} <span className="text-cyan-500">{s.highlight}</span></h3>
                   <p className="text-gray-500 text-xs mt-1 line-clamp-2 hidden sm:block">{s.desc}</p>
                   {/* Actions inline on mobile */}
                   <div className="flex gap-2 mt-2 md:hidden">
@@ -172,7 +172,7 @@ export default function AdminCarousel() {
               <div>
                 <label className="block text-[11px] font-bold text-gray-400 uppercase tracking-wider mb-1.5">Description *</label>
                 <textarea value={form.desc} onChange={e => setForm(f => ({ ...f, desc: e.target.value }))} required rows={2}
-                  className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-purple-500 focus:outline-none text-sm resize-none" />
+                  className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-cyan-500 focus:outline-none text-sm resize-none" />
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <CField label="CTA Button Text" value={form.ctaText} onChange={v => setForm(f => ({ ...f, ctaText: v }))} placeholder="Learn More" />
@@ -187,7 +187,7 @@ export default function AdminCarousel() {
               {/* Image upload */}
               <div>
                 <label className="block text-[11px] font-bold text-gray-400 uppercase tracking-wider mb-1.5">Background Image</label>
-                <div onClick={() => fileRef.current?.click()} className="border-2 border-dashed border-gray-200 rounded-xl p-5 text-center cursor-pointer hover:border-purple-400 transition-colors">
+                <div onClick={() => fileRef.current?.click()} className="border-2 border-dashed border-gray-200 rounded-xl p-5 text-center cursor-pointer hover:border-cyan-400 transition-colors">
                   {imagePreview ? (
                     <img src={imagePreview} alt="preview" className="mx-auto max-h-32 rounded-lg object-cover" />
                   ) : (
@@ -198,7 +198,7 @@ export default function AdminCarousel() {
               </div>
 
               <div className="flex gap-3 pt-2">
-                <button type="submit" disabled={saving} className="flex-1 py-3 rounded-xl bg-purple-600 text-white font-bold text-sm hover:bg-purple-700 disabled:opacity-60">
+                <button type="submit" disabled={saving} className="flex-1 py-3 rounded-xl bg-cyan-600 text-white font-bold text-sm hover:bg-cyan-700 disabled:opacity-60">
                   {saving ? "Saving…" : editSlide ? "Update Slide" : "Create Slide"}
                 </button>
                 <button type="button" onClick={() => setShowModal(false)} className="px-6 py-3 rounded-xl border-2 border-gray-200 text-gray-600 font-bold text-sm">Cancel</button>
@@ -218,6 +218,6 @@ const CField = ({ label, value, onChange, required, placeholder, type = "text" }
   <div>
     <label className="block text-[11px] font-bold text-gray-400 uppercase tracking-wider mb-1.5">{label}</label>
     <input type={type} value={value} onChange={e => onChange(e.target.value)} required={required} placeholder={placeholder}
-      className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-purple-500 focus:outline-none text-sm" />
+      className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-cyan-500 focus:outline-none text-sm" />
   </div>
 );

@@ -120,7 +120,7 @@ export default function SiteSettingsPanel({ admin }: { admin?: { email?: string;
       {/* Admin info card */}
       {admin && (
         <div className="bg-white rounded-2xl p-5 border border-gray-100 shadow-sm flex gap-6 items-center">
-          <div className="w-12 h-12 rounded-xl bg-purple-100 flex items-center justify-center text-purple-600 font-black text-xl">
+          <div className="w-12 h-12 rounded-xl bg-cyan-100 flex items-center justify-center text-cyan-600 font-black text-xl">
             {admin.email?.charAt(0).toUpperCase()}
           </div>
           <div>
@@ -142,7 +142,7 @@ export default function SiteSettingsPanel({ admin }: { admin?: { email?: string;
           <button
             onClick={() => handleSave("hero_highlight_color")}
             disabled={saving["hero_highlight_color"]}
-            className={`px-5 py-2 rounded-xl text-sm font-bold transition-colors ${saved["hero_highlight_color"] ? "bg-green-500 text-white" : "bg-purple-600 text-white hover:bg-purple-700"} disabled:opacity-60`}
+            className={`px-5 py-2 rounded-xl text-sm font-bold transition-colors ${saved["hero_highlight_color"] ? "bg-green-500 text-white" : "bg-cyan-600 text-white hover:bg-cyan-700"} disabled:opacity-60`}
           >
             {saving["hero_highlight_color"] ? "Saving…" : saved["hero_highlight_color"] ? "✓ Saved" : "Save"}
           </button>
@@ -150,10 +150,10 @@ export default function SiteSettingsPanel({ admin }: { admin?: { email?: string;
         <div className="p-6">
           <div className="flex gap-4 items-center flex-wrap">
             {/* Color picker */}
-            <div className="flex items-center gap-3 px-4 py-3 rounded-xl border-2 border-gray-200 focus-within:border-purple-500 transition-all bg-white">
+            <div className="flex items-center gap-3 px-4 py-3 rounded-xl border-2 border-gray-200 focus-within:border-cyan-500 transition-all bg-white">
               <input
                 type="color"
-                value={values["hero_highlight_color"] || "#a855f7"}
+                value={values["hero_highlight_color"] || "#0b78d2"}
                 onChange={e => setValues(p => ({ ...p, hero_highlight_color: e.target.value }))}
                 className="w-10 h-10 rounded-lg cursor-pointer border-0 bg-transparent p-0"
               />
@@ -162,17 +162,17 @@ export default function SiteSettingsPanel({ admin }: { admin?: { email?: string;
                 value={values["hero_highlight_color"] || ""}
                 onChange={e => setValues(p => ({ ...p, hero_highlight_color: e.target.value }))}
                 onKeyDown={e => e.key === "Enter" && handleSave("hero_highlight_color")}
-                placeholder="#a855f7"
+                placeholder="#0b78d2"
                 className="w-28 text-sm focus:outline-none font-mono"
               />
             </div>
             {/* Preset swatches */}
             <div className="flex gap-2 flex-wrap">
               {[
-                { label: "Purple", color: "#a855f7" },
+                { label: "Sky Blue", color: "#0b78d2" },
                 { label: "Orange", color: "#f97316" },
                 { label: "Pink", color: "#ec4899" },
-                { label: "Cyan", color: "#06b6d4" },
+                { label: "Cyan", color: "#12b5ff" },
                 { label: "Green", color: "#22c55e" },
                 { label: "Yellow", color: "#eab308" },
                 { label: "Red", color: "#ef4444" },
@@ -192,7 +192,7 @@ export default function SiteSettingsPanel({ admin }: { admin?: { email?: string;
               <p className="text-xs text-gray-400 mb-1">Preview</p>
               <span
                 className="text-2xl font-black"
-                style={{ color: values["hero_highlight_color"] || "#a855f7" }}
+                style={{ color: values["hero_highlight_color"] || "#0b78d2" }}
               >
                 Online &amp; Beyond
               </span>
@@ -211,14 +211,14 @@ export default function SiteSettingsPanel({ admin }: { admin?: { email?: string;
           <button
             onClick={() => handleSaveGroup("stats")}
             disabled={saving["stats"]}
-            className={`px-5 py-2 rounded-xl text-sm font-bold transition-colors ${saved["stats"] ? "bg-green-500 text-white" : "bg-purple-600 text-white hover:bg-purple-700"} disabled:opacity-60`}
+            className={`px-5 py-2 rounded-xl text-sm font-bold transition-colors ${saved["stats"] ? "bg-green-500 text-white" : "bg-cyan-600 text-white hover:bg-cyan-700"} disabled:opacity-60`}
           >
             {saving["stats"] ? "Saving…" : saved["stats"] ? "✓ Saved" : "Save All Stats"}
           </button>
         </div>
         <div className="p-6 grid grid-cols-2 lg:grid-cols-4 gap-4">
           {[
-            { numKey: "stat_projects", suffixKey: "stat_projects_suffix", label: "Projects Delivered", icon: "🚀", color: "purple" },
+            { numKey: "stat_projects", suffixKey: "stat_projects_suffix", label: "Projects Delivered", icon: "🚀", color: "cyan" },
             { numKey: "stat_clients", suffixKey: "stat_clients_suffix", label: "Happy Clients", icon: "😊", color: "blue" },
             { numKey: "stat_team", suffixKey: "stat_team_suffix", label: "Team Members", icon: "👥", color: "green" },
             { numKey: "stat_experience", suffixKey: "stat_experience_suffix", label: "Years Experience", icon: "⭐", color: "orange" },
@@ -229,7 +229,7 @@ export default function SiteSettingsPanel({ admin }: { admin?: { email?: string;
                 <span className="text-xs font-bold text-gray-500 uppercase tracking-wider">{stat.label}</span>
               </div>
               {/* Preview */}
-              <div className="text-3xl font-black text-purple-600 mb-3">
+              <div className="text-3xl font-black text-cyan-600 mb-3">
                 {values[stat.numKey] || "0"}{values[stat.suffixKey] || "+"}
               </div>
               <div className="flex gap-2">
@@ -239,7 +239,7 @@ export default function SiteSettingsPanel({ admin }: { admin?: { email?: string;
                     type="number"
                     value={values[stat.numKey] || ""}
                     onChange={e => setValues(p => ({ ...p, [stat.numKey]: e.target.value }))}
-                    className="w-full px-3 py-2 rounded-lg border-2 border-gray-200 focus:border-purple-500 focus:outline-none text-sm font-bold"
+                    className="w-full px-3 py-2 rounded-lg border-2 border-gray-200 focus:border-cyan-500 focus:outline-none text-sm font-bold"
                     min="0"
                   />
                 </div>
@@ -249,7 +249,7 @@ export default function SiteSettingsPanel({ admin }: { admin?: { email?: string;
                     type="text"
                     value={values[stat.suffixKey] || ""}
                     onChange={e => setValues(p => ({ ...p, [stat.suffixKey]: e.target.value }))}
-                    className="w-full px-3 py-2 rounded-lg border-2 border-gray-200 focus:border-purple-500 focus:outline-none text-sm font-bold text-center"
+                    className="w-full px-3 py-2 rounded-lg border-2 border-gray-200 focus:border-cyan-500 focus:outline-none text-sm font-bold text-center"
                     maxLength={3}
                     placeholder="+"
                   />
@@ -267,24 +267,24 @@ export default function SiteSettingsPanel({ admin }: { admin?: { email?: string;
           </h3>
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
             {[
-              { valKey: "whyus_stat1_val", labelKey: "whyus_stat1_label", color: "purple" },
+              { valKey: "whyus_stat1_val", labelKey: "whyus_stat1_label", color: "cyan" },
               { valKey: "whyus_stat2_val", labelKey: "whyus_stat2_label", color: "blue" },
               { valKey: "whyus_stat3_val", labelKey: "whyus_stat3_label", color: "yellow" },
               { valKey: "whyus_stat4_val", labelKey: "whyus_stat4_label", color: "pink" },
             ].map((stat, i) => (
               <div key={stat.valKey} className="bg-gray-50 rounded-2xl p-4 border border-gray-100">
-                <div className="text-2xl font-black text-purple-600 mb-2">{values[stat.valKey] || "—"}</div>
+                <div className="text-2xl font-black text-cyan-600 mb-2">{values[stat.valKey] || "—"}</div>
                 <div className="text-xs text-gray-500 mb-3">{values[stat.labelKey] || "—"}</div>
                 <div className="space-y-2">
                   <div>
                     <label className="text-[10px] text-gray-400 font-bold uppercase tracking-wider block mb-1">Value</label>
                     <input type="text" value={values[stat.valKey] || ""} onChange={e => setValues(p => ({ ...p, [stat.valKey]: e.target.value }))}
-                      className="w-full px-3 py-2 rounded-lg border-2 border-gray-200 focus:border-purple-500 focus:outline-none text-sm font-bold" placeholder="99%" />
+                      className="w-full px-3 py-2 rounded-lg border-2 border-gray-200 focus:border-cyan-500 focus:outline-none text-sm font-bold" placeholder="99%" />
                   </div>
                   <div>
                     <label className="text-[10px] text-gray-400 font-bold uppercase tracking-wider block mb-1">Label</label>
                     <input type="text" value={values[stat.labelKey] || ""} onChange={e => setValues(p => ({ ...p, [stat.labelKey]: e.target.value }))}
-                      className="w-full px-3 py-2 rounded-lg border-2 border-gray-200 focus:border-purple-500 focus:outline-none text-sm" placeholder="Satisfaction" />
+                      className="w-full px-3 py-2 rounded-lg border-2 border-gray-200 focus:border-cyan-500 focus:outline-none text-sm" placeholder="Satisfaction" />
                   </div>
                 </div>
               </div>
@@ -300,7 +300,7 @@ export default function SiteSettingsPanel({ admin }: { admin?: { email?: string;
               <div key={n}>
                 <label className="text-[10px] text-gray-400 font-bold uppercase tracking-wider block mb-1">Point {n}</label>
                 <input type="text" value={values[`whyus_point${n}`] || ""} onChange={e => setValues(p => ({ ...p, [`whyus_point${n}`]: e.target.value }))}
-                  className="w-full px-3 py-2 rounded-lg border-2 border-gray-200 focus:border-purple-500 focus:outline-none text-sm" />
+                  className="w-full px-3 py-2 rounded-lg border-2 border-gray-200 focus:border-cyan-500 focus:outline-none text-sm" />
               </div>
             ))}
           </div>
@@ -317,18 +317,18 @@ export default function SiteSettingsPanel({ admin }: { admin?: { email?: string;
               { valKey: "proj_stat4_val", labelKey: "proj_stat4_label" },
             ].map((stat, i) => (
               <div key={stat.valKey} className="bg-gray-50 rounded-2xl p-4 border border-gray-100">
-                <div className="text-2xl font-black text-purple-600 mb-2">{values[stat.valKey] || "—"}</div>
+                <div className="text-2xl font-black text-cyan-600 mb-2">{values[stat.valKey] || "—"}</div>
                 <div className="text-xs text-gray-500 mb-3">{values[stat.labelKey] || "—"}</div>
                 <div className="space-y-2">
                   <div>
                     <label className="text-[10px] text-gray-400 font-bold uppercase tracking-wider block mb-1">Value</label>
                     <input type="text" value={values[stat.valKey] || ""} onChange={e => setValues(p => ({ ...p, [stat.valKey]: e.target.value }))}
-                      className="w-full px-3 py-2 rounded-lg border-2 border-gray-200 focus:border-purple-500 focus:outline-none text-sm font-bold" />
+                      className="w-full px-3 py-2 rounded-lg border-2 border-gray-200 focus:border-cyan-500 focus:outline-none text-sm font-bold" />
                   </div>
                   <div>
                     <label className="text-[10px] text-gray-400 font-bold uppercase tracking-wider block mb-1">Label</label>
                     <input type="text" value={values[stat.labelKey] || ""} onChange={e => setValues(p => ({ ...p, [stat.labelKey]: e.target.value }))}
-                      className="w-full px-3 py-2 rounded-lg border-2 border-gray-200 focus:border-purple-500 focus:outline-none text-sm" />
+                      className="w-full px-3 py-2 rounded-lg border-2 border-gray-200 focus:border-cyan-500 focus:outline-none text-sm" />
                   </div>
                 </div>
               </div>
@@ -345,7 +345,7 @@ export default function SiteSettingsPanel({ admin }: { admin?: { email?: string;
               const meta = groupLabels[g] || { icon: "⚙️", title: g };
               return (
                 <button key={g} onClick={() => setActiveGroup(g)}
-                  className={`w-full flex items-center gap-3 px-4 py-3.5 text-sm font-medium text-left border-b border-gray-50 last:border-0 transition-colors ${activeGroup === g ? "bg-purple-50 text-purple-700 font-bold" : "text-gray-600 hover:bg-gray-50"}`}>
+                  className={`w-full flex items-center gap-3 px-4 py-3.5 text-sm font-medium text-left border-b border-gray-50 last:border-0 transition-colors ${activeGroup === g ? "bg-cyan-50 text-cyan-700 font-bold" : "text-gray-600 hover:bg-gray-50"}`}>
                   <span>{meta.icon}</span>
                   <span>{meta.title}</span>
                 </button>
@@ -353,7 +353,7 @@ export default function SiteSettingsPanel({ admin }: { admin?: { email?: string;
             })}
             {/* Assets tab */}
             <button onClick={() => setActiveGroup("assets")}
-              className={`w-full flex items-center gap-3 px-4 py-3.5 text-sm font-medium text-left border-b border-gray-50 last:border-0 transition-colors ${activeGroup === "assets" ? "bg-purple-50 text-purple-700 font-bold" : "text-gray-600 hover:bg-gray-50"}`}>
+              className={`w-full flex items-center gap-3 px-4 py-3.5 text-sm font-medium text-left border-b border-gray-50 last:border-0 transition-colors ${activeGroup === "assets" ? "bg-cyan-50 text-cyan-700 font-bold" : "text-gray-600 hover:bg-gray-50"}`}>
               <span>🖼️</span>
               <span>Site Images</span>
             </button>
@@ -369,7 +369,7 @@ export default function SiteSettingsPanel({ admin }: { admin?: { email?: string;
                 {groupLabels[activeGroup]?.icon} {groupLabels[activeGroup]?.title || activeGroup}
               </h2>
               <button onClick={() => handleSaveGroup(activeGroup)} disabled={saving[activeGroup]}
-                className={`px-5 py-2 rounded-xl text-sm font-bold transition-colors ${saved[activeGroup] ? "bg-green-500 text-white" : "bg-purple-600 text-white hover:bg-purple-700"} disabled:opacity-60`}>
+                className={`px-5 py-2 rounded-xl text-sm font-bold transition-colors ${saved[activeGroup] ? "bg-green-500 text-white" : "bg-cyan-600 text-white hover:bg-cyan-700"} disabled:opacity-60`}>
                 {saving[activeGroup] ? "Saving…" : saved[activeGroup] ? "✓ All Saved" : "Save All"}
               </button>
             </div>
@@ -381,10 +381,10 @@ export default function SiteSettingsPanel({ admin }: { admin?: { email?: string;
 
                   {item.type === "color" ? (
                     <div className="flex gap-3 items-center">
-                      <div className="relative flex items-center gap-2 flex-1 px-4 py-2.5 rounded-xl border-2 border-gray-200 focus-within:border-purple-500 transition-all bg-white">
+                      <div className="relative flex items-center gap-2 flex-1 px-4 py-2.5 rounded-xl border-2 border-gray-200 focus-within:border-cyan-500 transition-all bg-white">
                         <input
                           type="color"
-                          value={values[item.key] || "#7c3aed"}
+                          value={values[item.key] || "#0b78d2"}
                           onChange={e => setValues(p => ({ ...p, [item.key]: e.target.value }))}
                           className="w-8 h-8 rounded cursor-pointer border-0 bg-transparent p-0"
                         />
@@ -396,10 +396,9 @@ export default function SiteSettingsPanel({ admin }: { admin?: { email?: string;
                           placeholder="#000000"
                           className="flex-1 text-sm focus:outline-none font-mono"
                         />
-                        <div className="w-6 h-6 rounded-full border border-gray-200 shrink-0" style={{ background: values[item.key] || "#7c3aed" }} />
-                      </div>
+                        <div className="w-6 h-6 rounded-full border border-gray-200 shrink-0" style={{ background: values[item.key] || "#0b78d2" }} />                      </div>
                       <button onClick={() => handleSave(item.key)} disabled={saving[item.key]}
-                        className={`px-4 py-2.5 rounded-xl text-sm font-bold transition-colors ${saved[item.key] ? "bg-green-500 text-white" : "bg-purple-600 text-white hover:bg-purple-700"} disabled:opacity-60`}>
+                        className={`px-4 py-2.5 rounded-xl text-sm font-bold transition-colors ${saved[item.key] ? "bg-green-500 text-white" : "bg-cyan-600 text-white hover:bg-cyan-700"} disabled:opacity-60`}>
                         {saving[item.key] ? "…" : saved[item.key] ? "✓" : "Save"}
                       </button>
                     </div>
@@ -411,7 +410,7 @@ export default function SiteSettingsPanel({ admin }: { admin?: { email?: string;
                           setValues(p => ({ ...p, [item.key]: newVal }));
                           setTimeout(() => handleSave(item.key), 100);
                         }}
-                        className={`relative w-12 h-6 rounded-full transition-colors duration-300 ${values[item.key] === "true" ? "bg-purple-600" : "bg-gray-300"}`}>
+                        className={`relative w-12 h-6 rounded-full transition-colors duration-300 ${values[item.key] === "true" ? "bg-cyan-600" : "bg-gray-300"}`}>
                         <span className={`absolute top-0.5 left-0.5 w-5 h-5 rounded-full bg-white shadow transition-transform duration-300 ${values[item.key] === "true" ? "translate-x-6" : "translate-x-0"}`} />
                       </button>
                       <span className="text-sm text-gray-600">{values[item.key] === "true" ? "Enabled" : "Disabled"}</span>
@@ -422,10 +421,10 @@ export default function SiteSettingsPanel({ admin }: { admin?: { email?: string;
                         value={values[item.key] || ""}
                         onChange={e => setValues(p => ({ ...p, [item.key]: e.target.value }))}
                         rows={3}
-                        className="flex-1 px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-purple-500 focus:outline-none text-sm resize-none transition-all"
+                        className="flex-1 px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-cyan-500 focus:outline-none text-sm resize-none transition-all"
                       />
                       <button onClick={() => handleSave(item.key)} disabled={saving[item.key]}
-                        className={`px-4 py-2 rounded-xl text-sm font-bold self-start transition-colors ${saved[item.key] ? "bg-green-500 text-white" : "bg-purple-600 text-white hover:bg-purple-700"} disabled:opacity-60`}>
+                        className={`px-4 py-2 rounded-xl text-sm font-bold self-start transition-colors ${saved[item.key] ? "bg-green-500 text-white" : "bg-cyan-600 text-white hover:bg-cyan-700"} disabled:opacity-60`}>
                         {saving[item.key] ? "…" : saved[item.key] ? "✓" : "Save"}
                       </button>
                     </div>
@@ -437,10 +436,10 @@ export default function SiteSettingsPanel({ admin }: { admin?: { email?: string;
                         onChange={e => setValues(p => ({ ...p, [item.key]: e.target.value }))}
                         onKeyDown={e => e.key === "Enter" && handleSave(item.key)}
                         placeholder={item.type === "url" ? "https://..." : ""}
-                        className="flex-1 px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-purple-500 focus:outline-none text-sm transition-all"
+                        className="flex-1 px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-cyan-500 focus:outline-none text-sm transition-all"
                       />
                       <button onClick={() => handleSave(item.key)} disabled={saving[item.key]}
-                        className={`px-4 py-2.5 rounded-xl text-sm font-bold transition-colors ${saved[item.key] ? "bg-green-500 text-white" : "bg-purple-600 text-white hover:bg-purple-700"} disabled:opacity-60`}>
+                        className={`px-4 py-2.5 rounded-xl text-sm font-bold transition-colors ${saved[item.key] ? "bg-green-500 text-white" : "bg-cyan-600 text-white hover:bg-cyan-700"} disabled:opacity-60`}>
                         {saving[item.key] ? "…" : saved[item.key] ? "✓" : "Save"}
                       </button>
                     </div>
@@ -490,7 +489,7 @@ export default function SiteSettingsPanel({ admin }: { admin?: { email?: string;
                         <button
                           onClick={() => fileRefs.current[field.key]?.click()}
                           disabled={assetSaving[field.key]}
-                          className="px-5 py-2.5 rounded-xl bg-purple-600 text-white text-sm font-bold hover:bg-purple-700 disabled:opacity-60 transition-colors"
+                          className="px-5 py-2.5 rounded-xl bg-cyan-600 text-white text-sm font-bold hover:bg-cyan-700 disabled:opacity-60 transition-colors"
                         >
                           {assetSaving[field.key] ? "Uploading…" : assets[field.key] ? "Replace Image" : "Upload Image"}
                         </button>

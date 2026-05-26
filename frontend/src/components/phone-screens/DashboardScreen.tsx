@@ -16,7 +16,7 @@ const DashboardScreen = () => (
     <div className="px-3 grid grid-cols-2 gap-1.5 mb-2">
       {[
         { label: "Revenue", val: "₹4.2L", change: "+12%", color: "cyan" },
-        { label: "Users", val: "8,420", change: "+8%", color: "purple" },
+        { label: "Users", val: "8,420", change: "+8%", color: "cyan" },
         { label: "Orders", val: "1,240", change: "+5%", color: "green" },
         { label: "Churn", val: "2.1%", change: "-0.4%", color: "orange" },
       ].map((k) => (

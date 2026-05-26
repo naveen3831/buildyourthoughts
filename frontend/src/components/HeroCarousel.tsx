@@ -7,9 +7,9 @@ import { Link } from "react-router-dom";
 import { cn } from "@/lib/utils";
 
 const GRADIENT_SLIDES = [
-  "linear-gradient(135deg, #1a0533 0%, #2d1b69 40%, #0f3460 100%)",
-  "linear-gradient(135deg, #0f2027 0%, #203a43 40%, #2c5364 100%)",
-  "linear-gradient(135deg, #0d0d0d 0%, #1a1a2e 40%, #16213e 100%)",
+  "linear-gradient(140deg, #03121e 0%, #0d3f70 42%, #0f8dc4 100%)",
+  "linear-gradient(140deg, #041525 0%, #0b4e82 40%, #12b5ff 100%)",
+  "linear-gradient(140deg, #020b17 0%, #0f3d70 38%, #0aa4e0 100%)",
 ];
 
 interface ApiSlide {
@@ -51,7 +51,7 @@ function preloadImage(src: string) {
   img.src = src;
 }
 
-/** Always split headline into white title + purple highlight (old two-color style). */
+/** Always split headline into white title + primary highlight. */
 function splitHeroHeadline(title: string, highlight: string) {
   const t = title.trim();
   let h = highlight.trim();
@@ -158,7 +158,9 @@ const HeroCarousel = () => {
   };
 
   return (
-    <section className="relative min-h-[65vh] md:min-h-[75vh] flex items-center justify-center text-center overflow-hidden bg-black -mt-20 isolate">
+    <section className="relative min-h-[70vh] md:min-h-[85vh] flex items-center justify-center text-center overflow-hidden bg-background -mt-20 isolate">
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,_rgba(9,184,255,0.18),_transparent_22%),radial-gradient(circle_at_20%_20%,_rgba(16,145,255,0.12),_transparent_24%)] pointer-events-none" aria-hidden="true" />
+      <div className="absolute inset-0 bg-[linear-gradient(180deg,_rgba(11,43,80,0.42),_rgba(7,16,32,0.96))] pointer-events-none" aria-hidden="true" />
       {/* Slide backgrounds */}
       {slides.map((s, i) => {
         const active = i === current || i === prevIdx;
@@ -190,19 +192,19 @@ const HeroCarousel = () => {
         );
       })}
 
-      {/* Dark overlay — text dominates; only white + purple on copy (old style) */}
+      {/* Dark overlay — text dominates; only white + cyan on copy (old style) */}
       <div
         className={cn(
           "absolute inset-0 z-[2] pointer-events-none",
-          showImage(current) ? "bg-black/50" : "bg-black/30"
+          showImage(current) ? "bg-slate-950/60" : "bg-slate-950/40"
         )}
       />
-      <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-black/70 to-transparent z-[2] pointer-events-none" />
-      <div className="absolute top-0 left-0 right-0 h-28 bg-gradient-to-b from-black/55 to-transparent z-[2] pointer-events-none" />
+      <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-slate-950/85 to-transparent z-[2] pointer-events-none" />
+      <div className="absolute top-0 left-0 right-0 h-28 bg-gradient-to-b from-slate-950/70 to-transparent z-[2] pointer-events-none" />
 
       <div className="relative z-10 container px-5 pt-24 md:pt-24 pb-10 md:pb-12">
         <div key={`badge-${current}`} className="animate-hero-pop mb-4 md:mb-8">
-          <span className="inline-flex items-center gap-2 px-4 py-1.5 md:px-5 md:py-2 rounded-full bg-white/15 border border-white/30 text-white text-xs md:text-sm backdrop-blur-sm">
+          <span className="inline-flex items-center gap-2 px-4 py-1.5 md:px-5 md:py-2 rounded-full bg-slate-950/20 border border-slate-400/10 text-white text-xs md:text-sm backdrop-blur-sm">
             <span className="w-1.5 h-1.5 md:w-2 md:h-2 rounded-full bg-primary shrink-0" />
             <span className="truncate max-w-[200px] md:max-w-none">{slide.badge}</span>
             <ArrowRight size={12} className="text-primary shrink-0" />
@@ -211,15 +213,14 @@ const HeroCarousel = () => {
 
         <h1
           key={`title-${current}`}
-          className="animate-hero-pop font-heading font-bold mb-3 md:mb-6 tracking-tight leading-tight"
+          className="animate-hero-pop font-heading font-black mb-3 md:mb-6 tracking-tight leading-tight"
           style={{ animationDelay: "80ms" }}
         >
-          <span className="block text-[1.75rem] sm:text-4xl md:text-5xl lg:text-6xl text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.55)]">
+          <span className="block text-[1.9rem] sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl text-white drop-shadow-[0_10px_40px_rgba(0,0,0,0.35)]">
             {titlePart}
           </span>
           <span
-            className="block text-[1.75rem] sm:text-4xl md:text-5xl lg:text-6xl mt-1 md:mt-2 text-primary"
-            style={{ color: "var(--hero-highlight, hsl(var(--primary)))" }}
+            className="block text-[1.9rem] sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl mt-1 md:mt-2 text-transparent bg-clip-text bg-gradient-to-r from-primary via-accent to-secondary drop-shadow-[0_0_24px_rgba(5,166,255,0.35)]"
           >
             {highlightPart}
           </span>
@@ -228,7 +229,7 @@ const HeroCarousel = () => {
         {slide.desc ? (
           <p
             key={`desc-${current}`}
-            className="animate-hero-pop text-white/85 max-w-2xl mx-auto text-xs md:text-xl mb-5 md:mb-10 font-light leading-relaxed drop-shadow-[0_1px_4px_rgba(0,0,0,0.4)] px-2 md:px-0"
+            className="animate-hero-pop text-white/75 max-w-3xl mx-auto text-sm md:text-lg lg:text-xl mb-6 md:mb-12 font-light leading-relaxed drop-shadow-[0_1px_6px_rgba(0,0,0,0.35)] px-2 md:px-0"
             style={{ animationDelay: "160ms" }}
           >
             {slide.desc}
@@ -242,13 +243,13 @@ const HeroCarousel = () => {
         >
           <Link
             to={slide.cta.to}
-            className="w-full sm:w-auto px-6 md:px-8 py-3 md:py-3.5 rounded-full bg-primary text-primary-foreground font-bold uppercase tracking-widest text-sm hover:shadow-[0_0_25px_hsl(var(--primary)/0.5)] hover:scale-105 transition-all duration-300"
+            className="w-full sm:w-auto px-6 md:px-8 py-3 md:py-3.5 rounded-full bg-primary text-primary-foreground font-bold uppercase tracking-widest text-sm shadow-[0_10px_30px_hsl(var(--primary)/0.18)] hover:shadow-[0_12px_34px_hsl(var(--primary)/0.25)] hover:scale-105 transition-all duration-300"
           >
             {slide.cta.text}
           </Link>
           <Link
             to={slide.cta2.to}
-            className="w-full sm:w-auto px-6 md:px-8 py-3 md:py-3.5 rounded-full bg-white/15 border border-white/30 text-white font-bold text-sm hover:bg-white/25 backdrop-blur-sm transition-all duration-300"
+            className="w-full sm:w-auto px-6 md:px-8 py-3 md:py-3.5 rounded-full bg-white/10 border border-white/20 text-white font-bold text-sm hover:bg-white/20 backdrop-blur-sm transition-all duration-300"
           >
             {slide.cta2.text}
           </Link>

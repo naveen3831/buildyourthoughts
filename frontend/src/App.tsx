@@ -130,7 +130,7 @@ const AppRoutes = () => {
 
     return (
 
-      <div className="min-h-screen flex flex-col items-center justify-center bg-[#1e1b2e] text-white text-center px-6">
+      <div className="min-h-screen flex flex-col items-center justify-center bg-slate-950 text-white text-center px-6">
 
         <div className="mb-8 text-6xl">🔧</div>
 
@@ -154,7 +154,7 @@ const AppRoutes = () => {
 
           For urgent inquiries:{" "}
 
-          <a href={`mailto:${contactEmail}`} className="text-purple-400 hover:underline">
+          <a href={`mailto:${contactEmail}`} className="text-cyan-400 hover:underline">
 
             {contactEmail}
 

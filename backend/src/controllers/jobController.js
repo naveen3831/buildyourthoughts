@@ -34,15 +34,15 @@ const sendApplicationEmail = async ({ jobTitle, name, email, phone, coverLetter,
     replyTo: email,
     subject: `New Job Application: ${jobTitle} — ${name}`,
     html: `
-      <div style="font-family:Arial,sans-serif;max-width:600px;margin:0 auto">
-        <h2 style="color:#7c3aed;border-bottom:2px solid #7c3aed;padding-bottom:8px">New Job Application</h2>
+      <div style="font-family:'Times New Roman',serif;max-width:600px;margin:0 auto">
+        <h2 style="color:#0b78d2;border-bottom:2px solid #0b78d2;padding-bottom:8px">New Job Application</h2>
         <table style="border-collapse:collapse;width:100%;margin-top:16px">
           <tr style="background:#f9f9f9"><td style="padding:10px 14px;font-weight:bold;width:140px">Position</td><td style="padding:10px 14px">${jobTitle}</td></tr>
           <tr><td style="padding:10px 14px;font-weight:bold">Applicant</td><td style="padding:10px 14px">${name}</td></tr>
           <tr style="background:#f9f9f9"><td style="padding:10px 14px;font-weight:bold">Email</td><td style="padding:10px 14px"><a href="mailto:${email}">${email}</a></td></tr>
           <tr><td style="padding:10px 14px;font-weight:bold">Phone</td><td style="padding:10px 14px">${phone || "—"}</td></tr>
           <tr style="background:#f9f9f9"><td style="padding:10px 14px;font-weight:bold">Cover Letter</td><td style="padding:10px 14px">${coverLetter || "—"}</td></tr>
-          ${resumeUrl ? `<tr><td style="padding:10px 14px;font-weight:bold">Resume Link</td><td style="padding:10px 14px"><a href="${resumeUrl}" style="color:#7c3aed">View / Download Resume</a></td></tr>` : ""}
+          ${resumeUrl ? `<tr><td style="padding:10px 14px;font-weight:bold">Resume Link</td><td style="padding:10px 14px"><a href="${resumeUrl}" style="color:#0b78d2">View / Download Resume</a></td></tr>` : ""}
         </table>
         <p style="color:#888;font-size:12px;margin-top:24px">This application was submitted via the BUILD YOUR THOUGHTS careers page.</p>
       </div>

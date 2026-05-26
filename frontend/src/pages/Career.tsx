@@ -185,7 +185,7 @@ const Career = () => {
                   <Link to={`/career/${(j as ApiJob)._id || ""}`} className="flex-1 md:flex-none">
                     <button
                       className="w-full px-4 md:px-8 py-2 md:py-4 rounded-full font-bold uppercase tracking-widest transition-all duration-300 hover:scale-105 shadow-lg text-white text-xs md:text-sm"
-                      style={{ background: "linear-gradient(135deg, #7c3aed, #a855f7)", boxShadow: "0 4px 20px rgba(124,58,237,0.4)" }}
+                      style={{ background: "linear-gradient(135deg, #0b78d2, #12b5ff)", boxShadow: "0 4px 20px rgba(11,120,210,0.35)" }}
                     >
                       View Details <ArrowRight size={12} className="inline ml-1" />
                     </button>

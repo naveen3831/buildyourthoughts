@@ -7,14 +7,14 @@ const FitnessScreen = () => (
           <div className="text-[8px] text-violet-400">Welcome back</div>
           <div className="text-[10px] font-bold text-white">FitPulse</div>
         </div>
-        <div className="w-7 h-7 rounded-full bg-gradient-to-br from-violet-500 to-purple-600 flex items-center justify-center text-[9px] font-bold">
+        <div className="w-7 h-7 rounded-full bg-gradient-to-br from-cyan-500 to-cyan-600 flex items-center justify-center text-[9px] font-bold">
           A
         </div>
       </div>
     </div>
 
     {/* Ring progress */}
-    <div className="mx-3 bg-gradient-to-br from-violet-900/50 to-purple-900/50 rounded-2xl p-3 border border-violet-500/20">
+    <div className="mx-3 bg-gradient-to-br from-sky-900/50 to-cyan-900/50 rounded-2xl p-3 border border-violet-500/20">
       <div className="flex items-center gap-3">
         <div className="relative w-14 h-14 shrink-0">
           <svg viewBox="0 0 56 56" className="w-full h-full -rotate-90">
@@ -58,7 +58,7 @@ const FitnessScreen = () => (
         { name: "Plank", sets: "3×60s", done: false },
       ].map((w) => (
         <div key={w.name} className="flex items-center gap-2 py-1.5 border-b border-white/5">
-          <div className={`w-4 h-4 rounded-full border flex items-center justify-center shrink-0 ${w.done ? "bg-violet-500 border-violet-500" : "border-white/20"}`}>
+          <div className={`w-4 h-4 rounded-full border flex items-center justify-center shrink-0 ${w.done ? "bg-cyan-500 border-violet-500" : "border-white/20"}`}>
             {w.done && <span className="text-[7px] text-white">✓</span>}
           </div>
           <span className={`text-[8px] flex-1 ${w.done ? "line-through text-white/40" : "text-white"}`}>{w.name}</span>

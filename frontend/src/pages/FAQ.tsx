@@ -21,7 +21,7 @@ const getCategoryStyle = (category: string, isLight: boolean): React.CSSProperti
   const styles: Record<string, { light: React.CSSProperties; dark: React.CSSProperties }> = {
     Services: {
       light: { background: "#ede9fe", color: "#6d28d9", border: "1px solid #c4b5fd" },
-      dark:  { background: "rgba(109,40,217,0.2)", color: "#a78bfa", border: "1px solid rgba(167,139,250,0.4)" },
+      dark:  { background: "rgba(14,165,233,0.2)", color: "#38bdf8", border: "1px solid rgba(56,189,248,0.4)" },
     },
     Process: {
       light: { background: "#fef3c7", color: "#b45309", border: "1px solid #fcd34d" },

@@ -12,9 +12,9 @@ export default {
     },
     extend: {
       fontFamily: {
-        sans: ["Noto Sans", "system-ui", "sans-serif"],
-        heading: ["Roboto Condensed", "Noto Sans", "system-ui", "sans-serif"],
-        condensed: ["Roboto Condensed", "sans-serif"],
+        sans: ["Times New Roman", "serif"],
+        heading: ["Times New Roman", "serif"],
+        condensed: ["Times New Roman", "serif"],
       },
       colors: {
         border: "hsl(var(--border))",

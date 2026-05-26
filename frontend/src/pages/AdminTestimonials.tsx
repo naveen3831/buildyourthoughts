@@ -95,7 +95,7 @@ export default function AdminTestimonials() {
             <h1 className="text-xl md:text-2xl font-black text-gray-900">Client Testimonials</h1>
             <p className="text-gray-400 text-sm mt-1">Manage what clients say — changes reflect on the home page</p>
           </div>
-          <button onClick={openAdd} className="px-3 md:px-5 py-2 md:py-2.5 rounded-xl bg-purple-600 text-white text-xs md:text-sm font-bold hover:bg-purple-700 shrink-0">
+          <button onClick={openAdd} className="px-3 md:px-5 py-2 md:py-2.5 rounded-xl bg-cyan-600 text-white text-xs md:text-sm font-bold hover:bg-cyan-700 shrink-0">
             + Add
           </button>
         </div>
@@ -107,7 +107,7 @@ export default function AdminTestimonials() {
             {items.map(t => (
               <div key={t._id} className={`bg-white rounded-2xl border shadow-sm p-4 md:p-6 transition-all ${t.isActive ? "border-gray-100" : "border-gray-200 opacity-60"}`}>
                 <div className="flex gap-3 md:gap-5 items-start">
-                  <div className="w-10 h-10 md:w-12 md:h-12 rounded-xl bg-purple-100 flex items-center justify-center font-black text-lg md:text-xl text-purple-600 shrink-0">
+                  <div className="w-10 h-10 md:w-12 md:h-12 rounded-xl bg-cyan-100 flex items-center justify-center font-black text-lg md:text-xl text-cyan-600 shrink-0">
                     {t.name.charAt(0)}
                   </div>
                   <div className="flex-1 min-w-0">
@@ -150,20 +150,20 @@ export default function AdminTestimonials() {
                 <label className="block text-[11px] font-bold text-gray-400 uppercase tracking-wider mb-1.5">Message *</label>
                 <textarea value={form.text} onChange={e => setForm(p => ({ ...p, text: e.target.value }))} required rows={4}
                   placeholder="What the client said..."
-                  className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-purple-500 focus:outline-none text-sm resize-none" />
+                  className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-cyan-500 focus:outline-none text-sm resize-none" />
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <label className="block text-[11px] font-bold text-gray-400 uppercase tracking-wider mb-1.5">Rating</label>
                   <select value={form.rating} onChange={e => setForm(p => ({ ...p, rating: e.target.value }))}
-                    className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-purple-500 focus:outline-none text-sm">
+                    className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-cyan-500 focus:outline-none text-sm">
                     {[5, 4, 3, 2, 1].map(r => <option key={r} value={r}>{"★".repeat(r)} ({r})</option>)}
                   </select>
                 </div>
                 <TField label="Order" value={form.order} onChange={f("order")} type="number" />
               </div>
               <div className="flex gap-3 pt-2">
-                <button type="submit" disabled={saving} className="flex-1 py-3 rounded-xl bg-purple-600 text-white font-bold text-sm hover:bg-purple-700 disabled:opacity-60">
+                <button type="submit" disabled={saving} className="flex-1 py-3 rounded-xl bg-cyan-600 text-white font-bold text-sm hover:bg-cyan-700 disabled:opacity-60">
                   {saving ? "Saving..." : editing ? "Update" : "Add Testimonial"}
                 </button>
                 <button type="button" onClick={() => setShowModal(false)} className="px-6 py-3 rounded-xl border-2 border-gray-200 text-gray-600 font-bold text-sm">Cancel</button>
@@ -183,6 +183,6 @@ const TField = ({ label, value, onChange, required, placeholder, type = "text" }
   <div>
     <label className="block text-[11px] font-bold text-gray-400 uppercase tracking-wider mb-1.5">{label}</label>
     <input type={type} value={value} onChange={e => onChange(e.target.value)} required={required} placeholder={placeholder}
-      className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-purple-500 focus:outline-none text-sm" />
+      className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-cyan-500 focus:outline-none text-sm" />
   </div>
 );

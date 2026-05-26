@@ -141,7 +141,7 @@ export default function AdminJobs() {
             <p className="text-gray-400 text-sm mt-1">Manage job postings and review applicants</p>
           </div>
           {tab === "jobs" && (
-            <button onClick={openAdd} className="flex items-center gap-1.5 px-3 md:px-5 py-2 md:py-2.5 rounded-xl bg-purple-600 text-white text-xs md:text-sm font-bold hover:bg-purple-700 shrink-0">
+            <button onClick={openAdd} className="flex items-center gap-1.5 px-3 md:px-5 py-2 md:py-2.5 rounded-xl bg-cyan-600 text-white text-xs md:text-sm font-bold hover:bg-cyan-700 shrink-0">
               + Add Job
             </button>
           )}
@@ -150,11 +150,11 @@ export default function AdminJobs() {
         {/* Tabs */}
         <div className="flex gap-2 mb-6">
           <button onClick={() => setTab("jobs")}
-            className={`px-5 py-2 rounded-xl text-sm font-bold transition-colors ${tab === "jobs" ? "bg-purple-600 text-white" : "bg-white text-gray-600 border border-gray-200 hover:bg-gray-50"}`}>
+            className={`px-5 py-2 rounded-xl text-sm font-bold transition-colors ${tab === "jobs" ? "bg-cyan-600 text-white" : "bg-white text-gray-600 border border-gray-200 hover:bg-gray-50"}`}>
             Job Postings ({jobs.length})
           </button>
           <button onClick={() => setTab("applications")}
-            className={`px-5 py-2 rounded-xl text-sm font-bold transition-colors ${tab === "applications" ? "bg-purple-600 text-white" : "bg-white text-gray-600 border border-gray-200 hover:bg-gray-50"}`}>
+            className={`px-5 py-2 rounded-xl text-sm font-bold transition-colors ${tab === "applications" ? "bg-cyan-600 text-white" : "bg-white text-gray-600 border border-gray-200 hover:bg-gray-50"}`}>
             Applications ({applications.length})
           </button>
         </div>
@@ -173,7 +173,7 @@ export default function AdminJobs() {
                         <div className="flex flex-wrap items-center gap-2 mb-1">
                           <h3 className="font-bold text-gray-800 text-base">{j.title}</h3>
                           <span className={`text-[10px] px-2 py-0.5 rounded-full font-bold shrink-0 ${statusColors[j.status] || "bg-gray-100 text-gray-600"}`}>{j.status}</span>
-                          <span className="text-[10px] px-2 py-0.5 rounded-full bg-purple-50 text-purple-600 font-bold shrink-0">
+                          <span className="text-[10px] px-2 py-0.5 rounded-full bg-cyan-50 text-cyan-600 font-bold shrink-0">
                             {applications.filter(a => a.jobTitle === j.title).length} applicants
                           </span>
                         </div>
@@ -186,7 +186,7 @@ export default function AdminJobs() {
                     </div>
                     <p className="text-gray-500 text-xs line-clamp-2">{j.desc}</p>
                     <div className="flex gap-2 flex-wrap">
-                      <button onClick={() => setTab("applications")} className="px-3 py-1.5 rounded-xl bg-purple-50 text-purple-600 text-xs font-bold hover:bg-purple-100">Applications</button>
+                      <button onClick={() => setTab("applications")} className="px-3 py-1.5 rounded-xl bg-cyan-50 text-cyan-600 text-xs font-bold hover:bg-cyan-100">Applications</button>
                       <button onClick={() => openEdit(j)} className="px-3 py-1.5 rounded-xl bg-blue-50 text-blue-600 text-xs font-bold hover:bg-blue-100">Edit</button>
                       <button onClick={() => handleDelete(j._id)} className="px-3 py-1.5 rounded-xl bg-red-50 text-red-600 text-xs font-bold hover:bg-red-100">Delete</button>
                     </div>
@@ -227,7 +227,7 @@ export default function AdminJobs() {
                         </a>
                       )}
                       <select value={a.status} onChange={e => updateAppStatus(a._id, e.target.value)}
-                        className="px-3 py-2 rounded-xl border-2 border-gray-200 text-sm font-bold focus:border-purple-500 focus:outline-none">
+                        className="px-3 py-2 rounded-xl border-2 border-gray-200 text-sm font-bold focus:border-cyan-500 focus:outline-none">
                         {["New", "Reviewed", "Shortlisted", "Rejected"].map(s => <option key={s}>{s}</option>)}
                       </select>
                     </div>
@@ -253,14 +253,14 @@ export default function AdminJobs() {
               <div>
                 <label className="block text-[11px] font-bold text-gray-400 uppercase tracking-wider mb-1.5">Description *</label>
                 <textarea value={form.desc} onChange={e => setForm(p => ({ ...p, desc: e.target.value }))} required rows={3}
-                  className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-purple-500 focus:outline-none text-sm resize-none" />
+                  className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-cyan-500 focus:outline-none text-sm resize-none" />
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <JField label="Location" value={form.location} onChange={f("location")} placeholder="Hyderabad / Remote" />
                 <div>
                   <label className="block text-[11px] font-bold text-gray-400 uppercase tracking-wider mb-1.5">Type</label>
                   <select value={form.type} onChange={e => setForm(p => ({ ...p, type: e.target.value }))}
-                    className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-purple-500 focus:outline-none text-sm">
+                    className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-cyan-500 focus:outline-none text-sm">
                     {["Full-time", "Part-time", "Contract", "Internship"].map(t => <option key={t}>{t}</option>)}
                   </select>
                 </div>
@@ -274,7 +274,7 @@ export default function AdminJobs() {
                 <div>
                   <label className="block text-[11px] font-bold text-gray-400 uppercase tracking-wider mb-1.5">Status</label>
                   <select value={form.status} onChange={e => setForm(p => ({ ...p, status: e.target.value }))}
-                    className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-purple-500 focus:outline-none text-sm">
+                    className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-cyan-500 focus:outline-none text-sm">
                     {["Open", "Closed", "Draft"].map(s => <option key={s}>{s}</option>)}
                   </select>
                 </div>
@@ -282,10 +282,10 @@ export default function AdminJobs() {
               <div>
                 <label className="block text-[11px] font-bold text-gray-400 uppercase tracking-wider mb-1.5">Requirements (one per line)</label>
                 <textarea value={form.requirements} onChange={e => setForm(p => ({ ...p, requirements: e.target.value }))} rows={4}
-                  className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-purple-500 focus:outline-none text-sm resize-none" />
+                  className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-cyan-500 focus:outline-none text-sm resize-none" />
               </div>
               <div className="flex gap-3 pt-2">
-                <button type="submit" disabled={saving} className="flex-1 py-3 rounded-xl bg-purple-600 text-white font-bold text-sm hover:bg-purple-700 disabled:opacity-60">
+                <button type="submit" disabled={saving} className="flex-1 py-3 rounded-xl bg-cyan-600 text-white font-bold text-sm hover:bg-cyan-700 disabled:opacity-60">
                   {saving ? "Saving..." : editJob ? "Update Job" : "Create Job"}
                 </button>
                 <button type="button" onClick={() => setShowModal(false)} className="px-6 py-3 rounded-xl border-2 border-gray-200 text-gray-600 font-bold text-sm">Cancel</button>
@@ -312,7 +312,7 @@ const JField = ({ label, value, onChange, required, placeholder }: {
       onChange={e => onChange(e.target.value)}
       required={required}
       placeholder={placeholder}
-      className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-purple-500 focus:outline-none text-sm"
+      className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-cyan-500 focus:outline-none text-sm"
     />
   </div>
 );

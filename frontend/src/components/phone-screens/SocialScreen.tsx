@@ -2,7 +2,7 @@ const SocialScreen = () => (
   <div className="h-full bg-gradient-to-b from-slate-900 to-slate-800 flex flex-col text-white overflow-hidden">
     {/* Header */}
     <div className="px-3 pt-2 pb-2 flex items-center justify-between">
-      <span className="text-[11px] font-bold bg-gradient-to-r from-pink-400 to-purple-400 bg-clip-text text-transparent">Vibe</span>
+      <span className="text-[11px] font-bold bg-gradient-to-r from-sky-400 to-cyan-400 bg-clip-text text-transparent">Vibe</span>
       <div className="flex gap-1.5">
         <div className="w-5 h-5 rounded-full bg-white/10 flex items-center justify-center text-[9px]">💬</div>
         <div className="w-5 h-5 rounded-full bg-white/10 flex items-center justify-center text-[9px]">🔔</div>
@@ -13,7 +13,7 @@ const SocialScreen = () => (
     <div className="px-3 mb-2">
       <div className="flex gap-2 overflow-x-hidden">
         {[
-          { name: "You", color: "from-pink-500 to-purple-500", active: false, add: true },
+          { name: "You", color: "from-pink-500 to-cyan-500", active: false, add: true },
           { name: "Raj", color: "from-orange-400 to-pink-500", active: true, add: false },
           { name: "Priya", color: "from-blue-400 to-cyan-400", active: true, add: false },
           { name: "Vik", color: "from-green-400 to-teal-400", active: false, add: false },
@@ -35,13 +35,13 @@ const SocialScreen = () => (
       {/* Post 1 */}
       <div className="bg-white/5 rounded-xl overflow-hidden border border-white/5">
         <div className="flex items-center gap-1.5 p-2">
-          <div className="w-5 h-5 rounded-full bg-gradient-to-br from-pink-500 to-purple-500 flex items-center justify-center text-[7px] font-bold">R</div>
+          <div className="w-5 h-5 rounded-full bg-gradient-to-br from-pink-500 to-cyan-500 flex items-center justify-center text-[7px] font-bold">R</div>
           <div>
             <div className="text-[8px] font-semibold text-white">Rajesh K.</div>
             <div className="text-[6px] text-white/40">2 hours ago</div>
           </div>
         </div>
-        <div className="h-16 bg-gradient-to-br from-pink-500/20 to-purple-500/20 flex items-center justify-center">
+        <div className="h-16 bg-gradient-to-br from-pink-500/20 to-cyan-500/20 flex items-center justify-center">
           <span className="text-[20px]">🌅</span>
         </div>
         <div className="p-2">
