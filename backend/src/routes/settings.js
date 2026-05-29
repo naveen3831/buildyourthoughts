@@ -8,7 +8,7 @@ const defaults = [
   { key: "site_name", label: "Site Name", value: "BUILD YOUR THOUGHTS", group: "site", type: "text" },
   { key: "site_tagline", label: "Tagline", value: "Innovation & Ideas", group: "site", type: "text" },
   { key: "site_description", label: "Site Description", value: "Full-stack software, automation, and IT solutions that drive real business growth.", group: "site", type: "textarea" },
-  { key: "contact_email", label: "Email", value: "info@speshway.com", group: "contact", type: "text" },
+  { key: "contact_email", label: "Email", value: "info@buildyourthoughts.com", group: "contact", type: "text", preserveValueUnlessMatches: ["info@speshway.com"] },
   { key: "contact_phone", label: "Phone", value: "+91 9100006020", group: "contact", type: "text" },
   { key: "contact_address", label: "Address", value: "T-Hub, Plot No 1/C, Sy No 83/1, Raidurgam, Knowledge City Rd, Hyderabad, Telangana 500032", group: "contact", type: "textarea" },
   { key: "contact_whatsapp", label: "WhatsApp Number", value: "919100006020", group: "contact", type: "text" },
@@ -73,7 +73,11 @@ const seedSettings = async () => {
     if (!existing) {
       await Settings.create(d);
     } else {
-      await Settings.updateOne({ key: d.key }, { $set: { label: d.label, group: d.group, type: d.type } });
+      const update = { label: d.label, group: d.group, type: d.type };
+      if (d.preserveValueUnlessMatches && d.preserveValueUnlessMatches.includes(existing.value)) {
+        update.value = d.value;
+      }
+      await Settings.updateOne({ key: d.key }, { $set: update });
     }
   }
 };

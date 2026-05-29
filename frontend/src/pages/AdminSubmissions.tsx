@@ -6,6 +6,8 @@ interface ContactMsg {
   _id: string;
   name: string;
   email: string;
+  phone?: string;
+  address?: string;
   subject: string;
   message: string;
   status: "unread" | "read" | "replied";
@@ -64,7 +66,9 @@ export default function AdminSubmissions() {
     const matchSearch =
       c.name.toLowerCase().includes(search.toLowerCase()) ||
       c.email.toLowerCase().includes(search.toLowerCase()) ||
-      c.subject.toLowerCase().includes(search.toLowerCase());
+      c.subject.toLowerCase().includes(search.toLowerCase()) ||
+      (c.phone || "").toLowerCase().includes(search.toLowerCase()) ||
+      (c.address || "").toLowerCase().includes(search.toLowerCase());
     const matchStatus = filterStatus === "All" || c.status === filterStatus;
     return matchSearch && matchStatus;
   });
@@ -183,8 +187,16 @@ export default function AdminSubmissions() {
               <div className="grid grid-cols-2 gap-4">
                 <Detail label="Name" value={selected.name} />
                 <Detail label="Email" value={selected.email} />
+                <Detail label="Phone" value={selected.phone || "—"} />
                 <Detail label="Received" value={fmt(selected.createdAt)} />
+              </div>
+              {selected.address && (
                 <div>
+                  <p className="text-[11px] font-bold text-gray-400 uppercase tracking-wider mb-1">Address</p>
+                  <p className="text-sm text-gray-800 font-medium whitespace-pre-wrap">{selected.address}</p>
+                </div>
+              )}
+              <div>
                   <p className="text-[11px] font-bold text-gray-400 uppercase tracking-wider mb-1">Status</p>
                   <select
                     value={selected.status}

@@ -10,12 +10,12 @@ const transporter = nodemailer.createTransport({
 });
 
 exports.submit = async (req, res) => {
-  const { name, email, subject, message } = req.body;
+  const { name, email, phone, address, subject, message } = req.body;
   if (!name || !email || !subject || !message)
-    return res.status(400).json({ message: "All fields are required." });
+    return res.status(400).json({ message: "Name, email, subject, and message are required." });
 
   try {
-    const entry = await Contact.create({ name, email, subject, message });
+    const entry = await Contact.create({ name, email, phone: phone || "", address: address || "", subject, message });
 
     // Respond immediately — don't let email failure block the user
     res.status(201).json({ message: "Message received! We'll get back to you soon.", id: entry._id });
@@ -28,6 +28,9 @@ exports.submit = async (req, res) => {
       html: `
         <h2>New Contact Form Submission</h2>
         <p><strong>Name:</strong> ${name}</p>
+        <p><strong>Email:</strong> ${email}</p>
+        <p><strong>Phone:</strong> ${phone || "—"}</p>
+        <p><strong>Address:</strong> ${address ? address.replace(/\n/g, "<br>") : "—"}</p>
         <p><strong>Subject:</strong> ${subject}</p>
         <p><strong>Message:</strong></p>
         <p>${message.replace(/\n/g, "<br>")}</p>

@@ -8,7 +8,7 @@ import { useSiteData } from "@/context/SiteDataContext";
 
 const Contact = () => {
   const { settings, s } = useSiteData();
-  const [form, setForm] = useState({ name: "", email: "", subject: "", message: "" });
+  const [form, setForm] = useState({ name: "", email: "", phone: "", address: "", subject: "", message: "" });
 
   const contactInfo = useMemo(
     () => [
@@ -54,7 +54,7 @@ const Contact = () => {
               {[
                 { placeholder: "Your Name", key: "name", type: "text" },
                 { placeholder: "Your Email", key: "email", type: "email" },
-                { placeholder: "Subject", key: "subject", type: "text" },
+                { placeholder: "Phone Number", key: "phone", type: "tel" },
               ].map((field, i) => (
                 <AnimatedSection key={field.key} delay={i * 80} animation="fade-in-up">
                   <input
@@ -62,12 +62,20 @@ const Contact = () => {
                     placeholder={field.placeholder}
                     value={form[field.key as keyof typeof form]}
                     onChange={(e) => setForm({ ...form, [field.key]: e.target.value })}
-                    required
                     className="w-full px-3 md:px-4 py-2.5 md:py-3 rounded-lg glass focus:glow-border focus:outline-none transition-all duration-300 text-sm md:text-base"
                   />
                 </AnimatedSection>
               ))}
               <AnimatedSection delay={240} animation="fade-in-up">
+                <input
+                  type="text"
+                  placeholder="Address"
+                  value={form.address}
+                  onChange={(e) => setForm({ ...form, address: e.target.value })}
+                  className="w-full px-3 md:px-4 py-2.5 md:py-3 rounded-lg glass focus:glow-border focus:outline-none transition-all duration-300 text-sm md:text-base"
+                />
+              </AnimatedSection>
+              <AnimatedSection delay={320} animation="fade-in-up">
                 <textarea
                   placeholder="Your Message"
                   value={form.message}

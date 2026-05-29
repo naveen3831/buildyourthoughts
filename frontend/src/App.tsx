@@ -37,6 +37,7 @@ const AdminSettings = lazy(() => import("./pages/AdminSettings"));
 const AdminSubmissions = lazy(() => import("./pages/AdminSubmissions"));
 const AdminTestimonials = lazy(() => import("./pages/AdminTestimonials"));
 const AdminPhoneShowcase = lazy(() => import("./pages/AdminPhoneShowcase"));
+import RequireAdminAuth from "./components/RequireAdminAuth";
 
 // Created once — never recreated on re-renders
 const queryClient = new QueryClient({
@@ -104,13 +105,62 @@ const AppRoutes = () => {
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />
           <Route path="/admin" element={<AdminLogin />} />
           <Route path="/admin-dashboard" element={<Navigate to="/admin/dashboard" replace />} />
-          <Route path="/admin/dashboard" element={<AdminDashboard />} />
-          <Route path="/admin/carousel" element={<AdminCarousel />} />
-          <Route path="/admin/blog" element={<AdminBlog />} />
-          <Route path="/admin/settings" element={<AdminSettings />} />
-          <Route path="/admin/submissions" element={<AdminSubmissions />} />
-          <Route path="/admin/testimonials" element={<AdminTestimonials />} />
-          <Route path="/admin/phone-showcase" element={<AdminPhoneShowcase />} />
+          <Route
+            path="/admin/dashboard"
+            element={
+              <RequireAdminAuth>
+                <AdminDashboard />
+              </RequireAdminAuth>
+            }
+          />
+          <Route
+            path="/admin/carousel"
+            element={
+              <RequireAdminAuth>
+                <AdminCarousel />
+              </RequireAdminAuth>
+            }
+          />
+          <Route
+            path="/admin/blog"
+            element={
+              <RequireAdminAuth>
+                <AdminBlog />
+              </RequireAdminAuth>
+            }
+          />
+          <Route
+            path="/admin/settings"
+            element={
+              <RequireAdminAuth>
+                <AdminSettings />
+              </RequireAdminAuth>
+            }
+          />
+          <Route
+            path="/admin/submissions"
+            element={
+              <RequireAdminAuth>
+                <AdminSubmissions />
+              </RequireAdminAuth>
+            }
+          />
+          <Route
+            path="/admin/testimonials"
+            element={
+              <RequireAdminAuth>
+                <AdminTestimonials />
+              </RequireAdminAuth>
+            }
+          />
+          <Route
+            path="/admin/phone-showcase"
+            element={
+              <RequireAdminAuth>
+                <AdminPhoneShowcase />
+              </RequireAdminAuth>
+            }
+          />
           <Route path="/blog/:id" element={<BlogDetail />} />
           <Route path="/career/:id" element={<JobDetail />} />
           <Route path="/career/:id/apply" element={<JobApply />} />

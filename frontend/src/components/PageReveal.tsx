@@ -60,7 +60,6 @@ const PageReveal = () => {
             width={280}
             height={200}
             decoding="async"
-            fetchPriority="high"
             className="w-48 h-36 sm:w-56 sm:h-44 md:w-64 md:h-48 object-contain object-center"
           />
         </div>
