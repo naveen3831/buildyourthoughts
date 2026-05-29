@@ -40,24 +40,29 @@ const iconMap: Record<string, React.ElementType> = { Code, Cloud, Shield, Cpu, U
 
 const Index = () => {
   const progressRef = useRef<HTMLDivElement>(null);
-  const { settings, s, t, get } = useSiteData();
+  const { s, t, get, settings } = useSiteData();
   const [stats, setStats] = useState(defaultStats);
   const [apiServices, setApiServices] = useState<{ icon: React.ElementType; title: string; desc: string; color: string }[]>([]);
   const [testimonials, setTestimonials] = useState(defaultTestimonials);
 
-  const applyStats = useCallback((data: Record<string, string>) => {
-    if (data.stat_projects) {
-      setStats([
-        { num: parseInt(data.stat_projects) || 100, suffix: data.stat_projects_suffix || "+", label: "Projects Delivered" },
-        { num: parseInt(data.stat_clients) || 76, suffix: data.stat_clients_suffix || "+", label: "Happy Clients" },
-        { num: parseInt(data.stat_team) || 200, suffix: data.stat_team_suffix || "+", label: "Team Members" },
-        { num: parseInt(data.stat_experience) || 9, suffix: data.stat_experience_suffix || "+", label: "Years Experience" },
-      ]);
-    }
-  }, []);
+  // Extract only the primitive values we need — avoids re-running effects when
+  // the settings object reference changes but the actual values haven't
+  const statProjects = settings.stat_projects;
+  const statClients = settings.stat_clients;
+  const statTeam = settings.stat_team;
+  const statExperience = settings.stat_experience;
+
+  useEffect(() => {
+    if (!statProjects) return;
+    setStats([
+      { num: parseInt(statProjects) || 100, suffix: settings.stat_projects_suffix || "+", label: "Projects Delivered" },
+      { num: parseInt(statClients) || 76, suffix: settings.stat_clients_suffix || "+", label: "Happy Clients" },
+      { num: parseInt(statTeam) || 200, suffix: settings.stat_team_suffix || "+", label: "Team Members" },
+      { num: parseInt(statExperience) || 9, suffix: settings.stat_experience_suffix || "+", label: "Years Experience" },
+    ]);
+  }, [statProjects, statClients, statTeam, statExperience, settings.stat_projects_suffix, settings.stat_clients_suffix, settings.stat_team_suffix, settings.stat_experience_suffix]);
 
   const loadPageData = useCallback(() => {
-    applyStats(settings);
     Promise.allSettled([
       fetchPublic<{ _id: string; title: string; description: string; icon: string; color: string }[]>("/api/services"),
       fetchPublic<{ name: string; role: string; text: string; rating: number }[]>("/api/testimonials"),
@@ -76,11 +81,7 @@ const Index = () => {
         setTestimonials(testimonialsRes.value);
       }
     });
-  }, [settings, applyStats]);
-
-  useEffect(() => {
-    applyStats(settings);
-  }, [settings, applyStats]);
+  }, []);
 
   useEffect(() => {
     loadPageData();

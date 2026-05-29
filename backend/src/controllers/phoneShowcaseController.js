@@ -3,7 +3,7 @@ const { cloudinary, uploadToCloudinary } = require("../config/cloudinary");
 
 exports.getAll = async (req, res) => {
   try {
-    const items = await PhoneShowcase.find({ isActive: true }).sort({ order: 1, createdAt: 1 });
+    const items = await PhoneShowcase.find({ isActive: true }).sort({ order: 1, createdAt: 1 }).lean();
     res.json(items);
   } catch {
     res.status(500).json({ message: "Server error" });

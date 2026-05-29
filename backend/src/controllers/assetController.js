@@ -20,11 +20,11 @@ exports.upload = async (req, res) => {
     const { key } = req.body;
     if (!key) return res.status(400).json({ message: "Asset key required" });
 
-    // Delete old asset from Cloudinary if exists
-    const existing = await Settings.findOne({ key });
-    if (existing?.value) {
-      const publicIdMatch = existing.value.match(/speshway\/assets\/[^.]+/);
-      if (publicIdMatch) await cloudinary.uploader.destroy(publicIdMatch[0]).catch(() => {});
+    // Delete old asset from Cloudinary using stored publicId key
+    const publicIdKey = `${key}_publicId`;
+    const existingPublicId = await Settings.findOne({ key: publicIdKey });
+    if (existingPublicId?.value) {
+      await cloudinary.uploader.destroy(existingPublicId.value).catch(() => {});
     }
 
     // Upload new asset
@@ -33,10 +33,15 @@ exports.upload = async (req, res) => {
       transformation: [{ quality: "auto:good" }],
     });
 
-    // Save new URL to settings
+    // Save new URL and publicId to settings
     await Settings.findOneAndUpdate(
       { key },
       { key, label: key, value: result.secure_url, group: "assets", type: "image" },
+      { upsert: true, new: true }
+    );
+    await Settings.findOneAndUpdate(
+      { key: publicIdKey },
+      { key: publicIdKey, label: publicIdKey, value: result.public_id, group: "assets", type: "text" },
       { upsert: true, new: true }
     );
 

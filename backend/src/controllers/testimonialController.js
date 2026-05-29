@@ -2,7 +2,7 @@ const Testimonial = require("../models/Testimonial");
 
 exports.getPublic = async (req, res) => {
   try {
-    const items = await Testimonial.find({ isActive: true }).sort({ order: 1, createdAt: 1 });
+    const items = await Testimonial.find({ isActive: true }).sort({ order: 1, createdAt: 1 }).lean();
     res.json(items);
   } catch {
     res.status(500).json({ message: "Server error" });

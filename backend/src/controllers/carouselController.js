@@ -3,7 +3,7 @@ const { cloudinary, uploadToCloudinary } = require("../config/cloudinary");
 
 exports.getPublic = async (req, res) => {
   try {
-    const slides = await CarouselSlide.find({ isActive: true }).sort({ order: 1 });
+    const slides = await CarouselSlide.find({ isActive: true }).sort({ order: 1 }).lean();
     res.json(slides);
   } catch {
     res.status(500).json({ message: "Server error" });

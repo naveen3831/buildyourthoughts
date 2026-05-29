@@ -3,7 +3,7 @@ const { cloudinary, uploadToCloudinary } = require("../config/cloudinary");
 
 exports.getAll = async (req, res) => {
   try {
-    const projects = await Project.find().sort({ order: 1, createdAt: -1 });
+    const projects = await Project.find().sort({ order: 1, createdAt: -1 }).lean();
     res.json(projects);
   } catch {
     res.status(500).json({ message: "Server error" });
@@ -12,7 +12,7 @@ exports.getAll = async (req, res) => {
 
 exports.getOne = async (req, res) => {
   try {
-    const project = await Project.findById(req.params.id);
+    const project = await Project.findById(req.params.id).lean();
     if (!project) return res.status(404).json({ message: "Not found" });
     res.json(project);
   } catch {

@@ -25,7 +25,12 @@ export function notifySiteDataUpdated(scope: SiteDataScope = "all") {
 }
 
 export async function fetchPublic<T>(path: string): Promise<T> {
-  const res = await fetch(apiUrl(path), { cache: "no-store" });
+  const res = await fetch(apiUrl(path), {
+    // Allow browser to cache for up to 60 s; stale-while-revalidate for 30 s more.
+    // Admin saves dispatch a custom event that triggers explicit refetches, so
+    // we don't need no-store here — it just causes unnecessary round-trips.
+    headers: { "Cache-Control": "max-age=60, stale-while-revalidate=30" },
+  });
   if (!res.ok) throw new Error(`Failed to fetch ${path}`);
   return res.json() as Promise<T>;
 }

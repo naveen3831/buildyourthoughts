@@ -11,7 +11,10 @@ const connectDB = async () => {
       serverSelectionTimeoutMS: 10000,
       connectTimeoutMS: 10000,
       socketTimeoutMS: 45000,
-      family: 4, // Force IPv4
+      family: 4,           // Force IPv4
+      maxPoolSize: 10,     // Keep up to 10 connections open
+      minPoolSize: 2,      // Always keep 2 warm connections ready
+      maxIdleTimeMS: 30000, // Close idle connections after 30s
     });
     console.log(`✅ MongoDB connected: ${conn.connection.host}`);
   } catch (err) {

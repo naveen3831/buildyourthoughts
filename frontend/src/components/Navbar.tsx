@@ -1,7 +1,6 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Menu, X, ChevronDown } from "lucide-react";
-import MagneticButton from "./MagneticButton";
 import { toSlug } from "@/lib/toSlug";
 import { cn } from "@/lib/utils";
 import { useTheme } from "@/context/ThemeContext";

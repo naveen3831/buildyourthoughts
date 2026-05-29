@@ -1,12 +1,18 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { SITE_DATA_UPDATED, type SiteDataScope } from "@/lib/siteData";
 
-/** Refetch when admin saves or user returns to the tab */
+// Minimum ms between focus-triggered refreshes (30 seconds)
+const FOCUS_THROTTLE_MS = 30_000;
+
+/** Refetch when admin saves. Focus-triggered refresh is throttled to avoid
+ *  hammering the API every time the user switches tabs. */
 export function useSiteDataRefresh(
   scopes: SiteDataScope[],
   onRefresh: () => void,
   deps: unknown[] = []
 ) {
+  const lastFocusRefresh = useRef(0);
+
   useEffect(() => {
     const shouldRefresh = (scope: SiteDataScope) =>
       scope === "all" || scopes.includes(scope);
@@ -16,7 +22,12 @@ export function useSiteDataRefresh(
       if (shouldRefresh(scope)) onRefresh();
     };
 
-    const onFocus = () => onRefresh();
+    const onFocus = () => {
+      const now = Date.now();
+      if (now - lastFocusRefresh.current < FOCUS_THROTTLE_MS) return;
+      lastFocusRefresh.current = now;
+      onRefresh();
+    };
 
     window.addEventListener(SITE_DATA_UPDATED, onUpdate);
     window.addEventListener("focus", onFocus);

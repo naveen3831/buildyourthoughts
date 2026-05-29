@@ -55,19 +55,28 @@ const registerRoutes = () => {
   const assetRoutes = require("./routes/assets");
   const phoneShowcaseRoutes = require("./routes/phoneShowcase");
 
+  // Cache middleware for public GET responses (60s fresh, 30s stale-while-revalidate)
+  // Only applied to GET requests; mutations bypass it automatically via route order.
+  const publicCache = (req, res, next) => {
+    if (req.method === "GET") {
+      res.set("Cache-Control", "public, max-age=60, stale-while-revalidate=30");
+    }
+    next();
+  };
+
   app.use("/api/auth", authRoutes);
   app.use("/api/contact", contactRoutes);
-  app.use("/api/projects", projectRoutes);
-  app.use("/api/services", serviceRoutes);
-  app.use("/api/site-content", siteContentRoutes);
-  app.use("/api/carousel", carouselRoutes);
-  app.use("/api/jobs", jobRoutes);
-  app.use("/api/team", teamRoutes);
-  app.use("/api/blog", blogRoutes);
-  app.use("/api/settings", settingsRoutes);
-  app.use("/api/testimonials", testimonialRoutes);
-  app.use("/api/assets", assetRoutes);
-  app.use("/api/phone-showcase", phoneShowcaseRoutes);
+  app.use("/api/projects", publicCache, projectRoutes);
+  app.use("/api/services", publicCache, serviceRoutes);
+  app.use("/api/site-content", publicCache, siteContentRoutes);
+  app.use("/api/carousel", publicCache, carouselRoutes);
+  app.use("/api/jobs", publicCache, jobRoutes);
+  app.use("/api/team", publicCache, teamRoutes);
+  app.use("/api/blog", publicCache, blogRoutes);
+  app.use("/api/settings", settingsRoutes);   // settings has its own no-store header
+  app.use("/api/testimonials", publicCache, testimonialRoutes);
+  app.use("/api/assets", publicCache, assetRoutes);
+  app.use("/api/phone-showcase", publicCache, phoneShowcaseRoutes);
   app.use("/api/dashboard", verifyToken, dashboardRoutes);
 };
 

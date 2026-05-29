@@ -2,7 +2,7 @@ const Service = require("../models/Service");
 
 exports.getPublic = async (req, res) => {
   try {
-    const services = await Service.find({ isActive: true }).sort({ order: 1, createdAt: 1 });
+    const services = await Service.find({ isActive: true }).sort({ order: 1, createdAt: 1 }).lean();
     res.json(services);
   } catch {
     res.status(500).json({ message: "Server error" });

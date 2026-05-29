@@ -63,10 +63,12 @@ const Footer = () => {
     loadProjects();
   }, [loadServices, loadProjects]);
 
+  // Fetch once on mount
   useEffect(() => {
     loadFooterData();
   }, [loadFooterData]);
 
+  // Re-fetch only when admin saves — not on every window focus
   useSiteDataRefresh(["services", "projects", "all"], loadFooterData, [loadFooterData]);
 
   const siteName = s("site_name", "BUILD YOUR THOUGHTS");

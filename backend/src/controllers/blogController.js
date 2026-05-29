@@ -3,7 +3,7 @@ const { cloudinary, uploadToCloudinary } = require("../config/cloudinary");
 
 exports.getPublic = async (req, res) => {
   try {
-    const posts = await BlogPost.find({ status: "Published" }).sort({ createdAt: -1 });
+    const posts = await BlogPost.find({ status: "Published" }).sort({ createdAt: -1 }).lean();
     res.json(posts);
   } catch {
     res.status(500).json({ message: "Server error" });

@@ -3,7 +3,7 @@ const { cloudinary, uploadToCloudinary } = require("../config/cloudinary");
 
 exports.getPublic = async (req, res) => {
   try {
-    const members = await TeamMember.find({ isActive: true }).sort({ order: 1, createdAt: 1 });
+    const members = await TeamMember.find({ isActive: true }).sort({ order: 1, createdAt: 1 }).lean();
     res.json(members);
   } catch {
     res.status(500).json({ message: "Server error" });

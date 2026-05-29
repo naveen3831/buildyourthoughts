@@ -53,7 +53,7 @@ const sendApplicationEmail = async ({ jobTitle, name, email, phone, coverLetter,
 
 exports.getPublic = async (req, res) => {
   try {
-    const jobs = await Job.find({ status: "Open" }).sort({ order: 1, createdAt: -1 });
+    const jobs = await Job.find({ status: "Open" }).sort({ order: 1, createdAt: -1 }).lean();
     res.json(jobs);
   } catch {
     res.status(500).json({ message: "Server error" });

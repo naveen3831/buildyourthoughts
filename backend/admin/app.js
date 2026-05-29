@@ -1,5 +1,5 @@
-const API = window.location.hostname === "localhost" && window.location.port === "8080"
-  ? "http://localhost:5004/api"
+const API = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1"
+  ? `http://${window.location.hostname}:5000/api`
   : "/api";
 
 // ── Helpers ──────────────────────────────────────────

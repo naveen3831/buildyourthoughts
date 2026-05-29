@@ -96,43 +96,12 @@ const HeroCarousel = () => {
   const [failedImages, setFailedImages] = useState<Record<number, boolean>>({});
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const [slides, setSlides] = useState<Slide[]>(defaultSlides);
-  const { settings, refetchSettings } = useSiteData();
-  const [gradientColors, setGradientColors] = useState({ c1: "", c2: "", c3: "" });
+  const { settings } = useSiteData();
 
-  // Fetch gradient colors directly from API — always fresh
-  const fetchGradient = useCallback(async () => {
-    try {
-      const res = await fetch("/api/settings", { cache: "no-store" });
-      const data = await res.json();
-      setGradientColors({
-        c1: data.hero_color1 || "#9333ea",
-        c2: data.hero_color2 || "#2563eb",
-        c3: data.hero_color3 || "#06b6d4",
-      });
-    } catch {
-      setGradientColors({ c1: "#9333ea", c2: "#2563eb", c3: "#06b6d4" });
-    }
-  }, []);
-
-  useEffect(() => {
-    fetchGradient();
-    const onFocus = () => { fetchGradient(); refetchSettings(); };
-    window.addEventListener("focus", onFocus);
-    // Also re-fetch when localStorage signals a settings update from admin tab
-    const onStorage = (e: StorageEvent) => {
-      if (e.key === "site_data_updated") fetchGradient();
-    };
-    window.addEventListener("storage", onStorage);
-    return () => {
-      window.removeEventListener("focus", onFocus);
-      window.removeEventListener("storage", onStorage);
-    };
-  }, [fetchGradient, refetchSettings]);
-
-  // Use directly-fetched colors, fall back to context settings
-  const c1 = gradientColors.c1 || settings?.hero_color1 || "#9333ea";
-  const c2 = gradientColors.c2 || settings?.hero_color2 || "#2563eb";
-  const c3 = gradientColors.c3 || settings?.hero_color3 || "#06b6d4";
+  // Use settings from context — no separate fetch needed
+  const c1 = settings?.hero_color1 || "#9333ea";
+  const c2 = settings?.hero_color2 || "#2563eb";
+  const c3 = settings?.hero_color3 || "#06b6d4";
   const heroGradient = `linear-gradient(90deg, ${c1} 0%, ${c2} 50%, ${c3} 100%)`;
 
   const loadSlides = useCallback(() => {

@@ -13,6 +13,7 @@ type SiteDataContextValue = {
   loading: boolean;
   refetchSettings: () => Promise<void>;
   refetchContent: () => Promise<void>;
+  refetchAssets: () => Promise<void>;
   s: (key: string, fallback: string) => string;
   t: (key: string, fallback: string) => string;
   /** Reads settings first, then site-content — matches admin panel saves */
@@ -25,6 +26,7 @@ const SiteDataContext = createContext<SiteDataContextValue>({
   loading: true,
   refetchSettings: async () => {},
   refetchContent: async () => {},
+  refetchAssets: async () => {},
   s: (_k, fb) => fb,
   t: (_k, fb) => fb,
   get: (_k, fb) => fb,
@@ -40,9 +42,15 @@ export const SiteDataProvider = ({ children }: { children: ReactNode }) => {
       const data = await fetchPublic<Record<string, string>>("/api/settings");
       setSettings(data);
       applySettingsToDocument(data);
+    } catch {
+      /* keep previous */
+    }
+  }, []);
 
+  const refetchAssets = useCallback(async () => {
+    try {
       const logoRes = await fetchPublic<Record<string, string>>("/api/assets").catch(() => ({}));
-      const logoUrl = logoRes?.asset_logo;
+      const logoUrl = (logoRes as Record<string, string>)?.asset_logo;
       if (logoUrl) {
         const favicon = document.querySelector("link[rel='icon']") as HTMLLinkElement;
         if (favicon) favicon.href = logoUrl;
@@ -62,8 +70,8 @@ export const SiteDataProvider = ({ children }: { children: ReactNode }) => {
   }, []);
 
   useEffect(() => {
-    Promise.all([refetchSettings(), refetchContent()]).finally(() => setLoading(false));
-  }, [refetchSettings, refetchContent]);
+    Promise.all([refetchSettings(), refetchContent(), refetchAssets()]).finally(() => setLoading(false));
+  }, [refetchSettings, refetchContent, refetchAssets]);
 
   useEffect(() => {
     const onUpdate = (e: Event) => {
@@ -71,6 +79,7 @@ export const SiteDataProvider = ({ children }: { children: ReactNode }) => {
       if (scope === "all" || scope === "settings") refetchSettings();
       if (scope === "all" || scope === "content") refetchContent();
       if (scope === "all" || scope === "assets") {
+        refetchAssets();
         window.dispatchEvent(new Event(ASSETS_INVALIDATE_EVENT));
       }
     };
@@ -84,6 +93,7 @@ export const SiteDataProvider = ({ children }: { children: ReactNode }) => {
         if (scope === "all" || scope === "settings") refetchSettings();
         if (scope === "all" || scope === "content") refetchContent();
         if (scope === "all" || scope === "assets") {
+          refetchAssets();
           window.dispatchEvent(new Event(ASSETS_INVALIDATE_EVENT));
         }
       } catch {}
@@ -94,7 +104,7 @@ export const SiteDataProvider = ({ children }: { children: ReactNode }) => {
       window.removeEventListener(SITE_DATA_UPDATED, onUpdate);
       window.removeEventListener("storage", onStorage);
     };
-  }, [refetchSettings, refetchContent]);
+  }, [refetchSettings, refetchContent, refetchAssets]);
 
   const s = (key: string, fallback: string) => settings[key] || fallback;
   const t = (key: string, fallback: string) => content[key] || fallback;
@@ -102,7 +112,7 @@ export const SiteDataProvider = ({ children }: { children: ReactNode }) => {
 
   return (
     <SiteDataContext.Provider
-      value={{ settings, content, loading, refetchSettings, refetchContent, s, t, get }}
+      value={{ settings, content, loading, refetchSettings, refetchContent, refetchAssets, s, t, get }}
     >
       {children}
     </SiteDataContext.Provider>
