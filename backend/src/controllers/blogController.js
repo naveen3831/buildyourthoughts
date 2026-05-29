@@ -35,7 +35,7 @@ exports.create = async (req, res) => {
     let image = "", imagePublicId = "";
     if (req.file) {
       const result = await uploadToCloudinary(req.file.buffer, {
-        folder: "speshway/blog",
+        folder: "buildyourthoughts/blog",
         transformation: [{ width: 1200, height: 800, crop: "limit", quality: "auto:good" }],
       });
       image = result.secure_url;
@@ -43,7 +43,7 @@ exports.create = async (req, res) => {
     }
     const post = await BlogPost.create({
       title, excerpt, content: content || "",
-      tag: tag || "General", author: author || "Speshway Team",
+      tag: tag || "General", author: author || "Build Your Thoughts Team",
       readTime: readTime || "5 min",
       status: status || "Published",
       featured: featured === "true" || featured === true,
@@ -64,7 +64,7 @@ exports.update = async (req, res) => {
     const { title, excerpt, content, tag, author, readTime, status, featured, order } = req.body;
     const updates = {
       title, excerpt, content: content || "",
-      tag: tag || "General", author: author || "Speshway Team",
+      tag: tag || "General", author: author || "Build Your Thoughts Team",
       readTime: readTime || "5 min",
       status: status || "Published",
       featured: featured === "true" || featured === true,
@@ -73,13 +73,13 @@ exports.update = async (req, res) => {
     if (req.file) {
       if (existing.imagePublicId) await cloudinary.uploader.destroy(existing.imagePublicId).catch(() => {});
       const result = await uploadToCloudinary(req.file.buffer, {
-        folder: "speshway/blog",
+        folder: "buildyourthoughts/blog",
         transformation: [{ width: 1200, height: 800, crop: "limit", quality: "auto:good" }],
       });
       updates.image = result.secure_url;
       updates.imagePublicId = result.public_id;
     }
-    const post = await BlogPost.findByIdAndUpdate(req.params.id, updates, { new: true });
+    const post = await BlogPost.findByIdAndUpdate(req.params.id, updates, { returnDocument: "after" });
     res.json(post);
   } catch (err) {
     res.status(500).json({ message: err.message });
@@ -97,3 +97,4 @@ exports.remove = async (req, res) => {
     res.status(500).json({ message: "Server error" });
   }
 };
+

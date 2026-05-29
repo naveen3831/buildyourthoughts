@@ -25,8 +25,8 @@ export default function AdminSidebar({ active }: { active: string }) {
   };
 
   const handleLogout = () => {
-    localStorage.removeItem("speshway_admin_token");
-    localStorage.removeItem("speshway_admin_user");
+    localStorage.removeItem("buildyourthoughts_admin_token");
+    localStorage.removeItem("buildyourthoughts_admin_user");
     navigate("/admin");
     setOpen(false);
   };
@@ -64,7 +64,7 @@ export default function AdminSidebar({ active }: { active: string }) {
         <div className="flex items-center justify-between mb-6">
           <div className="flex items-center gap-2">
             <img src={logo} alt="" className="w-8 h-8 object-contain shrink-0" />
-            <span className={`${collapsed ? "hidden lg:block" : "font-bold text-sm leading-tight"}`}>Speshway Admin</span>
+            <span className={`${collapsed ? "hidden lg:block" : "font-bold text-sm leading-tight"}`}>Build Your Thoughts Admin</span>
           </div>
           <div className="flex items-center gap-2">
             <button

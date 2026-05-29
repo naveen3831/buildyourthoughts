@@ -25,7 +25,7 @@ exports.create = async (req, res) => {
     let image = bodyImage || "", imagePublicId = bodyPublicId || "";
     if (req.file) {
       const result = await uploadToCloudinary(req.file.buffer, {
-        folder: "speshway/carousel",
+        folder: "buildyourthoughts/carousel",
         transformation: [{ width: 1920, height: 1080, crop: "limit", quality: "auto:good" }],
       });
       image = result.secure_url;
@@ -57,13 +57,13 @@ exports.update = async (req, res) => {
     if (req.file) {
       if (existing.imagePublicId) await cloudinary.uploader.destroy(existing.imagePublicId).catch(() => {});
       const result = await uploadToCloudinary(req.file.buffer, {
-        folder: "speshway/carousel",
+        folder: "buildyourthoughts/carousel",
         transformation: [{ width: 1920, height: 1080, crop: "limit", quality: "auto:good" }],
       });
       updates.image = result.secure_url;
       updates.imagePublicId = result.public_id;
     }
-    const slide = await CarouselSlide.findByIdAndUpdate(req.params.id, updates, { new: true });
+    const slide = await CarouselSlide.findByIdAndUpdate(req.params.id, updates, { returnDocument: "after" });
     res.json(slide);
   } catch (err) {
     res.status(500).json({ message: err.message });
@@ -74,7 +74,7 @@ exports.toggle = async (req, res) => {
   try {
     const slide = await CarouselSlide.findById(req.params.id);
     if (!slide) return res.status(404).json({ message: "Not found" });
-    const updated = await CarouselSlide.findByIdAndUpdate(req.params.id, { isActive: !slide.isActive }, { new: true });
+    const updated = await CarouselSlide.findByIdAndUpdate(req.params.id, { isActive: !slide.isActive }, { returnDocument: "after" });
     res.json(updated);
   } catch {
     res.status(500).json({ message: "Server error" });
@@ -92,3 +92,4 @@ exports.remove = async (req, res) => {
     res.status(500).json({ message: "Server error" });
   }
 };
+

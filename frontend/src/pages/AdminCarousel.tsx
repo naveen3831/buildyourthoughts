@@ -11,7 +11,7 @@ interface Slide {
 }
 
 const API = "/api";
-const getToken = () => localStorage.getItem("speshway_admin_token");
+const getToken = () => localStorage.getItem("buildyourthoughts_admin_token");
 
 const emptyForm = {
   badge: "", title: "", highlight: "", desc: "",

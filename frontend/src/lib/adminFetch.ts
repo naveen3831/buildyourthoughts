@@ -1,10 +1,10 @@
 const API = "/api";
 
-export const getToken = () => localStorage.getItem("speshway_admin_token");
+export const getToken = () => localStorage.getItem("buildyourthoughts_admin_token");
 
 export function clearAdminSession() {
-  localStorage.removeItem("speshway_admin_token");
-  localStorage.removeItem("speshway_admin_user");
+  localStorage.removeItem("buildyourthoughts_admin_token");
+  localStorage.removeItem("buildyourthoughts_admin_user");
 }
 
 /**

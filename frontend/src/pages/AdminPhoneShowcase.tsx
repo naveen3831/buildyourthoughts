@@ -15,7 +15,7 @@ interface ShowcaseItem {
 const colorOptions = ["primary", "secondary", "accent"] as const;
 const emptyForm = { label: "", color: "primary" as const, order: "0", isActive: "true" };
 
-const getToken = () => localStorage.getItem("speshway_admin_token");
+const getToken = () => localStorage.getItem("buildyourthoughts_admin_token");
 
 export default function AdminPhoneShowcase() {
   const navigate = useNavigate();

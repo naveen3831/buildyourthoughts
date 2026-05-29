@@ -12,7 +12,7 @@ const PhoneShowcase = require('./src/models/PhoneShowcase');
 const Settings = require('./src/models/Settings');
 
 (async () => {
-  await mongoose.connect(process.env.MONGO_URI, { dbName: 'speshway', serverSelectionTimeoutMS: 10000 });
+  await mongoose.connect(process.env.MONGO_URI, { dbName: 'buildyourthoughts', serverSelectionTimeoutMS: 10000 });
   const old = 'djjimbk12';
   const collections = [
     { model: Project, name: 'Project', fields: ['image'] },

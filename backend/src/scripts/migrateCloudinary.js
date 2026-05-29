@@ -108,13 +108,13 @@ async function migrateCollection(sourceModel, targetModel, query, fieldMap) {
 
     if (sourceModel === targetModel) {
       if (hasUpdate) {
-        await targetModel.findByIdAndUpdate(item._id, updates, { new: true });
+        await targetModel.findByIdAndUpdate(item._id, updates, { returnDocument: "after" });
       }
     } else {
       await targetModel.findOneAndUpdate(
         { _id: item._id },
         targetData,
-        { upsert: true, new: true, setDefaultsOnInsert: true }
+        { upsert: true, returnDocument: "after", setDefaultsOnInsert: true }
       );
     }
   }
@@ -126,7 +126,7 @@ async function migrateSettings(sourceSettings, targetSettings) {
   for (const setting of settings) {
     const uploadSource = mapSource(setting.value);
     const targetData = { ...setting };
-    const result = uploadSource ? await uploadImageSource(uploadSource, "speshway/settings") : null;
+    const result = uploadSource ? await uploadImageSource(uploadSource, "buildyourthoughts/settings") : null;
     if (result && result.url) {
       targetData.value = result.url;
       console.log(`  [Settings] ${setting.key} updated.`);
@@ -134,7 +134,7 @@ async function migrateSettings(sourceSettings, targetSettings) {
     await targetSettings.findOneAndUpdate(
       { key: setting.key },
       targetData,
-      { upsert: true, new: true, setDefaultsOnInsert: true }
+      { upsert: true, returnDocument: "after", setDefaultsOnInsert: true }
     );
   }
 }
@@ -146,7 +146,7 @@ async function migrateAssets(sourceSettings, targetSettings) {
     const uploadSource = mapSource(asset.value);
     const targetData = { ...asset };
     if (uploadSource) {
-      const result = await uploadImageSource(uploadSource, "speshway/assets");
+      const result = await uploadImageSource(uploadSource, "buildyourthoughts/assets");
       if (result && result.url) {
         targetData.value = result.url;
         console.log(`  [Asset] ${asset.key} updated.`);
@@ -155,7 +155,7 @@ async function migrateAssets(sourceSettings, targetSettings) {
     await targetSettings.findOneAndUpdate(
       { key: asset.key },
       targetData,
-      { upsert: true, new: true, setDefaultsOnInsert: true }
+      { upsert: true, returnDocument: "after", setDefaultsOnInsert: true }
     );
   }
 }
@@ -169,7 +169,7 @@ async function run() {
   console.log(`Target DB: ${TARGET_MONGO_URI}`);
 
   const sourceConn = await mongoose.createConnection(SOURCE_MONGO_URI, {
-    dbName: "speshway",
+    dbName: "buildyourthoughts",
     serverSelectionTimeoutMS: 10000,
     connectTimeoutMS: 10000,
     socketTimeoutMS: 45000,
@@ -178,7 +178,7 @@ async function run() {
   const targetConn = sameDb
     ? sourceConn
     : await mongoose.createConnection(TARGET_MONGO_URI, {
-        dbName: "speshway",
+        dbName: "buildyourthoughts",
         serverSelectionTimeoutMS: 10000,
         connectTimeoutMS: 10000,
         socketTimeoutMS: 45000,
@@ -201,27 +201,27 @@ async function run() {
   const TargetSettings = sameDb ? SourceSettings : targetConn.model("Settings", Settings.schema);
 
   await migrateCollection(SourceProject, TargetProject, {}, {
-    image: { folder: "speshway/projects", publicIdField: "imagePublicId" },
+    image: { folder: "buildyourthoughts/projects", publicIdField: "imagePublicId" },
   });
 
   await migrateCollection(SourceBlogPost, TargetBlogPost, {}, {
-    image: { folder: "speshway/blog", publicIdField: "imagePublicId" },
+    image: { folder: "buildyourthoughts/blog", publicIdField: "imagePublicId" },
   });
 
   await migrateCollection(SourceCarouselSlide, TargetCarouselSlide, {}, {
-    image: { folder: "speshway/carousel", publicIdField: "imagePublicId" },
+    image: { folder: "buildyourthoughts/carousel", publicIdField: "imagePublicId" },
   });
 
   await migrateCollection(SourceTeamMember, TargetTeamMember, {}, {
-    image: { folder: "speshway/team", publicIdField: "imagePublicId" },
+    image: { folder: "buildyourthoughts/team", publicIdField: "imagePublicId" },
   });
 
   await migrateCollection(SourcePhoneShowcase, TargetPhoneShowcase, {}, {
-    image: { folder: "speshway/phone-showcase", publicIdField: "imagePublicId" },
+    image: { folder: "buildyourthoughts/phone-showcase", publicIdField: "imagePublicId" },
   });
 
   await migrateCollection(SourceJobApplication, TargetJobApplication, {}, {
-    resumeUrl: { folder: "speshway/resumes", resource_type: 'raw' },
+    resumeUrl: { folder: "buildyourthoughts/resumes", resource_type: 'raw' },
   });
 
   await migrateSettings(SourceSettings, TargetSettings);
@@ -235,3 +235,4 @@ run().catch((err) => {
   console.error("Migration failed:", err);
   process.exit(1);
 });
+

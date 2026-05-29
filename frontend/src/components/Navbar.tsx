@@ -188,8 +188,10 @@ const Navbar = () => {
               servicesTimer.current = setTimeout(() => setServicesOpen(false), 150);
             }}
           >
-            <button
+            <Link
+              to="/services"
               className={cn(navLinkClass(pathname === "/services"), "flex items-center gap-1")}
+              onClick={() => setServicesOpen(false)}
             >
               <span className="relative z-10">Services</span>
               <ChevronDown size={14} className={cn("relative z-10 transition-transform duration-300", servicesOpen ? "rotate-180" : "")} />
@@ -198,7 +200,7 @@ const Navbar = () => {
                 pathname === "/services" ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100"
               )} />
               <span className="absolute inset-0 bg-primary/5 translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-out-expo" />
-            </button>
+            </Link>
 
             <div className={cn(
               "absolute top-full left-0 mt-2 w-56 rounded-2xl overflow-hidden shadow-2xl border border-border transition-all duration-300 origin-top",
@@ -238,8 +240,10 @@ const Navbar = () => {
               projectsTimer.current = setTimeout(() => setProjectsOpen(false), 150);
             }}
           >
-            <button
+            <Link
+              to="/projects"
               className={cn(navLinkClass(pathname === "/projects"), "flex items-center gap-1")}
+              onClick={() => setProjectsOpen(false)}
             >
               <span className="relative z-10">Projects</span>
               <ChevronDown size={14} className={cn("relative z-10 transition-transform duration-300", projectsOpen ? "rotate-180" : "")} />
@@ -248,7 +252,7 @@ const Navbar = () => {
                 pathname === "/projects" ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100"
               )} />
               <span className="absolute inset-0 bg-primary/5 translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-out-expo" />
-            </button>
+            </Link>
 
             <div className={cn(
               "absolute top-full left-0 mt-2 w-52 rounded-2xl overflow-hidden shadow-2xl border border-border transition-all duration-300 origin-top",

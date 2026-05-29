@@ -242,7 +242,7 @@ async function uploadToCloudinary(imageUrl, publicId) {
     cloudinary.uploader.upload(
       imageUrl,
       {
-        folder: "speshway/carousel",
+        folder: "buildyourthoughts/carousel",
         public_id: publicId,
         overwrite: true,
         resource_type: "image",

@@ -9,7 +9,7 @@ cloudinary.config({
 });
 
 (async () => {
-  const res = await cloudinary.api.resources({ type: 'upload', prefix: 'speshway/projects', max_results: 50 });
+  const res = await cloudinary.api.resources({ type: 'upload', prefix: 'buildyourthoughts/projects', max_results: 50 });
   console.log('total_count', res.total_count);
   res.resources.forEach(r => console.log(JSON.stringify({ public_id: r.public_id, secure_url: r.secure_url, format: r.format, bytes: r.bytes }, null, 2)));
 })();

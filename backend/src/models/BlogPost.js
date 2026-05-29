@@ -6,7 +6,7 @@ const blogPostSchema = new mongoose.Schema(
     excerpt: { type: String, required: true },
     content: { type: String, default: "" },
     tag: { type: String, default: "General" },
-    author: { type: String, default: "Speshway Team" },
+    author: { type: String, default: "Build Your Thoughts Team" },
     readTime: { type: String, default: "5 min" },
     image: { type: String, default: "" },
     imagePublicId: { type: String, default: "" },

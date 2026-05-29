@@ -11,7 +11,7 @@ const PhoneShowcase = require('../models/PhoneShowcase');
 const JobApplication = require('../models/JobApplication');
 
 async function run() {
-  await mongoose.connect(process.env.MONGO_URI, { dbName: 'speshway' });
+  await mongoose.connect(process.env.MONGO_URI, { dbName: 'buildyourthoughts' });
 
   const sample = {};
 

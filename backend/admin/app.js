@@ -4,7 +4,7 @@ const API = window.location.hostname === "localhost" || window.location.hostname
 
 // ── Helpers ──────────────────────────────────────────
 const $ = (id) => document.getElementById(id);
-const token = () => localStorage.getItem("speshway_token");
+const token = () => localStorage.getItem("buildyourthoughts_token");
 
 function showPage(page) {
   $("login-page").classList.toggle("hidden", page !== "login");
@@ -21,7 +21,7 @@ function setSection(name) {
 
 // ── Auth ─────────────────────────────────────────────
 function logoutAndRedirect() {
-  localStorage.removeItem("speshway_token");
+  localStorage.removeItem("buildyourthoughts_token");
   $("login-error").classList.add("hidden");
   showPage("login");
 }
@@ -62,7 +62,7 @@ $("login-form").addEventListener("submit", async (e) => {
     });
     const data = await res.json();
     if (!res.ok) throw new Error(data.message || "Login failed");
-    localStorage.setItem("speshway_token", data.token);
+    localStorage.setItem("buildyourthoughts_token", data.token);
     initDashboard(data.admin);
   } catch (err) {
     errEl.textContent = err.message;
@@ -74,7 +74,7 @@ $("login-form").addEventListener("submit", async (e) => {
 });
 
 $("logout-btn").addEventListener("click", () => {
-  localStorage.removeItem("speshway_token");
+  localStorage.removeItem("buildyourthoughts_token");
   showPage("login");
 });
 

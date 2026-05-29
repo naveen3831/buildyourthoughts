@@ -23,23 +23,23 @@ const API = "http://localhost:5000/api";
 
 const assets = [
   // Site images
-  { file: "about-team.jpg",       folder: "speshway/assets",   key: "asset_about_team",       label: "About / Team Photo" },
-  { file: "web-showcase.png",     folder: "speshway/assets",   key: "asset_web_showcase",     label: "Web Showcase Image" },
-  { file: "logo-speshway.png",    folder: "speshway/assets",   key: "asset_logo",             label: "Site Logo" },
-  { file: "logo.png",             folder: "speshway/assets",   key: "asset_logo_alt",         label: "Site Logo Alt" },
-  { file: "mobile-showcase.png",  folder: "speshway/assets",   key: "asset_mobile_showcase",  label: "Mobile Showcase" },
-  { file: "hero-bg.jpg",          folder: "speshway/assets",   key: "asset_hero_bg",          label: "Hero Background" },
+  { file: "about-team.jpg",       folder: "buildyourthoughts/assets",   key: "asset_about_team",       label: "About / Team Photo" },
+  { file: "web-showcase.png",     folder: "buildyourthoughts/assets",   key: "asset_web_showcase",     label: "Web Showcase Image" },
+  { file: "logo-buildyourthoughts.png",    folder: "buildyourthoughts/assets",   key: "asset_logo",             label: "Site Logo" },
+  { file: "logo.png",             folder: "buildyourthoughts/assets",   key: "asset_logo_alt",         label: "Site Logo Alt" },
+  { file: "mobile-showcase.png",  folder: "buildyourthoughts/assets",   key: "asset_mobile_showcase",  label: "Mobile Showcase" },
+  { file: "hero-bg.jpg",          folder: "buildyourthoughts/assets",   key: "asset_hero_bg",          label: "Hero Background" },
   // Hero carousel slides
-  { file: "hero-slide-1.jpg",     folder: "speshway/carousel", key: "asset_hero_slide_1",     label: "Hero Slide 1" },
-  { file: "hero-slide-2.jpg",     folder: "speshway/carousel", key: "asset_hero_slide_2",     label: "Hero Slide 2" },
-  { file: "hero-slide-3.jpg",     folder: "speshway/carousel", key: "asset_hero_slide_3",     label: "Hero Slide 3" },
+  { file: "hero-slide-1.jpg",     folder: "buildyourthoughts/carousel", key: "asset_hero_slide_1",     label: "Hero Slide 1" },
+  { file: "hero-slide-2.jpg",     folder: "buildyourthoughts/carousel", key: "asset_hero_slide_2",     label: "Hero Slide 2" },
+  { file: "hero-slide-3.jpg",     folder: "buildyourthoughts/carousel", key: "asset_hero_slide_3",     label: "Hero Slide 3" },
   // Phone screen images
-  { file: "phone-ecommerce.png",  folder: "speshway/phones",   key: "asset_phone_ecommerce",  label: "Phone - Ecommerce" },
-  { file: "phone-fintech.png",    folder: "speshway/phones",   key: "asset_phone_fintech",    label: "Phone - Fintech" },
-  { file: "phone-fitness.png",    folder: "speshway/phones",   key: "asset_phone_fitness",    label: "Phone - Fitness" },
-  { file: "phone-food.png",       folder: "speshway/phones",   key: "asset_phone_food",       label: "Phone - Food" },
-  { file: "phone-health.png",     folder: "speshway/phones",   key: "asset_phone_health",     label: "Phone - Health" },
-  { file: "phone-social.png",     folder: "speshway/phones",   key: "asset_phone_social",     label: "Phone - Social" },
+  { file: "phone-ecommerce.png",  folder: "buildyourthoughts/phones",   key: "asset_phone_ecommerce",  label: "Phone - Ecommerce" },
+  { file: "phone-fintech.png",    folder: "buildyourthoughts/phones",   key: "asset_phone_fintech",    label: "Phone - Fintech" },
+  { file: "phone-fitness.png",    folder: "buildyourthoughts/phones",   key: "asset_phone_fitness",    label: "Phone - Fitness" },
+  { file: "phone-food.png",       folder: "buildyourthoughts/phones",   key: "asset_phone_food",       label: "Phone - Food" },
+  { file: "phone-health.png",     folder: "buildyourthoughts/phones",   key: "asset_phone_health",     label: "Phone - Health" },
+  { file: "phone-social.png",     folder: "buildyourthoughts/phones",   key: "asset_phone_social",     label: "Phone - Social" },
 ];
 
 async function getToken() {

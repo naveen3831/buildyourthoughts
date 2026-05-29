@@ -16,7 +16,7 @@ interface Service {
 }
 
 const API = "/api";
-const getToken = () => localStorage.getItem("speshway_admin_token");
+const getToken = () => localStorage.getItem("buildyourthoughts_admin_token");
 
 const statusColors: Record<string, string> = {
   Completed: "bg-green-100 text-green-700",
@@ -58,7 +58,7 @@ export default function AdminDashboard() {
   useEffect(() => {
     const t = getToken();
     if (!t) return navigate("/admin", { replace: true });
-    const u = localStorage.getItem("speshway_admin_user");
+    const u = localStorage.getItem("buildyourthoughts_admin_user");
     if (u) setAdmin(JSON.parse(u));
     fetchProjects();
     fetchServices();
@@ -86,8 +86,8 @@ export default function AdminDashboard() {
   };
 
   const logout = () => {
-    localStorage.removeItem("speshway_admin_token");
-    localStorage.removeItem("speshway_admin_user");
+    localStorage.removeItem("buildyourthoughts_admin_token");
+    localStorage.removeItem("buildyourthoughts_admin_user");
     navigate("/admin", { replace: true });
   };
 

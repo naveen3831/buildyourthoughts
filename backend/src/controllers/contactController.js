@@ -60,7 +60,7 @@ exports.updateStatus = async (req, res) => {
     const contact = await Contact.findByIdAndUpdate(
       req.params.id,
       { status },
-      { new: true }
+      { returnDocument: "after" }
     );
     if (!contact) return res.status(404).json({ message: "Not found." });
     res.json(contact);
@@ -78,3 +78,4 @@ exports.deleteContact = async (req, res) => {
     res.status(500).json({ message: "Server error." });
   }
 };
+

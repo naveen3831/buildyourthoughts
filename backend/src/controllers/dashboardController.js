@@ -61,9 +61,10 @@ exports.getMessages = async (req, res) => {
 
 exports.updateMessage = async (req, res) => {
   try {
-    const msg = await Contact.findByIdAndUpdate(req.params.id, { status: req.body.status }, { new: true });
+    const msg = await Contact.findByIdAndUpdate(req.params.id, { status: req.body.status }, { returnDocument: "after" });
     res.json(msg);
   } catch {
     res.status(500).json({ message: "Server error" });
   }
 };
+

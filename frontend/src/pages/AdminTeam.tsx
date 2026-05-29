@@ -204,7 +204,7 @@ export default function AdminTeam() {
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <TField label="Twitter URL" value={form.twitter} onChange={f("twitter")} placeholder="https://twitter.com/..." />
-                <TField label="Email" value={form.email} onChange={f("email")} placeholder="name@speshway.com" />
+                <TField label="Email" value={form.email} onChange={f("email")} placeholder="name@buildyourthoughts.com" />
               </div>
               <TField label="Display Order" value={form.order} onChange={f("order")} type="number" />
 

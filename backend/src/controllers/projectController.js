@@ -26,7 +26,7 @@ exports.create = async (req, res) => {
     let image = "", imagePublicId = "";
     if (req.file) {
       const result = await uploadToCloudinary(req.file.buffer, {
-        folder: "speshway/projects",
+        folder: "buildyourthoughts/projects",
         transformation: [{ width: 1200, height: 800, crop: "limit", quality: "auto:good" }],
       });
       image = result.secure_url;
@@ -67,13 +67,13 @@ exports.update = async (req, res) => {
     if (req.file) {
       if (existing.imagePublicId) await cloudinary.uploader.destroy(existing.imagePublicId).catch(() => {});
       const result = await uploadToCloudinary(req.file.buffer, {
-        folder: "speshway/projects",
+        folder: "buildyourthoughts/projects",
         transformation: [{ width: 1200, height: 800, crop: "limit", quality: "auto:good" }],
       });
       updates.image = result.secure_url;
       updates.imagePublicId = result.public_id;
     }
-    const project = await Project.findByIdAndUpdate(req.params.id, updates, { new: true });
+    const project = await Project.findByIdAndUpdate(req.params.id, updates, { returnDocument: "after" });
     res.json(project);
   } catch (err) {
     res.status(500).json({ message: err.message });
@@ -91,3 +91,4 @@ exports.remove = async (req, res) => {
     res.status(500).json({ message: "Server error" });
   }
 };
+

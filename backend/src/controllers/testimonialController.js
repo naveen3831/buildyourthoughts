@@ -46,7 +46,7 @@ exports.update = async (req, res) => {
     const item = await Testimonial.findByIdAndUpdate(
       req.params.id,
       { $set: updates },
-      { new: true }
+      { returnDocument: "after" }
     );
     if (!item) return res.status(404).json({ message: "Not found" });
     res.json(item);
@@ -63,3 +63,4 @@ exports.remove = async (req, res) => {
     res.status(500).json({ message: "Server error" });
   }
 };
+

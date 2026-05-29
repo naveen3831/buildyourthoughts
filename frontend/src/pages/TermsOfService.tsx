@@ -30,11 +30,11 @@ export default function TermsOfService() {
           </Section>
 
           <Section num="4" title="Limitation of Liability">
-            In no event shall Speshway Solutions Private Limited, nor its directors, employees, partners, agents, suppliers, or affiliates, be liable for any indirect, incidental, special, consequential, or punitive damages, including without limitation, loss of profits, data, use, goodwill, or other intangible losses, resulting from (i) your access to or use of or inability to access or use the Service; (ii) any conduct or content of any third party on the Service; (iii) any content obtained from the Service; and (iv) unauthorized access, use, or alteration of your transmissions or content, whether based on warranty, contract, tort (including negligence), or any other legal theory, whether or not we have been informed of the possibility of such damage.
+            In no event shall Build Your Thoughts Private Limited, nor its directors, employees, partners, agents, suppliers, or affiliates, be liable for any indirect, incidental, special, consequential, or punitive damages, including without limitation, loss of profits, data, use, goodwill, or other intangible losses, resulting from (i) your access to or use of or inability to access or use the Service; (ii) any conduct or content of any third party on the Service; (iii) any content obtained from the Service; and (iv) unauthorized access, use, or alteration of your transmissions or content, whether based on warranty, contract, tort (including negligence), or any other legal theory, whether or not we have been informed of the possibility of such damage.
           </Section>
 
           <Section num="5" title="Disclaimer">
-            Your use of the Service is at your sole risk. The Service is provided on an "AS IS" and "AS AVAILABLE" basis. The Service is provided without warranties of any kind, whether express or implied, including, but not limited to, implied warranties of merchantability, fitness for a particular purpose, non-infringement, or course of performance. Speshway Solutions Private Limited, its subsidiaries, affiliates, and its licensors do not warrant that (a) the Service will function uninterrupted, secure, or available at any particular time or location; (b) any errors or defects will be corrected; (c) the Service is free of viruses or other harmful components; or (d) the results of using the Service will meet your requirements.
+            Your use of the Service is at your sole risk. The Service is provided on an "AS IS" and "AS AVAILABLE" basis. The Service is provided without warranties of any kind, whether express or implied, including, but not limited to, implied warranties of merchantability, fitness for a particular purpose, non-infringement, or course of performance. Build Your Thoughts Private Limited, its subsidiaries, affiliates, and its licensors do not warrant that (a) the Service will function uninterrupted, secure, or available at any particular time or location; (b) any errors or defects will be corrected; (c) the Service is free of viruses or other harmful components; or (d) the results of using the Service will meet your requirements.
           </Section>
 
           <Section num="6" title="Governing Law">
@@ -48,7 +48,7 @@ export default function TermsOfService() {
             <div className="grid sm:grid-cols-2 gap-4">
               <div className="p-5 rounded-xl bg-muted/40 border border-border">
                 <p className="text-xs font-bold text-muted-foreground uppercase tracking-widest mb-2">Email</p>
-                <a href="mailto:info@speshway.com" className="text-primary font-medium hover:underline">info@speshway.com</a>
+                <a href="mailto:info@buildyourthoughts.com" className="text-primary font-medium hover:underline">info@buildyourthoughts.com</a>
               </div>
               <div className="p-5 rounded-xl bg-muted/40 border border-border">
                 <p className="text-xs font-bold text-muted-foreground uppercase tracking-widest mb-2">Address</p>

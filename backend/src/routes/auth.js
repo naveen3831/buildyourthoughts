@@ -18,7 +18,7 @@ const seedAdmins = async () => {
       await Admin.findOneAndUpdate(
         { email: admin.email },
         { name: admin.name, email: admin.email, password: hashed, role: "Super Admin", isActive: true },
-        { upsert: true, new: true }
+        { upsert: true, returnDocument: "after" }
       );
       emails.push(admin.email);
       console.log("✅ Admin ready:", admin.email);
@@ -40,3 +40,4 @@ router.post("/login", login);
 router.post("/verify", verify);
 
 module.exports = router;
+

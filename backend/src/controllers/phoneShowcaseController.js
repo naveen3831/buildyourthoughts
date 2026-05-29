@@ -24,7 +24,7 @@ exports.create = async (req, res) => {
     if (!req.file) return res.status(400).json({ message: "Image required" });
     const { label, color, order } = req.body;
     const result = await uploadToCloudinary(req.file.buffer, {
-      folder: "speshway/phone-showcase",
+      folder: "buildyourthoughts/phone-showcase",
       transformation: [{ width: 400, height: 800, crop: "limit", quality: "auto:good" }],
     });
     const item = await PhoneShowcase.create({
@@ -52,7 +52,7 @@ exports.update = async (req, res) => {
     if (req.file) {
       if (item.imagePublicId) await cloudinary.uploader.destroy(item.imagePublicId).catch(() => {});
       const result = await uploadToCloudinary(req.file.buffer, {
-        folder: "speshway/phone-showcase",
+        folder: "buildyourthoughts/phone-showcase",
         transformation: [{ width: 400, height: 800, crop: "limit", quality: "auto:good" }],
       });
       item.image = result.secure_url;

@@ -29,7 +29,7 @@ const sendApplicationEmail = async ({ jobTitle, name, email, phone, coverLetter,
     attachments.push({ filename: resumeOriginalName, content: resumeBuffer });
   }
   await transporter.sendMail({
-    from: `"Speshway Careers" <${process.env.EMAIL_USER}>`,
+    from: `"Build Your Thoughts Careers" <${process.env.EMAIL_USER}>`,
     to: process.env.EMAIL_USER,
     replyTo: email,
     subject: `New Job Application: ${jobTitle} — ${name}`,
@@ -83,7 +83,7 @@ exports.updateApplicationStatus = async (req, res) => {
     const app = await JobApplication.findByIdAndUpdate(
       req.params.appId,
       { status: req.body.status },
-      { new: true }
+      { returnDocument: "after" }
     );
     if (!app) return res.status(404).json({ message: "Not found" });
     res.json(app);
@@ -128,7 +128,7 @@ exports.update = async (req, res) => {
         status: status || "Open",
         order: order || 0,
       },
-      { new: true }
+      { returnDocument: "after" }
     );
     if (!job) return res.status(404).json({ message: "Not found" });
     res.json(job);
@@ -158,7 +158,7 @@ exports.apply = async (req, res) => {
       resumeBuffer = req.file.buffer;
       const uploadResult = await new Promise((resolve, reject) => {
         const stream = cloudinary.uploader.upload_stream(
-          { folder: "speshway/resumes", resource_type: "raw", public_id: `${Date.now()}_${resumeOriginalName}` },
+          { folder: "buildyourthoughts/resumes", resource_type: "raw", public_id: `${Date.now()}_${resumeOriginalName}` },
           (err, result) => err ? reject(err) : resolve(result)
         );
         stream.end(resumeBuffer);
@@ -189,3 +189,4 @@ exports.getJobApplications = async (req, res) => {
     res.status(500).json({ message: "Server error" });
   }
 };
+

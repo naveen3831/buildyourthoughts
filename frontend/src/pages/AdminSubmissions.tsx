@@ -15,7 +15,7 @@ interface ContactMsg {
 }
 
 const API = "/api";
-const getToken = () => localStorage.getItem("speshway_admin_token");
+const getToken = () => localStorage.getItem("buildyourthoughts_admin_token");
 
 const statusColors: Record<string, string> = {
   unread: "bg-blue-100 text-blue-700",
@@ -206,7 +206,6 @@ export default function AdminSubmissions() {
                     {["unread", "read", "replied"].map(s => <option key={s}>{s}</option>)}
                   </select>
                 </div>
-              </div>
               <div>
                 <p className="text-[11px] font-bold text-gray-400 uppercase tracking-wider mb-1">Subject</p>
                 <p className="text-sm text-gray-800 font-semibold">{selected.subject}</p>
@@ -216,17 +215,20 @@ export default function AdminSubmissions() {
                 <p className="text-sm text-gray-600 bg-gray-50 rounded-xl p-4 leading-relaxed whitespace-pre-wrap">{selected.message}</p>
               </div>
               <a
-                href={`mailto:${selected.email}?subject=Re: ${encodeURIComponent(selected.subject)}`}
+                href={
+                  "mailto:" + selected.email +
+                  "?subject=" + encodeURIComponent("Re: " + selected.subject)
+                }
                 onClick={() => updateStatus(selected._id, "replied")}
                 className="flex items-center justify-center gap-2 w-full py-3 rounded-xl bg-purple-600 text-white font-bold text-sm hover:bg-purple-700 transition-colors"
               >
-                ✉️ Reply via Email
+                Reply via Email
               </a>
               <button
                 onClick={() => deleteContact(selected._id)}
                 className="flex items-center justify-center gap-2 w-full py-3 rounded-xl bg-red-50 text-red-500 font-bold text-sm hover:bg-red-100 transition-colors border border-red-100"
               >
-                🗑️ Delete Message
+                Delete Message
               </button>
             </div>
           </div>

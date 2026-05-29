@@ -13,7 +13,7 @@ const AdminLogin = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const token = localStorage.getItem("speshway_admin_token");
+    const token = localStorage.getItem("buildyourthoughts_admin_token");
     if (token) navigate("/admin/dashboard", { replace: true });
   }, [navigate]);
 
@@ -29,8 +29,8 @@ const AdminLogin = () => {
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.message || "Login failed");
-      localStorage.setItem("speshway_admin_token", data.token);
-      localStorage.setItem("speshway_admin_user", JSON.stringify(data.admin));
+      localStorage.setItem("buildyourthoughts_admin_token", data.token);
+      localStorage.setItem("buildyourthoughts_admin_user", JSON.stringify(data.admin));
       navigate("/admin/dashboard", { replace: true });
     } catch (err: unknown) {
       setError(err instanceof Error ? err.message : "Login failed");

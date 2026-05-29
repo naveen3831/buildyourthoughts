@@ -7,7 +7,7 @@ interface SettingItem {
 }
 
 const API = "/api";
-const getToken = () => localStorage.getItem("speshway_admin_token");
+const getToken = () => localStorage.getItem("buildyourthoughts_admin_token");
 
 const groupLabels: Record<string, { icon: string; title: string }> = {
   stats: { icon: "📊", title: "Stats / Counters" },

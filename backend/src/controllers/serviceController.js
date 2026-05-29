@@ -38,7 +38,7 @@ exports.update = async (req, res) => {
         order: order || 0,
         isActive: isActive !== undefined ? isActive : true,
       },
-      { new: true }
+      { returnDocument: "after" }
     );
     if (!service) return res.status(404).json({ message: "Not found" });
     res.json(service);
@@ -55,3 +55,4 @@ exports.remove = async (req, res) => {
     res.status(500).json({ message: "Server error" });
   }
 };
+

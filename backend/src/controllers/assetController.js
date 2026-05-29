@@ -29,7 +29,7 @@ exports.upload = async (req, res) => {
 
     // Upload new asset
     const result = await uploadToCloudinary(req.file.buffer, {
-      folder: "speshway/assets",
+      folder: "buildyourthoughts/assets",
       transformation: [{ quality: "auto:good" }],
     });
 
@@ -37,12 +37,12 @@ exports.upload = async (req, res) => {
     await Settings.findOneAndUpdate(
       { key },
       { key, label: key, value: result.secure_url, group: "assets", type: "image" },
-      { upsert: true, new: true }
+      { upsert: true, returnDocument: "after" }
     );
     await Settings.findOneAndUpdate(
       { key: publicIdKey },
       { key: publicIdKey, label: publicIdKey, value: result.public_id, group: "assets", type: "text" },
-      { upsert: true, new: true }
+      { upsert: true, returnDocument: "after" }
     );
 
     res.json({ url: result.secure_url, key });
@@ -50,3 +50,4 @@ exports.upload = async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 };
+

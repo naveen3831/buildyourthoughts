@@ -10,7 +10,7 @@ interface Post {
 }
 
 const API = "/api";
-const getToken = () => localStorage.getItem("speshway_admin_token");
+const getToken = () => localStorage.getItem("buildyourthoughts_admin_token");
 const emptyForm = { title: "", excerpt: "", content: "", tag: "Technology", author: "", readTime: "5 min", status: "Published", featured: "false", order: "0" };
 
 const tagOptions = ["Technology", "AI", "Cloud", "Security", "DevOps", "Data", "Strategy", "Mobile", "General"];

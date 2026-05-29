@@ -9,7 +9,7 @@ interface Testimonial {
 }
 
 const API = "/api";
-const getToken = () => localStorage.getItem("speshway_admin_token");
+const getToken = () => localStorage.getItem("buildyourthoughts_admin_token");
 const empty = { name: "", role: "", text: "", rating: "5", order: "0" };
 
 export default function AdminTestimonials() {

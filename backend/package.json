@@ -1,7 +1,7 @@
 {
-  "name": "speshway-backend",
+  "name": "buildyourthoughts-backend",
   "version": "1.0.0",
-  "description": "Speshway Solutions Backend API",
+  "description": "Build Your Thoughts Backend API",
   "main": "src/index.js",
   "scripts": {
     "start": "node src/index.js",

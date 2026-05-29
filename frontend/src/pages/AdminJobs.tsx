@@ -16,7 +16,7 @@ interface Application {
 }
 
 const API = "/api";
-const getToken = () => localStorage.getItem("speshway_admin_token");
+const getToken = () => localStorage.getItem("buildyourthoughts_admin_token");
 const emptyForm = {
   title: "", location: "", type: "Full-time", salary: "",
   department: "", experience: "", desc: "", requirements: "", status: "Open", order: "0",

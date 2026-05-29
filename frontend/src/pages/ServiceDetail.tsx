@@ -26,7 +26,7 @@ export function toSlug(title: string) {
   return title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
 }
 
-// Fallback static services matching the real speshway.com services
+// Fallback static services matching the real buildyourthoughts.com services
 const fallbackServices: Service[] = [
   { _id: "1", icon: "Code", title: "SAP", description: "SAP (Systems, Applications, and Products) is leading enterprise resource planning (ERP) software that centralizes a company's core business processes into one integrated system.", color: "primary", features: ["Centralized Data", "Integrated Modules", "Workflow Automation", "Real-time Reporting", "Finance & HR Management"], order: 0 },
   { _id: "2", icon: "BarChart", title: "Power BI", description: "Power BI is a business analytics tool from Microsoft that allows users to connect to and visualize data from various sources to create interactive reports and dashboards.", color: "secondary", features: ["Data Connectivity", "Data Analysis", "Visualization", "Interactive Dashboards", "AI-powered Insights"], order: 1 },

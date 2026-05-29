@@ -25,7 +25,7 @@ exports.updateOne = async (req, res) => {
     const item = await SiteContent.findOneAndUpdate(
       { key: req.params.key },
       { value: req.body.value },
-      { new: true }
+      { returnDocument: "after" }
     );
     if (!item) return res.status(404).json({ message: "Not found" });
     res.json(item);
@@ -33,3 +33,4 @@ exports.updateOne = async (req, res) => {
     res.status(500).json({ message: "Server error" });
   }
 };
+

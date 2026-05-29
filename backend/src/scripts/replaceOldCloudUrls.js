@@ -36,7 +36,7 @@ async function replaceInCollection(model, fieldPaths) {
 }
 
 async function run() {
-  await mongoose.connect(process.env.MONGO_URI, { dbName: 'speshway' });
+  await mongoose.connect(process.env.MONGO_URI, { dbName: 'buildyourthoughts' });
   let total = 0;
 
   total += await replaceInCollection(Project, ['image']);

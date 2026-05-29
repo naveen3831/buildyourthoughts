@@ -81,7 +81,7 @@ export default function PrivacyPolicy() {
             <div className="grid sm:grid-cols-2 gap-4">
               <div className="p-5 rounded-xl bg-muted/40 border border-border">
                 <p className="text-xs font-bold text-muted-foreground uppercase tracking-widest mb-2">Email Address</p>
-                <a href="mailto:info@speshway.com" className="text-primary font-medium hover:underline">info@speshway.com</a>
+                <a href="mailto:info@buildyourthoughts.com" className="text-primary font-medium hover:underline">info@buildyourthoughts.com</a>
               </div>
               <div className="p-5 rounded-xl bg-muted/40 border border-border">
                 <p className="text-xs font-bold text-muted-foreground uppercase tracking-widest mb-2">Office Address</p>

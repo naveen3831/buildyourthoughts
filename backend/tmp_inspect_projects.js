@@ -7,7 +7,7 @@ const mongoose = require('mongoose');
 const Project = require('./src/models/Project');
 
 (async () => {
-  await mongoose.connect(process.env.MONGO_URI, { dbName: 'speshway', serverSelectionTimeoutMS: 10000 });
+  await mongoose.connect(process.env.MONGO_URI, { dbName: 'buildyourthoughts', serverSelectionTimeoutMS: 10000 });
   const docs = await Project.find().sort({ order: 1, createdAt: -1 }).lean();
   console.log('count', docs.length);
   docs.forEach(doc => console.log(JSON.stringify({ _id: doc._id, title: doc.title, image: doc.image, imagePublicId: doc.imagePublicId, status: doc.status, createdAt: doc.createdAt }, null, 2)));
