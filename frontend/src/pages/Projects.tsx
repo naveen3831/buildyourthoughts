@@ -163,7 +163,10 @@ const Projects = () => {
                       {p.client && (
                         <p className="text-[9px] md:text-xs text-muted-foreground mb-1 md:mb-3 font-medium">Client: {p.client}</p>
                       )}
-                      <p className="text-muted-foreground text-[9px] md:text-sm leading-relaxed mb-2 md:mb-5 flex-1 line-clamp-2">
+                      <p
+                        className="text-muted-foreground text-[10px] md:text-sm leading-relaxed mb-2 md:mb-5 overflow-hidden break-words"
+                        style={{ display: "-webkit-box", WebkitLineClamp: 3, WebkitBoxOrient: "vertical" }}
+                      >
                         {p.description}
                       </p>
                       {/* Tech stack — show fewer on mobile */}

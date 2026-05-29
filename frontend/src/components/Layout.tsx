@@ -56,7 +56,7 @@ const Layout = ({ children }: { children: ReactNode }) => {
           target="_blank"
           rel="noopener noreferrer"
           aria-label="Chat on WhatsApp"
-          className="group relative w-12 h-12 md:w-14 md:h-14 rounded-full flex items-center justify-center shadow-lg hover:scale-125 active:scale-95 transition-transform duration-300"
+          className="group relative w-12 h-12 md:w-14 md:h-14 rounded-full flex items-center justify-center shadow-lg animate-float-y hover:scale-125 active:scale-95 transition-transform duration-300"
           style={{ background: "#25D366", willChange: "transform" }}
         >
           <svg viewBox="0 0 32 32" className="w-6 h-6 md:w-8 md:h-8 fill-white relative z-10" xmlns="http://www.w3.org/2000/svg">
@@ -71,7 +71,7 @@ const Layout = ({ children }: { children: ReactNode }) => {
         <a
           href={CALL_URL}
           aria-label="Call us"
-          className="group relative w-12 h-12 md:w-14 md:h-14 rounded-full flex items-center justify-center shadow-lg hover:scale-125 active:scale-95 transition-transform duration-300"
+          className="group relative w-12 h-12 md:w-14 md:h-14 rounded-full flex items-center justify-center shadow-lg animate-float-y hover:scale-125 active:scale-95 transition-transform duration-300"
           style={{ background: "#E53935", willChange: "transform" }}
         >
           <Phone size={22} className="fill-white text-white relative z-10" />

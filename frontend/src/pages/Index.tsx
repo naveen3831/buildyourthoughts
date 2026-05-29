@@ -155,7 +155,7 @@ const Index = () => {
               </p>
             </AnimatedSection>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-6">
+          <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 md:gap-6">
             {apiServices.map((s, i) => (
               <AnimatedSection key={s.title} delay={i * 100} animation="bounce-in">
                 <Link to={`/services/${toSlug(s.title)}`} className="group h-full block p-5 md:p-8 rounded-[2rem] glass hover:glow-border-strong hover:shadow-[0_20px_70px_hsl(var(--primary)/0.08)] hover:-translate-y-2 transition-all duration-500 border border-primary/15 relative overflow-hidden card-3d">

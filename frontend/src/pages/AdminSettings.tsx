@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 export default function AdminSettings() {
   const navigate = useNavigate();
   useEffect(() => {
-    navigate("/admin/dashboard", { replace: true, state: { section: "settings" } });
+    navigate("/admin/dashboard?section=settings", { replace: true });
   }, [navigate]);
   return null;
 }

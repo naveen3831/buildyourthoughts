@@ -31,7 +31,11 @@ export default function AdminDashboard() {
   const navigate = useNavigate();
   const location = useLocation();
   const [admin, setAdmin] = useState<Admin | null>(null);
-  const [section, setSection] = useState((location.state as { section?: string })?.section || "projects");
+  const section = (() => {
+    const params = new URLSearchParams(location.search);
+    const value = params.get("section") || (location.state as { section?: string })?.section;
+    return value === "services" || value === "settings" ? value : "projects";
+  })();
 
   const [projects, setProjects] = useState<Project[]>([]);
   const [loading, setLoading] = useState(false);
@@ -167,20 +171,6 @@ export default function AdminDashboard() {
             <p className="text-xs md:text-sm text-gray-400 mt-0.5">{greet}, {admin?.name || "Admin"} 👋</p>
           </div>
           <span className="bg-purple-100 text-purple-700 text-xs font-bold px-3 py-1.5 rounded-full shrink-0">{admin?.role || "Admin"}</span>
-        </div>
-
-        {/* Section tabs */}
-        <div className="flex gap-2 mb-6 flex-wrap">
-          {[
-            { key: "projects", label: "🚀 Projects" },
-            { key: "services", label: "⚙️ Services" },
-            { key: "settings", label: "🔧 Settings" },
-          ].map(t => (
-            <button key={t.key} onClick={() => setSection(t.key)}
-              className={`px-4 py-2 rounded-xl text-sm font-bold transition-colors ${section === t.key ? "bg-purple-600 text-white" : "bg-white text-gray-600 border border-gray-200 hover:bg-gray-50"}`}>
-              {t.label}
-            </button>
-          ))}
         </div>
 
         {/* ── Projects ── */}

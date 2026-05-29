@@ -3,8 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { useAssets } from "@/hooks/useAssets";
 
 const navItems = [
-  { path: "/admin/dashboard", icon: "🚀", label: "Projects" },
-  { path: "/admin/dashboard", icon: "⚙️", label: "Services" },
+  { path: "/admin/dashboard?section=projects", icon: "🚀", label: "Projects" },
+  { path: "/admin/dashboard?section=services", icon: "⚙️", label: "Services" },
   { path: "/admin/carousel", icon: "🎠", label: "Carousel" },
   { path: "/admin/submissions", icon: "📋", label: "Submissions" },
   { path: "/admin/blog", icon: "📝", label: "Blog" },

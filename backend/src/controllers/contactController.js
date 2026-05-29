@@ -24,12 +24,10 @@ exports.submit = async (req, res) => {
     transporter.sendMail({
       from: `"BUILD YOUR THOUGHTS Contact" <${process.env.EMAIL_USER}>`,
       to: process.env.EMAIL_USER,
-      replyTo: email,
-      subject: `New Contact Message: ${subject}`,
+      subject: `BUILD YOUR THOUGHTS Contact Form Submission`,
       html: `
         <h2>New Contact Form Submission</h2>
         <p><strong>Name:</strong> ${name}</p>
-        <p><strong>Email:</strong> <a href="mailto:${email}">${email}</a></p>
         <p><strong>Subject:</strong> ${subject}</p>
         <p><strong>Message:</strong></p>
         <p>${message.replace(/\n/g, "<br>")}</p>
