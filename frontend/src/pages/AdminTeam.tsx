@@ -140,7 +140,7 @@ export default function AdminTeam() {
               <div key={m._id} className={`bg-white rounded-2xl border shadow-sm p-5 ${!m.isActive ? "border-gray-300 bg-gray-50" : "border-gray-100"}`}>
                 <div className="flex items-center gap-4 mb-4">
                   {m.image ? (
-                    <img src={m.image} alt={m.name} className="w-14 h-14 rounded-full object-cover" />
+                    <img src={m.image} alt={m.name} loading="lazy" decoding="async" className="w-14 h-14 rounded-full object-cover" />
                   ) : (
                     <div className={`w-14 h-14 rounded-full bg-gradient-to-br ${m.gradient} flex items-center justify-center text-white font-black text-lg`}>
                       {m.initials}
@@ -213,7 +213,7 @@ export default function AdminTeam() {
                 <label className="block text-[11px] font-bold text-gray-400 uppercase tracking-wider mb-1.5">Profile Photo</label>
                 <div onClick={() => fileRef.current?.click()} className="border-2 border-dashed border-gray-200 rounded-xl p-5 text-center cursor-pointer hover:border-cyan-400 transition-colors">
                   {imagePreview ? (
-                    <img src={imagePreview} alt="preview" className="w-25 h-25 rounded-full object-cover mx-auto" />
+                    <img src={imagePreview} alt="preview" loading="lazy" decoding="async" className="w-25 h-25 rounded-full object-cover mx-auto" />
                   ) : (
                     <div className="text-gray-400"><div className="text-3xl mb-1">📷</div><div className="text-sm">Click to upload photo</div><div className="text-xs mt-1">PNG, JPG, WEBP (Max 5MB)</div></div>
                   )}

@@ -191,7 +191,7 @@ const HeroCarousel = () => {
             {hasImage ? (
               <img
                 src={s.image}
-                alt=""
+                alt={s.title || "Hero slide background"}
                 loading={i === current ? "eager" : "lazy"}
                 className="absolute inset-0 h-full w-full object-cover object-center brightness-[0.45] saturate-[0.9]"
                 decoding="async"

@@ -69,7 +69,30 @@ export function applySettingsToDocument(s: Record<string, string>) {
   if (s.color_accent) root.style.setProperty("--accent", hexToHsl(s.color_accent));
   if (s.hero_highlight_color) root.style.setProperty("--hero-highlight", s.hero_highlight_color);
 
-  if (s.seo_title) document.title = s.seo_title;
-  const metaDesc = document.querySelector('meta[name="description"]');
-  if (metaDesc && s.seo_description) metaDesc.setAttribute("content", s.seo_description);
+  if (s.seo_title) {
+    document.title = s.seo_title;
+    const ogTitle = document.querySelector('meta[property="og:title"]');
+    if (ogTitle) ogTitle.setAttribute("content", s.seo_title);
+    const twTitle = document.querySelector('meta[name="twitter:title"]');
+    if (twTitle) twTitle.setAttribute("content", s.seo_title);
+  }
+
+  if (s.seo_description) {
+    const metaDesc = document.querySelector('meta[name="description"]');
+    if (metaDesc) metaDesc.setAttribute("content", s.seo_description);
+    const ogDesc = document.querySelector('meta[property="og:description"]');
+    if (ogDesc) ogDesc.setAttribute("content", s.seo_description);
+    const twDesc = document.querySelector('meta[name="twitter:description"]');
+    if (twDesc) twDesc.setAttribute("content", s.seo_description);
+  }
+
+  if (s.seo_keywords) {
+    let metaKey = document.querySelector('meta[name="keywords"]');
+    if (!metaKey) {
+      metaKey = document.createElement("meta");
+      metaKey.setAttribute("name", "keywords");
+      document.head.appendChild(metaKey);
+    }
+    metaKey.setAttribute("content", s.seo_keywords);
+  }
 }

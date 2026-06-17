@@ -523,7 +523,7 @@ export default function SiteSettingsPanel({ admin }: { admin?: { email?: string;
                       {/* Preview */}
                       <div className="w-32 h-20 rounded-xl border-2 border-gray-200 overflow-hidden bg-gray-50 shrink-0 flex items-center justify-center">
                         {assets[field.key] ? (
-                          <img src={assets[field.key]} alt={field.label} className="w-full h-full object-cover" />
+                          <img src={assets[field.key]} alt={field.label} loading="lazy" decoding="async" className="w-full h-full object-cover" />
                         ) : (
                           <span className="text-gray-300 text-2xl">🖼️</span>
                         )}

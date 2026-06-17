@@ -62,7 +62,7 @@ export default function AdminSidebar({ active }: { active: string }) {
         {/* Header row: logo + close button */}
         <div className="flex items-center justify-between mb-6">
           <div className="flex items-center gap-2">
-            <img src={logo} alt="" className="w-8 h-8 object-contain shrink-0" />
+            <img src={logo} alt="Build Your Thoughts Logo" className="w-8 h-8 object-contain shrink-0" />
             <span className={`${collapsed ? "hidden lg:block" : "font-bold text-sm leading-tight"}`}>Build Your Thoughts Admin</span>
           </div>
           <div className="flex items-center gap-2">

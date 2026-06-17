@@ -114,7 +114,7 @@ const Team = () => {
                 
                 <div className="relative inline-block mb-4 md:mb-10">
                   {m.image ? (
-                    <img src={m.image} alt={m.name} className="w-20 h-20 md:w-44 md:h-44 mx-auto rounded-full object-cover object-center group-hover:scale-110 transition-all duration-700 relative z-10 border-2 md:border-4 border-primary/30 group-hover:border-primary/70" />
+                    <img src={m.image} alt={m.name} loading="lazy" decoding="async" className="w-20 h-20 md:w-44 md:h-44 mx-auto rounded-full object-cover object-center group-hover:scale-110 transition-all duration-700 relative z-10 border-2 md:border-4 border-primary/30 group-hover:border-primary/70" />
                   ) : (
                     <div className={`w-20 h-20 md:w-44 md:h-44 mx-auto rounded-full bg-gradient-to-br ${m.gradient} flex items-center justify-center text-xl md:text-5xl font-heading font-black text-primary-foreground group-hover:scale-110 transition-all duration-700 relative z-10 overflow-hidden`}>
                       <span>{m.initials}</span>

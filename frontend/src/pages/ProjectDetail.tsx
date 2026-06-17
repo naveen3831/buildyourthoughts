@@ -83,6 +83,8 @@ const ProjectDetail = () => {
               <img
                 src={project.image}
                 alt={project.title}
+                loading="lazy"
+                decoding="async"
                 className="w-full h-auto object-contain group-hover:scale-[1.02] transition-transform duration-700"
               />
             ) : (

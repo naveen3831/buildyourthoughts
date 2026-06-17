@@ -135,7 +135,7 @@ export default function AdminCarousel() {
             <div key={s._id} className={`bg-white rounded-2xl border p-4 md:p-5 transition-all ${s.isActive ? "border-gray-100 shadow-sm" : "border-gray-200 opacity-60"}`}>
               <div className="flex gap-3 md:gap-5 items-start">
                 <div className="w-20 h-14 md:w-32 md:h-20 rounded-xl overflow-hidden bg-gray-100 shrink-0">
-                  {s.image ? <img src={s.image} alt="" loading="lazy" decoding="async" className="w-full h-full object-cover" /> : (
+                  {s.image ? <img src={s.image} alt={s.title || "Carousel slide image"} loading="lazy" decoding="async" className="w-full h-full object-cover" /> : (
                     <div className="w-full h-full flex items-center justify-center text-gray-300 text-xl">🖼️</div>
                   )}
                 </div>
